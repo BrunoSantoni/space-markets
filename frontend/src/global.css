@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font: 400 14px Roboto, sans-serif;
+    background: #f0f0f5;
+    -webkit-font-smoothing: antialiased;
+}
+
+input, button, textarea {
+    font: 400 18px Roboto, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+form input {
+    width: 100%;
+    height: 60px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 0 24px;
+}
+
+form textarea {
+    width: 100%;
+    min-height: 140px;
+    color: #333;
+    border: 1px solid #dcdce6;
+    border-radius: 8px;
+    padding: 16px 24px;
+    line-height: 24px;
+    margin-top: 12px;
+    resize: vertical;
+}
+
+.button {
+    width: 100%;
+    height: 60px;
+    background: #e02041;
+    border: 0;
+    border-radius: 8px; /* Deixa as bordas arredondadas */
+    color: #fff;
+    font-weight: bold;
+    margin-top: 16px;
+    
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 50px;
+    transition: filter 0.2s; /* Tempo para escurecer a tela*/
+}
+
+.button:hover { /* Hover é o efeito de quando passamos o mouse por cima */
+    filter: brightness(90%); /* Efeito que diminuirá o brilho em 10% */
+}
+
+.back-link {
+    display: flex;
+    align-items: center; /* Fez isso para o texto e o ícone ficarem alinhados */
+    margin-top: 40px;
+    color: #41414d;
+    font-size: 18px;
+    text-decoration: none; /* Tira o sublinhado do link */
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.back-link svg { /* Colocando margem no ícone */
+    margin-right: 8px;
+}
+
+.back-link:hover {
+    opacity: 0.8;
+}
