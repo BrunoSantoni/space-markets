@@ -59,3 +59,11 @@
 .register-container .content form input {
   margin-top: 8px;
 }
+
+.inativo {
+  visibility: hidden;
+}
+
+:disabled {
+  cursor: not-allowed;
+}
