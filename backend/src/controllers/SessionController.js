@@ -1,6 +1,8 @@
+//Importando a conexão
 const connection = require('../database/connection')
 
 module.exports = {
+    //Método de login
     async create(request, response) {
         const { id, senha } = request.body
 

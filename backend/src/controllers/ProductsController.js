@@ -1,6 +1,8 @@
+//Importando a conexão com o banco
 const connection = require('../database/connection')
 
 module.exports = {
+    //Função que lista os produtos cadastrados de um determinado mercado
     async index(request, response) {
         const { page = 1 } = request.query
         const supermarket_id = request.headers.auth
@@ -20,6 +22,7 @@ module.exports = {
         return response.json(produtos)
     },
 
+    //Método que cadastra um produto no BD
     async create(request, response) {
         const { nome, descricao, preco } = request.body
         const supermarket_id = request.headers.auth
@@ -34,6 +37,7 @@ module.exports = {
         return response.json({ id })
     },
 
+    //Método que exclui um produto no BD
     async delete(request, response) {
         const { id } = request.params
         const supermarket_id = request.headers.auth

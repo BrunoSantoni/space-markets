@@ -1,5 +1,4 @@
-// Update with your config settings.
-
+// Configurando o banco
 module.exports = {
 
   development: {

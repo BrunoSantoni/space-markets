@@ -1,3 +1,5 @@
+//Arquivo de configuração de rotas
+
 const express = require('express')
 
 const SupermarketController = require('./controllers/SupermarketController')
