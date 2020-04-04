@@ -1,3 +1,8 @@
+#btnCep {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
 .address-content {
   display: flex;
   align-items: center;
@@ -36,18 +41,21 @@
 .register-container .content section {
   width: 100%;
   max-width: 380px;
+  background: #0076C0;
+  border-radius: 8px;
 }
 
 
 .register-container .content section h1{
   margin: 64px 0 32px;
   font-size: 32px;
+  color: #fff;
 }
 
 
 .register-container .content section p{
   font-size: 18px;
-  color: #737380;
+  color: #fff;
   line-height: 32px;
 }
 
@@ -66,4 +74,8 @@
 
 :disabled {
   cursor: not-allowed;
+}
+
+.back-link {
+  color: #fff
 }

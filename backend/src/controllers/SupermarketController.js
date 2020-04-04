@@ -12,7 +12,7 @@ module.exports = {
 
     //Método que cadastra um mercado no BD.
     async create(request, response) {
-        const { marca, email, senha, rua, numero, bairro, cidade, estado } = request.body
+        const { marca, email, senha, cnpj, rua, numero, bairro, cidade, estado } = request.body
 
         //replace está tirando os possíveis espaços do nome
         const id = marca.replace(/ /g,'') + crypto.randomBytes(2).toString('HEX')
@@ -22,6 +22,7 @@ module.exports = {
             marca,
             email,
             senha,
+            cnpj,
             rua,
             numero,
             bairro,

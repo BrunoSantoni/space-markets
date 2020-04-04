@@ -15,13 +15,13 @@ export default function Login() {
             <h1>Faça seu Login</h1>
 
             <div className="input-text">
-              <FaUser size={25} color="#E02041" id="login-icon" />
+              <FaUser size={25} color="#0076C0" id="login-icon" />
               <input type="text"
               placeholder="Informe o ID do mercado" />              
             </div>
 
             <div className="input-text">
-              <FaLock size={25} color="#E02041" id="login-icon"/>
+              <FaLock size={25} color="#0076C0" id="login-icon"/>
               <input type="password"
               placeholder="Informe a senha do mercado" />
             </div>
@@ -30,7 +30,7 @@ export default function Login() {
             <button type="submit" className="button">Entrar</button>
 
             <Link className="back-link" to="/cadastro">
-              <FaIdCard size={16} color="#E02041" />
+              <FaIdCard size={16} color="#0076C0" />
               Cadastre seu mercado agora mesmo!
             </Link>
           </form>

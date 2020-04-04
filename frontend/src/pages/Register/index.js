@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { FaArrowAltCircleLeft } from 'react-icons/fa'
+import cepMask from './Masks/cepMask'
+import cnpjMask from './Masks/cnpjMask'
 
 import api from '../../services/api'
 
@@ -20,6 +22,7 @@ class Register extends Component {
       marca: '',
       email: '',
       senha: '',
+      cnpj: '',
       rua: '',
       numero: '',
       bairro: '',
@@ -42,6 +45,7 @@ class Register extends Component {
       marca: this.state.marca,
       email: this.state.email,
       senha: this.state.senha,
+      cnpj: this.state.cnpj,
       rua: this.state.rua,
       numero: this.state.numero,
       bairro: this.state.bairro,
@@ -51,10 +55,12 @@ class Register extends Component {
 
       try {
         const response = await api.post('cadastro', data)
+
+
   
         alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.id)
-        
-        history.push('/')
+
+        history.push('/')        
       } catch(err) {
         alert('Erro ao cadastrar')
       }
@@ -90,7 +96,7 @@ class Register extends Component {
               <h1>Cadastro</h1>
               <p>Faça seu cadastro e compartilhe os preços do seu mercado para toda a população.</p>
               <Link className="back-link" to="/">
-                <FaArrowAltCircleLeft size={15} color="#E02041" />
+                <FaArrowAltCircleLeft size={15} color="#6CB85D" />
                 Retornar para a Home
               </Link>
             </section>
@@ -100,19 +106,23 @@ class Register extends Component {
               value={this.state.marca}
               onChange={this.handleChange}/>
 
-              <input type="email" placeholder="Email" name="email"
+              <input type="email" placeholder="E-mail" name="email"
               value={this.state.email}
               onChange={this.handleChange}/>
 
               <input type="password" placeholder="Senha" name="senha"
               value={this.state.senha}
               onChange={this.handleChange}/>
+
+              <input type="text" placeholder="CNPJ" name="cnpj"
+              value={this.state.cnpj}
+              onChange={ e => this.setState({ cnpj: cnpjMask(e.target.value) })}/>
               
               <div className="address-content">
-                <input name="cep" type="text" placeholder="CEP"
+                <input type="text" placeholder="CEP" name="cep"
                 value={this.state.cep}
-                onChange={this.handleChange}/>
-                <button type="submit" className="button" onClick={this.returnAddress}>Verificar CEP</button>
+                onChange={ e => this.setState({ cep: cepMask(e.target.value) })}/>
+                <button type="submit" className="button" id="btnCep" onClick={this.returnAddress}>Verificar CEP</button>
               </div>
 
               <div className={this.state.ativo}>
