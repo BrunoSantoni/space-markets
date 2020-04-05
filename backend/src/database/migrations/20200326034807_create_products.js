@@ -1,7 +1,7 @@
 //Migration para criar a tabela de produtos.
 
 exports.up = function(knex) {
-    return knex.schema.createTable('products', function(table) {
+    return knex.schema.createTable('products', (table) => {
         table.increments()
         table.string('nome').notNullable()
         table.string('descricao').notNullable()

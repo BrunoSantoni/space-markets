@@ -4,14 +4,21 @@ import styles from './styles'
 import logo from '../../../assets/icon.png'
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import api from '../../services/api'
 
 export default function loginScreen() {
     const navigation = useNavigation()
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [user_mail, setUserMail] = useState('')
+    const [user_password, setUserPassword] = useState('')
 
-    function loginPress() {
-        console.log(username, password)
+    async function handleLogin() {
+        try {
+            const response = await api.post('user-login', { user_mail, user_password })
+
+            alert('Acerto')
+        } catch(err) {
+            alert('Erro')
+        }
     }
 
     function navigateToRegister() {
@@ -25,22 +32,22 @@ export default function loginScreen() {
 
             <View style={styles.loginContainer}>  
                 <TextInput 
-                    value={username} 
-                    onChangeText={email => setUsername(email)} 
+                    value={user_mail} 
+                    onChangeText={email => setUserMail(email)} 
                     placeholder="Insira seu E-mail" 
                     style={styles.loginInput}
                     placeholderTextColor='#7E7E7E' 
                 />
                 <TextInput 
-                    value={password} 
-                    onChangeText={password => setPassword(password)} 
+                    value={user_password} 
+                    onChangeText={password => setUserPassword(password)} 
                     placeholder="Insira sua senha" 
                     secureTextEntry={true} 
                     style={styles.loginInput}
                     placeholderTextColor='#7E7E7E' 
                 />
                 
-                <TouchableOpacity style={styles.buttonIniciar} onPress={loginPress}>
+                <TouchableOpacity style={styles.buttonIniciar} onPress={handleLogin}>
                     <Text style={styles.buttonInputText}>INICIAR</Text>
                 </TouchableOpacity>
 
