@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { FaArrowAltCircleLeft } from 'react-icons/fa'
+import { FaArrowLeft } from 'react-icons/fa'
 import cepMask from './Masks/cepMask'
 import cnpjMask from './Masks/cnpjMask'
 
 import api from '../../services/api'
+
+import registerImg from '../../assets/register-image.jpg'
 
 import './styles.css'
 
@@ -30,9 +32,9 @@ class Register extends Component {
       estado: ''
     }
 
-    this.returnAddress = this.returnAddress.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
+    this.handleKeyUp = this.handleKeyUp.bind(this)
 
   }
 
@@ -55,8 +57,6 @@ class Register extends Component {
 
       try {
         const response = await api.post('cadastro', data)
-
-
   
         alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.id)
 
@@ -74,11 +74,10 @@ class Register extends Component {
   }
 
   //Função que recebe o CEP e armazena o endereço nos states correspondentes.
-  returnAddress(e) {
-    e.preventDefault()
-    cepPromise(this.state.cep).then(response => {
+  handleKeyUp(value) {
+    console.log(value)
+    value.length === 9 && cepPromise(this.state.cep).then(response => {
       this.setState({
-        ativo: 'ativo',
         cidade: response.city,
         bairro: response.neighborhood,
         rua: response.street,
@@ -93,15 +92,17 @@ class Register extends Component {
         <div className="register-container">
           <div className="content">
             <section>
-              <h1>Cadastro</h1>
-              <p>Faça seu cadastro e compartilhe os preços do seu mercado para toda a população.</p>
+              <h1>Cadastre-se!</h1>
+              <p>Faça seu cadastro e compartilhe os preços <br/>do seu mercado para toda a população.</p>
               <Link className="back-link" to="/">
-                <FaArrowAltCircleLeft size={15} color="#6CB85D" />
-                Retornar para a Home
+                <FaArrowLeft size={15} color="#000" />
+                Retornar para a home
               </Link>
+              <img src={registerImg} alt=""/>
             </section>
 
             <form onSubmit={this.handleRegister}>
+            <div>
               <input type="text" placeholder="Nome do Mercado" name="marca"
               value={this.state.marca}
               onChange={this.handleChange}/>
@@ -121,11 +122,13 @@ class Register extends Component {
               <div className="address-content">
                 <input type="text" placeholder="CEP" name="cep"
                 value={this.state.cep}
-                onChange={ e => this.setState({ cep: cepMask(e.target.value) })}/>
-                <button type="submit" className="button" id="btnCep" onClick={this.returnAddress}>Verificar CEP</button>
+                onChange={ e => this.setState({ cep: cepMask(e.target.value) })}
+                onKeyUp={e => this.handleKeyUp(e.target.value)}
+                />
               </div>
-
-              <div className={this.state.ativo}>
+              </div>
+              <div>
+              <div>
                 <div className="address-content">
                   <input type="text" placeholder="Rua" name="rua"
                   value={this.state.rua}
@@ -144,12 +147,13 @@ class Register extends Component {
                   value={this.state.cidade}
                   onChange={this.handleChange} disabled/>
 
-                  <input type="text" placeholder="Estado" className="input-address" name="estado"
+                  <input type="text" placeholder="UF" className="input-address" name="estado"
                   value={this.state.estado}
                   onChange={this.handleChange} disabled/>
                 </div>
               </div>
               <button type="submit" className="button">Cadastrar</button>
+              </div>
             </form>
           </div>
         </div>

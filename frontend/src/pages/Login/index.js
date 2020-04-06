@@ -1,42 +1,43 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { FaLock, FaUser, FaIdCard } from 'react-icons/fa'
+import { FaArrowRight } from 'react-icons/fa'
 
 import './styles.css'
 
-import splashImg from '../../assets/supermarket.png'
+import loginImg from '../../assets/login-image.jpg'
+import logo from '../../assets/logo.png'
 
 export default function Login() {
   return(
     <Fragment>
       <div className="login-container">
         <section className="form">
+          <img src= {logo} alt="Supermega"/>
           <form onSubmit={() => {}}>
+
             <h1>Faça seu Login</h1>
 
-            <div className="input-text">
-              <FaUser size={25} color="#0076C0" id="login-icon" />
-              <input type="text"
-              placeholder="Informe o ID do mercado" />              
-            </div>
+            <input type="text"
+              placeholder="Informe o ID do mercado" 
+            />              
 
-            <div className="input-text">
-              <FaLock size={25} color="#0076C0" id="login-icon"/>
-              <input type="password"
-              placeholder="Informe a senha do mercado" />
-            </div>
             
-
+            <input type="password"
+              placeholder="Informe a senha do mercado" 
+            />
+            
             <button type="submit" className="button">Entrar</button>
 
             <Link className="back-link" to="/cadastro">
-              <FaIdCard size={16} color="#0076C0" />
-              Cadastre seu mercado agora mesmo!
+              <p>
+                <FaArrowRight size={16} color="000"/>
+                Não possui cadastro? Cadastre-se já!
+              </p>  
             </Link>
           </form>
         </section>
 
-        <img src= {splashImg} alt="Supermega"/>
+        <img src= {loginImg} alt="Supermega"/>
       </div>
     </Fragment>
   )

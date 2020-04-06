@@ -9,31 +9,46 @@
   justify-content: space-between; /* Coloca um espaço entre a section e a img */
 }
 
-.login-container section.form {
+.login-container .form {
   width: 100%;
-  max-width: 350px;
+  max-width: 450px;
   margin-right: 30px;
+  position: relative;
+  margin-top: 5.7rem;
 }
 
-.login-container section.form form {
-  margin-top: 100px;
+.login-container .form img {
+  position: absolute;
+  top: -120px;
+  left: 25%;
 }
 
-.login-container section.form form h1 {
+.login-container .form form {
+  border-radius: 20px;
+  padding: 40px;
+}
+
+.login-container .form form h1 {
   font-size: 32px;
-  margin-bottom: 32px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
-.login-container section.form form input:not(:first-child) {
+.login-container .form form input + input {
   margin-top: 30px;
+  margin-bottom: 20px;
 }
 
-.input-text {
+.input-container {
+  position: relative;
+
   display: flex;
   align-items: center;
 }
 
-#login-icon {
-  margin-top: 30px;
-  margin-right: 5px;
+.back-link p {
+  color: #a3c14f;
+
+  display: flex;
+  align-items: center;
 }
