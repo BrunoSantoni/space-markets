@@ -11,6 +11,7 @@ import registerImg from '../../assets/register-image.jpg'
 import './styles.css'
 
 import cepPromise from 'cep-promise'
+import Axios from 'axios'
 
 class Register extends Component {
   constructor() {
@@ -44,25 +45,26 @@ class Register extends Component {
     e.preventDefault()
 
     const data = {
-      marca: this.state.marca,
-      email: this.state.email,
-      senha: this.state.senha,
-      cnpj: this.state.cnpj,
-      rua: this.state.rua,
-      numero: this.state.numero,
-      bairro: this.state.bairro,
-      cidade: this.state.cidade,
-      estado: this.state.estado
+      market_name: this.state.marca,
+      market_mail: this.state.email,
+      market_password: this.state.senha,
+      market_cnpj: this.state.cnpj,
+      market_street: this.state.rua,
+      market_number: this.state.numero,
+      market_neighborhood: this.state.bairro,
+      market_city: this.state.cidade,
+      market_uf: this.state.estado
     }
 
       try {
         const response = await api.post('cadastro', data)
   
-        alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.id)
+        alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
 
         history.push('/')        
       } catch(err) {
-        alert('Erro ao cadastrar')
+        console.log(data)
+        alert(err)
       }
   }
 

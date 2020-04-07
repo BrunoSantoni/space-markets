@@ -26,7 +26,7 @@ export default function RegisterScreen() {
         }
 
         try {
-            await api.post('user-cadastro', data)
+            await api.post('usercadastro', data)
 
             alert('Cadastro realizado com sucesso')
 

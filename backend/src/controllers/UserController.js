@@ -1,22 +1,16 @@
-const connection = require('../database/connection')
+const User = require('../models/User')
 
 module.exports = {
-  async index(request, response) {
-    const users = await connection('users').select('*')
+  async create(req, res) {
+    const { user_name, user_mail, user_cpf, user_password } = req.body
 
-    return response.json(users)
-  },
-
-  async create(request, response) {
-    const { user_name, user_mail, user_cpf, user_password } = request.body
-
-    const [id] = await connection('users').insert({
+    const user = await User.create({
       user_name,
       user_mail,
       user_cpf,
-      user_password,
+      user_password
     })
 
-    return response.json({ id })
+    return res.json(user)
   }
 }

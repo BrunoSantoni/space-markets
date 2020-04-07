@@ -1,35 +1,25 @@
-//Import da biblioteca de criptografia (crypto) e da conexão
 const crypto = require('crypto')
-const connection = require('../database/connection')
+
+const Supermarket = require('../models/Supermarket')
 
 module.exports = {
-    //Método que lista todos os supermercados cadastrados
-    async index(request, response) {
-        const supermarkets = await connection('supermarkets').select('*')
+  async create(req, res) {
+    const { market_name, market_mail, market_password, market_cnpj, market_street,
+      market_number, market_neighborhood, market_city, market_uf } = req.body
+    const market_id = market_name.replace(/ /g,'') + crypto.randomBytes(2).toString('HEX')
+    await Supermarket.create({
+      market_id,
+      market_name,
+      market_mail,
+      market_password,
+      market_cnpj,
+      market_street,
+      market_number,
+      market_neighborhood,
+      market_city,
+      market_uf
+    })
 
-        return response.json(supermarkets)
-    },
-
-    //Método que cadastra um mercado no BD.
-    async create(request, response) {
-        const { marca, email, senha, cnpj, rua, numero, bairro, cidade, estado } = request.body
-
-        //replace está tirando os possíveis espaços do nome
-        const id = marca.replace(/ /g,'') + crypto.randomBytes(2).toString('HEX')
-
-        await connection('supermarkets').insert({
-            id,
-            marca,
-            email,
-            senha,
-            cnpj,
-            rua,
-            numero,
-            bairro,
-            cidade,
-            estado,
-        })
-
-        return response.json({ id })
-    }
+    return res.json({market_id})
+  }
 }
