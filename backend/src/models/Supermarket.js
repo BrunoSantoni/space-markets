@@ -58,6 +58,20 @@ const SupermarketSchema = new mongoose.Schema({
   market_longitude: {
     type: String
   },
+
+  market_picture_url: {
+    type: String
+  },
+
+  market_picture_key: {
+    type: String
+  }
+})
+
+SupermarketSchema.pre('save', function() {
+  if(!this.market_picture_url) {
+    this.market_picture_url = `${process.env.APP_URL}/files/${this.market_picture_key}`
+  }
 })
 
 module.exports = mongoose.model('Supermarket', SupermarketSchema)

@@ -1,0 +1,51 @@
+.add-product-container {
+  width: 100%;
+  max-width: 1120px;  /* Largura máxima */
+  height: 100vh; /* Faz com que ocupe a página toda */
+  margin: 0 auto; /* Faz com que o conteúdo fique centralizado */
+
+  display: flex; /* FlexBox, por padrão a flexbox alinha os itens um ao lado do outro */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  justify-content: center; /* Alinha os itens horizontalmente ao centro */
+}
+
+.add-product-container .content {
+  width: 100%;
+  padding: 96px;
+  background: #f0f0f5;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+  /* 0 e 0 são o eixo X e Y, 100px de blur e o rgba pegou a cor preta com 10% de opacidade */
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  /* Isso jogará a section para a esquerda, o formulário para a direita e colocará um espaço entre eles */
+  align-items: center;
+}
+
+.add-product-container .content section {
+  width: 100%;
+  max-width: 380px;
+}
+
+
+.add-product-container .content section h1{
+  margin: 64px 0 32px;
+  font-size: 32px;
+}
+
+
+.add-product-container .content section p{
+  font-size: 18px;
+  color: #737380;
+  line-height: 32px;
+}
+
+.add-product-container .content form {
+  width: 100%;
+  max-width: 450px;
+}
+
+.add-product-container .content form input {
+  margin-top: 8px;
+}

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
+
 import cepMask from './Masks/cepMask'
 import cnpjMask from './Masks/cnpjMask'
 
@@ -11,7 +12,6 @@ import registerImg from '../../assets/register-image.jpg'
 import './styles.css'
 
 import cepPromise from 'cep-promise'
-import Axios from 'axios'
 
 class Register extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class Register extends Component {
       numero: '',
       bairro: '',
       cidade: '',
-      estado: ''
+      estado: '',
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -40,21 +40,24 @@ class Register extends Component {
   }
 
   async handleRegister(e) {
-
-    const { history } = this.props
     e.preventDefault()
 
-    const data = {
-      market_name: this.state.marca,
-      market_mail: this.state.email,
-      market_password: this.state.senha,
-      market_cnpj: this.state.cnpj,
-      market_street: this.state.rua,
-      market_number: this.state.numero,
-      market_neighborhood: this.state.bairro,
-      market_city: this.state.cidade,
-      market_uf: this.state.estado
-    }
+    const { history } = this.props
+
+    const file = document.getElementById('market_picture').files[0]
+
+    const data = new FormData()
+
+    data.append("market_name", this.state.marca)
+    data.append("market_mail", this.state.email)
+    data.append("market_password", this.state.senha)
+    data.append("market_cnpj", this.state.cnpj)
+    data.append("market_street", this.state.rua)
+    data.append("market_number", this.state.numero)
+    data.append("market_neighborhood", this.state.bairro)
+    data.append("market_city", this.state.cidade)
+    data.append("market_uf", this.state.estado)
+    data.append("market_picture", file, file.name)
 
       try {
         const response = await api.post('cadastro', data)
@@ -63,7 +66,6 @@ class Register extends Component {
 
         history.push('/')        
       } catch(err) {
-        console.log(data)
         alert(err)
       }
   }
@@ -77,7 +79,6 @@ class Register extends Component {
 
   //Função que recebe o CEP e armazena o endereço nos states correspondentes.
   handleKeyUp(value) {
-    console.log(value)
     value.length === 9 && cepPromise(this.state.cep).then(response => {
       this.setState({
         cidade: response.city,
@@ -103,7 +104,7 @@ class Register extends Component {
               <img src={registerImg} alt=""/>
             </section>
 
-            <form onSubmit={this.handleRegister}>
+            <form method="post" encType="multipart/form-data" onSubmit={this.handleRegister}>
             <div>
               <input type="text" placeholder="Nome do Mercado" name="marca"
               value={this.state.marca}
@@ -153,6 +154,8 @@ class Register extends Component {
                   value={this.state.estado}
                   onChange={this.handleChange} disabled/>
                 </div>
+
+                <input type="file" name="market_picture" id="market_picture"/>
               </div>
               <button type="submit" className="button">Cadastrar</button>
               </div>
