@@ -16,6 +16,7 @@ const AddProduct = () => {
 
   const history = useHistory()
 
+  //FUNÇÃO RESPONSÁVEL POR ADICIONAR O PRODUTO NO BANCO
   async function handleAddProduct(e) {
     e.preventDefault()
 
