@@ -36,18 +36,18 @@ const AddProduct = () => {
         }
       })
 
-      alert('Produto adicionado com sucesso!');
+      alert('Produto adicionado com sucesso!')
 
-      history.push('/perfil');
+      history.push('/perfil')
     } catch(err) {
-      alert('Erro ao cadastrar produto', err);
+      alert('Erro ao cadastrar produto', err)
     }
     }
     return(
       <div className="add-product-container">
           <div className="content">
             <section>
-              <img src = {logo} alt="Be The Hero"/>
+              <img src = {logo} alt="Supermega"/>
 
                 <h1>Cadastrar novo produto</h1>
                 <p>Insira um novo produto para que todos possam ver que você possui a melhor oferta!</p>

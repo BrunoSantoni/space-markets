@@ -29,6 +29,29 @@ module.exports = {
     return res.json(prod)
   },
 
+  async update(req, res) {
+    const { id } = req.params
+    const marketId = req.headers.auth
+    const { product_name, product_description, product_price } = req.body
+
+    const product = await Product.findById(id)
+
+    if(marketId != product.market_id) {
+      console.log(marketId, product.market_id)
+      return res.status(401).json({ error: 'Operação não permitida' })
+    }
+
+    await Product.update({_id: id}, {
+      product_name: product_name,
+      product_description: product_description,
+      product_price: product_price
+    }, function(err, affected, resp) {
+      console.log(resp)
+    })
+
+    return res.status(204).send()
+  },
+
   async delete(req, res) {
     const { id } = req.params
     const marketId = req.headers.auth

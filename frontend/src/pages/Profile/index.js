@@ -1,32 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { FaPowerOff, FaTrash, FaEdit } from 'react-icons/fa'
+import { FaTrash, FaEdit, FaSave } from 'react-icons/fa'
 
 import './styles.css'
 
 import api from '../../services/api'
 
+import Header from '../Header'
+
 export default function Profile() {
 
+  const[produto, setProduto] = useState('')
+  const[descricao, setDescricao] = useState('')
+  const[preco, setPreco] = useState('')
+
   const [products, setProducts] = useState([])
-  const [picture, setPicture] = useState('')
+  const [productId, setProductId] = useState('')
+  const [showDiv, setShowDiv] = useState(false)
 
-  const marketId = localStorage.getItem('market_id')
-  const marketName = localStorage.getItem('market_name')
   const id = localStorage.getItem('id')
-
-  const history = useHistory()
-
-  //Busca a imagem de perfil do mercado
-  useEffect(() => {
-    api.get('perfil', {
-      headers: {
-        auth: marketId
-      }
-    }).then(res => {
-      setPicture(res.data[0].market_picture_url)
-    })
-  }, [marketId])
 
   //Busca os produtos já cadastrados
   useEffect(() => {
@@ -37,13 +28,7 @@ export default function Profile() {
     }).then(res => {
       setProducts(res.data)
     })
-  }, [id])
-
-  function handleLogout() {
-    localStorage.clear()
-
-    history.push('/')
-  }
+  }, [showDiv])
 
   async function handleDelete(prod_id) {
     try {
@@ -58,44 +43,114 @@ export default function Profile() {
     }    
   }
 
-  return(
-    <>
-      <div className="profile-container">
-        <header>
-          <img src={picture} alt="Foto de perfil" />
-          <span>Bem vindo, {marketName}</span>
-          <Link className="button" to="/produtos/novo">Cadastrar novo produto</Link>
-          <button onClick={handleLogout} type="button">
-            <FaPowerOff size={18} color="#C7342A" />
-          </button>
-          </header>
+  //Troca o condicional component e muda o id do produto para ser alterado
+  function handleChange(id) {
+    setProductId(id)
+    showDiv ? setShowDiv(false) : setShowDiv(true) 
+  }
 
+  //Faz a alteração do produto
+  async function handleUpdate(prod_id, name, description, price) {
+    console.log(produto, descricao, preco)
+
+    //As 3 variáveis abaixo receberão de uma que possui valor.
+    const product_name = produto === '' ? name : produto
+    const product_description = descricao === '' ? description : descricao
+    const product_price = preco === '' ? price : preco
+
+    const data = {
+      product_name,
+      product_description,
+      product_price    
+    }   
+
+    console.log(data)
+    try {
+      await api.post(`produtos/${prod_id}`, data, {
+        headers: {
+          auth: id,
+        }
+      })
+
+      alert('Produto alterado com sucesso!')
+      handleChange()
+    } catch(err) {
+      alert('Erro ao alterar produto', err)
+      handleChange()
+    }    
+  }
+
+  if(!showDiv) {
+    return(
+      <>
+        <div className="profile-container">  
+          <Header />
+          <h1>Produtos Cadastrados</h1>
+            <ul>
+              {products.map(product => ((
+              <li key={product._id}>
+                <strong>IMAGEM:</strong>
+                <img src={product.product_picture_url} alt="Foto do produto" />
+
+                <strong>PRODUTO:</strong>
+                <p>{product.product_name}</p>
+
+                <strong>DESCRIÇÃO:</strong>
+                <p>{product.product_description}</p>
+
+                <strong>VALOR:</strong>
+                <p>R$ {product.product_price}</p>
+
+                <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
+                    <FaEdit size={20} color="#FFD86E" />
+                </button>
+                <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
+                    <FaTrash size={20} color="#C7342A" />
+                </button>
+              </li>
+              )))}
+            </ul>
+        </div>      
+      </>
+    )
+  } else {
+    return(
+      <>
+      <div className="profile-container">
+        <Header />
         <h1>Produtos Cadastrados</h1>
-          <ul>
-            {products.map(product => ((
+        <ul>
+          {products.map(product => ((
             <li key={product._id}>
               <strong>IMAGEM:</strong>
               <img src={product.product_picture_url} alt="Foto do produto" />
 
               <strong>PRODUTO:</strong>
-              <p>{product.product_name}</p>
+              {productId == product._id ?
+              <input type="text" defaultValue={product.product_name}
+              onChange={e => setProduto(e.target.value)}/> : <p>{product.product_name}</p>}
 
               <strong>DESCRIÇÃO:</strong>
-              <p>{product.product_description}</p>
+              {productId == product._id ?
+              <input type="text" defaultValue={product.product_description}
+              onChange={e => setDescricao(e.target.value)}/> : <p>{product.product_description}</p>}
 
               <strong>VALOR:</strong>
-              <p>R$ {product.product_price}</p>
+              {productId == product._id ?
+              <input type="text" defaultValue={product.product_price}
+              onChange={e => setPreco(e.target.value)}/> : <p>R$ {product.product_price}</p>}
 
-              <button onClick={() => {}} type="button" id="edit-button">
-                  <FaEdit size={20} color="#FFD86E" />
-              </button>
-              <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
-                  <FaTrash size={20} color="#C7342A" />
-              </button>
+              {productId == product._id ?
+              <button onClick={() => 
+              handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
+              type="button" id="confirm-button">
+                <FaSave size={20} color="#13C0F0" />
+              </button> : null}
             </li>
-            )))}
-          </ul>
-      </div>      
-    </>
-  )
+          )))}
+        </ul>
+      </div> 
+      </>
+    )
+  }
 }
