@@ -3,6 +3,7 @@ const multer = require('multer')
 const multerConfig = require('./config/multer')
 const multerConfigProducts = require('./config/multerProduct')
 
+
 const ProductController = require('./controllers/ProductController')
 const ProfileController = require('./controllers/ProfileController')
 const SupermarketController = require('./controllers/SupermarketController')
@@ -17,10 +18,11 @@ routes.post('/login', SupermarketSessionController.create)
 
 routes.post('/cadastro', multer(multerConfig).single('market_picture'), SupermarketController.create)
 
-routes.get('/perfil', ProfileController.profileImage)
-routes.get('/perfil/produtos', ProfileController.index)
+routes.get('/perfil', ProfileController.profileImage) //Rota para exibir a imagem de perfil
 
-routes.post('/produtos/novo', multer(multerConfigProducts).single('product_picture'),ProductController.create)
+routes.get('/produtos', ProductController.index)
+routes.post('/produtos', multer(multerConfigProducts).single('product_picture'),ProductController.create)
+routes.delete('/produtos/:id', ProductController.delete)
 
 //MOBILE
 routes.post('/usercadastro', UserController.create)

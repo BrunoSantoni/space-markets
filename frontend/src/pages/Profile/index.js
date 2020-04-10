@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FaPowerOff, FaTrash } from 'react-icons/fa'
+import { FaPowerOff, FaTrash, FaEdit } from 'react-icons/fa'
 
 import './styles.css'
 
@@ -9,8 +9,8 @@ import api from '../../services/api'
 export default function Profile() {
 
   const [products, setProducts] = useState([])
-
   const [picture, setPicture] = useState('')
+
   const marketId = localStorage.getItem('market_id')
   const marketName = localStorage.getItem('market_name')
   const id = localStorage.getItem('id')
@@ -25,25 +25,37 @@ export default function Profile() {
       }
     }).then(res => {
       setPicture(res.data[0].market_picture_url)
-      setProducts(res.data)
     })
   }, [marketId])
 
   //Busca os produtos já cadastrados
   useEffect(() => {
-    api.get('perfil/produtos', {
+    api.get('produtos', {
       headers: {
         auth: id
       }
     }).then(res => {
       setProducts(res.data)
     })
-  }, [marketId])
+  }, [id])
 
   function handleLogout() {
     localStorage.clear()
 
     history.push('/')
+  }
+
+  async function handleDelete(prod_id) {
+    try {
+      await api.delete(`produtos/${prod_id}`, {
+        headers: {
+          auth: id
+        }
+      })
+      setProducts(products.filter(product => product._id !== prod_id))
+    } catch(err) {
+      alert(err)
+    }    
   }
 
   return(
@@ -54,11 +66,10 @@ export default function Profile() {
           <span>Bem vindo, {marketName}</span>
           <Link className="button" to="/produtos/novo">Cadastrar novo produto</Link>
           <button onClick={handleLogout} type="button">
-            <FaPowerOff size={18} color="#E02041" />
+            <FaPowerOff size={18} color="#C7342A" />
           </button>
           </header>
 
-        <h1>Profile</h1>
         <h1>Produtos Cadastrados</h1>
           <ul>
             {products.map(product => ((
@@ -73,10 +84,13 @@ export default function Profile() {
               <p>{product.product_description}</p>
 
               <strong>VALOR:</strong>
-              <p>{Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(product.product_price)}</p>
+              <p>R$ {product.product_price}</p>
 
-              <button onClick={() => {}} type="button">
-                  <FaTrash size={20} color="#A8A8B3" />
+              <button onClick={() => {}} type="button" id="edit-button">
+                  <FaEdit size={20} color="#FFD86E" />
+              </button>
+              <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
+                  <FaTrash size={20} color="#C7342A" />
               </button>
             </li>
             )))}

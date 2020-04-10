@@ -30,7 +30,7 @@ const AddProduct = () => {
     data.append("product_picture", file)
 
     try {
-      await api.post('produtos/novo', data, {
+      await api.post('produtos', data, {
         headers: {
           auth: marketId,
         }
@@ -74,7 +74,7 @@ const AddProduct = () => {
               type="text"
               placeholder="Valor em R$"
               value={preco}
-              onChange={e => setPreco(parseFloat(e.target.value))}/>
+              onChange={e => setPreco(e.target.value)}/>
 
               <input type="file" name="product_picture" id="product_picture"/>
               <button className="button" type="submit">Cadastrar</button>

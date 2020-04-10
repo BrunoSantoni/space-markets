@@ -3,8 +3,7 @@ import { Link, withRouter } from 'react-router-dom' //Lib que redireciona e adic
 import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
 import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
 
-import cepMask from './Masks/cepMask'
-import cnpjMask from './Masks/cnpjMask'
+import { cepMask, cnpjMask } from './masks'
 
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
@@ -62,8 +61,6 @@ class Register extends Component {
 
     const latitude = latLng[0].y
     const longitude = latLng[0].x
-    
-    console.log(latLng)
 
     //Arrumando os dados para enviar ao banco
     const data = new FormData()
