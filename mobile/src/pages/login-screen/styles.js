@@ -1,15 +1,9 @@
 import { StyleSheet } from 'react-native'
+import Color from '../../constants/colors'
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    loginContainer: {
-        backgroundColor: '#0076C0',
+    Container: {
+        backgroundColor: Color.primary,
         width: '100%',
         maxWidth: 300,
         justifyContent: 'center',
@@ -19,40 +13,22 @@ export default StyleSheet.create({
     },
 
     loginInput: {
-        backgroundColor: '#fff',
-        color: '#000',
         width: '100%',
         maxWidth: 240,
-        marginVertical: 10,
         height: 48,
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        fontFamily: 'rubik-regular'
     },
 
     buttonIniciar: {
-        backgroundColor: '#6CB85D',
-        width: '100%',
+        width: '100%', 
         maxWidth: 150,
         height: 50,
         marginTop: 20,
         marginBottom: 30,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    buttonInputText: {
-        color: '#fff',
-        fontSize: 24,
-        fontFamily: 'rubik-medium'
+        backgroundColor: Color.secundary
     },
 
     registerLink: {
-        fontFamily: 'rubik-regular',
-        color: '#fff',
-        fontSize: 18,
+        color: Color.thirdy,
         textDecorationLine: 'underline'
     },
 
@@ -62,6 +38,4 @@ export default StyleSheet.create({
         justifyContent: 'space-evenly',
         width: '100%',
     }
-
-    
 })

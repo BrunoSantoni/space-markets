@@ -40,12 +40,12 @@ module.exports = {
       return res.status(401).json({ error: 'Operação não permitida' })
     }
 
-    await Product.update({_id: id}, {
+    await Product.updateOne({_id: id}, {
       product_name: product_name,
       product_description: product_description,
       product_price: product_price
     }, function(err, affected, resp) {
-      res.status(404).json(resp)
+      console.log(resp)
     })
 
     return res.status(204).send()
