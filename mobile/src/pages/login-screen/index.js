@@ -1,24 +1,23 @@
 import React, { useState }from 'react'
-import { View, Image, TextInput, TouchableOpacity, Text } from 'react-native'
-import styles from './styles'
-import logo from '../../../assets/icon.png'
+import { View, Image, TouchableOpacity } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import api from '../../services/api'
+
+import TxtInput from '../../components/TxtInput'
+import TouchButton from '../../components/TouchButton'
+import Txt from '../../components/Txt'
+import styles from './styles'
+import logo from '../../../assets/icon.png'
+import Screen from '../../components/Screen'
 
 export default function loginScreen() {
     const navigation = useNavigation()
-    const [user_mail, setUserMail] = useState('')
-    const [user_password, setUserPassword] = useState('')
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
 
-    async function handleLogin() {
-        try {
-            const response = await api.post('user-login', { user_mail, user_password })
-
-            alert('Acerto')
-        } catch(err) {
-            alert('Erro')
-        }
+    function loginPress() {
+        console.log(username, password)
+        navigation.navigate('Home')
     }
 
     function navigateToRegister() {
@@ -26,36 +25,34 @@ export default function loginScreen() {
     }
 
     return (
-        <View style={styles.container}>
+        <Screen>
             
             <Image source={logo} />
 
-            <View style={styles.loginContainer}>  
-                <TextInput 
-                    value={user_mail} 
-                    onChangeText={email => setUserMail(email)} 
+            <View style={styles.Container}>  
+                <TxtInput 
+                    value={username} 
+                    onChangeText={email => setUsername(email)} 
                     placeholder="Insira seu E-mail" 
                     style={styles.loginInput}
-                    placeholderTextColor='#7E7E7E' 
                 />
-                <TextInput 
-                    value={user_password} 
-                    onChangeText={password => setUserPassword(password)} 
+                <TxtInput 
+                    value={password} 
+                    onChangeText={password => setPassword(password)} 
                     placeholder="Insira sua senha" 
                     secureTextEntry={true} 
                     style={styles.loginInput}
-                    placeholderTextColor='#7E7E7E' 
                 />
                 
-                <TouchableOpacity style={styles.buttonIniciar} onPress={handleLogin}>
-                    <Text style={styles.buttonInputText}>INICIAR</Text>
-                </TouchableOpacity>
+                <TouchButton style={styles.buttonIniciar} onPress={loginPress}>
+                    INICIAR
+                </TouchButton>
 
                 <TouchableOpacity style={styles.registerLinkContainer} onPress={navigateToRegister} >
-                    <Text style={styles.registerLink}>Não possuo cadastro</Text>
+                    <Txt style={styles.registerLink}>Não possuo cadastro</Txt>
                     <Feather name='log-in' size={18} color='#fff' />
                 </TouchableOpacity>
             </View>
-        </View>
+        </Screen>
     )
 }

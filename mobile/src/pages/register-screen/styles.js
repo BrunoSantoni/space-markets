@@ -1,45 +1,27 @@
 import { StyleSheet } from 'react-native'
+import Color from '../../constants/colors'
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
     registerContainer: {
-        width: '100%',
-        maxWidth: 300,
+        width: 310,
+        maxWidth: '90%',
         height: 580,
-        backgroundColor: '#0076C0',
+        backgroundColor: Color.primary,
         borderRadius: 20,
         justifyContent: 'space-evenly',
         alignItems:'center'
     },
 
     registerInput: {
-        backgroundColor: '#fff',
-        width: '85%',
-        height: 40,
-        paddingHorizontal: 10,
-        borderRadius: 8,
+        width: 260,
+        maxWidth: '85%',
         height: 50,
-        fontSize: 18,
     },
 
     registerInputButton: {
-        backgroundColor: '#6CB85D',
-        width: 150,
+        backgroundColor: Color.secundary,
+        width: 175,
         height: 80,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
         marginVertical: 40,
     },
-
-    registerInputButtonText: {
-        fontFamily: 'rubik-medium',
-        fontSize: 24,
-        color: '#fff'
-    }
 })
