@@ -37,7 +37,6 @@ module.exports = {
     const product = await Product.findById(id)
 
     if(marketId != product.market_id) {
-      console.log(marketId, product.market_id)
       return res.status(401).json({ error: 'Operação não permitida' })
     }
 
@@ -46,7 +45,7 @@ module.exports = {
       product_description: product_description,
       product_price: product_price
     }, function(err, affected, resp) {
-      console.log(resp)
+      res.status(404).json(resp)
     })
 
     return res.status(204).send()

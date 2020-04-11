@@ -43,9 +43,12 @@ export default function Profile() {
     }    
   }
 
-  //Troca o condicional component e muda o id do produto para ser alterado
+  /* Troca o condicional component, muda o id do produto para ser alterado e reseta alguns states */
   function handleChange(id) {
     setProductId(id)
+    setProduto('')
+    setDescricao('')
+    setPreco('')
     showDiv ? setShowDiv(false) : setShowDiv(true) 
   }
 
