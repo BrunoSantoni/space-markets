@@ -34,7 +34,7 @@ export default function Header() {
   return(
     <header>
       <img src={picture} alt="Foto de perfil" />
-      <span>Bem vindo, {marketName}</span>
+      <span>Bem-vindo, {marketName}!</span>
       <Link className="button" id="btn-cadastro" to="/produtos/novo">Cadastrar novo produto</Link>
       <button onClick={handleLogout} type="button">
         <FaPowerOff size={18} color="#C7342A" />

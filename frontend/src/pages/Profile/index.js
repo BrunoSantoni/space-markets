@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaTrash, FaEdit, FaSave } from 'react-icons/fa'
+import { FaTrash, FaPen, FaSave } from 'react-icons/fa'
 
 import './styles.css'
 
@@ -92,24 +92,23 @@ export default function Profile() {
             <ul>
               {products.map(product => ((
               <li key={product._id}>
-                <strong>IMAGEM:</strong>
-                <img src={product.product_picture_url} alt="Foto do produto" />
+                <section>
+                  <img src={product.product_picture_url} alt="Foto do produto" />
+                </section>
+                <div>
+                  <p><strong>PRODUTO:</strong>{product.product_name}</p>
 
-                <strong>PRODUTO:</strong>
-                <p>{product.product_name}</p>
+                  <p><strong>DESCRIÇÃO:</strong> {product.product_description}</p>
 
-                <strong>DESCRIÇÃO:</strong>
-                <p>{product.product_description}</p>
+                  <p><strong>VALOR:</strong>R$ {product.product_price}</p>
 
-                <strong>VALOR:</strong>
-                <p>R$ {product.product_price}</p>
-
-                <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
-                    <FaEdit size={20} color="#FFD86E" />
-                </button>
-                <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
-                    <FaTrash size={20} color="#C7342A" />
-                </button>
+                  <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
+                      <FaPen size={26} color="#737380" />
+                  </button>
+                  <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
+                      <FaTrash size={26} color="#C7342A" />
+                  </button>
+                </div>
               </li>
               )))}
             </ul>

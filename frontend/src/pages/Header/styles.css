@@ -4,13 +4,15 @@ header {
 }
 
 header span {
-  font-size: 20px;
+  font-size: 1.5rem;
   margin-left: 24px;
 }
 
 header img {
-  height: 64px;
-  border-radius: 30px;
+  height: 108px;
+  width: 108px;
+  border-radius: 100%;
+  box-shadow: 0 0 5px black;
 }
 
 header #btn-cadastro {
@@ -19,6 +21,10 @@ header #btn-cadastro {
   /* vai fazer o botão ficar automaticamente na direita,
   pois ela coloca o máximo possível de margem na esquerda */
   margin-top: 0;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  justify-content: center;
 }
 
 header button {

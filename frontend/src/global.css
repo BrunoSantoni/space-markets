@@ -9,7 +9,7 @@
 
 body {
     font: 400 14px 'Open Sans', sans-serif;
-    background: #fff;
+    background: #EBEDF3;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -33,6 +33,7 @@ form input {
     border: 0;
     border-bottom: 1px solid black;
     padding: 0 12px;
+    background: transparent;
 }
 
 form textarea {
@@ -89,4 +90,27 @@ form textarea {
 
 .login-container .login-image {
     width: 500px;
+}
+
+input[type="file"] {
+    border: 0;
+    font-size: .8rem;
+    padding: 16px 8px;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    border: 0;
+    outline: none;
+    font-size: 12px;
+    padding: .5rem;
+    border: 1px solid #000;
+    color: #000;
+    background: #FFF;
+    cursor: pointer;
+    transition: all .4s ease-out;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    color: #FFF;
+    background-color: #000;
 }
