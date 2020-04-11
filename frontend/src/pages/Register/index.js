@@ -7,7 +7,7 @@ import cnpjMask from './Masks/cnpjMask'
 
 import api from '../../services/api'
 
-import registerImg from '../../assets/register-image.jpg'
+import registerImg from '../../assets/register-image.png'
 
 import './styles.css'
 

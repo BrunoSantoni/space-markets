@@ -17,6 +17,11 @@ input, button, textarea {
     font: 400 18px 'Open Sans', sans-serif;
 }
 
+input::-webkit-input-placeholder {
+    font-weight: 100;
+    font-size: 15px;
+}
+
 button {
     cursor: pointer;
 }
@@ -45,7 +50,7 @@ form textarea {
 .button {
     width: 100%;
     height: 60px;
-    background: #c7342a;
+    background: #d80f19;
     border: 0;
     border-radius: 8px; /* Deixa as bordas arredondadas */
     color: #fff;
@@ -68,11 +73,10 @@ form textarea {
     display: flex;
     align-items: center; /* Fez isso para o texto e o ícone ficarem alinhados */
     margin-top: 40px;
-    color: #a3c14f;
+    color: #000;
     font-size: 18px;
     text-decoration: none; /* Tira o sublinhado do link */
     font-weight: 500;
-    transition: opacity 0.2s;
 }
 
 .back-link svg { /* Colocando margem no ícone */
@@ -80,5 +84,9 @@ form textarea {
 }
 
 .back-link:hover {
-    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.login-container .login-image {
+    width: 500px;
 }
