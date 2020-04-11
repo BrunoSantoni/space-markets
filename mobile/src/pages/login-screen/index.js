@@ -25,7 +25,6 @@ export default function loginScreen() {
             const user = res.data._id
             
             AsyncStorage.setItem('user_id', user)
-            console.log(user)
             AsyncStorage.setItem('user_mail', mail)
                 
       

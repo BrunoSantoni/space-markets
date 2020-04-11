@@ -10,25 +10,22 @@ import TouchButton from '../../components/TouchButton'
 import api from '../../services/api'
 
 export default function HomeScreen(props){  
-    
 
     useEffect(() => {
-        async function getUserId() {
-            try {
-                await AsyncStorage.getItem('user_mail')               
-            } catch(err) {
-                alert(err)
-            } 
+        async function getUserEmail() {
+            const user = await AsyncStorage.getItem('user_mail')
+            
+            console.log("de baixo" + user)
+            api.get('usercadastro', {
+                headers: {
+                    auth: user
+                }
+            }).then(res => {
+                //console.log(res.data)
+            })
         }
-        const user = getUserId()
-        console.log("de baixo" + user)
-        api.get('usercadastro', {
-            headers: {
-                auth: user
-            }
-        }).then(res => {
-            //console.log(res.data)
-        })
+
+        getUserEmail();
     }, [])
 
     return(
