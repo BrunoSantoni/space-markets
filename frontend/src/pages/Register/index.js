@@ -1,17 +1,16 @@
 import React, { Component, Fragment } from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import { FaArrowLeft } from 'react-icons/fa'
+import { Link, withRouter } from 'react-router-dom' //Lib que redireciona e adiciona links
+import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
+import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
 
-import cepMask from './Masks/cepMask'
-import cnpjMask from './Masks/cnpjMask'
+import { cepMask, cnpjMask } from './masks'
 
 import api from '../../services/api'
+import cepPromise from 'cep-promise'
 
 import registerImg from '../../assets/register-image.png'
 
 import './styles.css'
-
-import cepPromise from 'cep-promise'
 
 class Register extends Component {
   constructor() {
@@ -42,10 +41,28 @@ class Register extends Component {
   async handleRegister(e) {
     e.preventDefault()
 
+    //Variável que redireciona
     const { history } = this.props
 
+    //Pegando a imagem que o usuário enviou.
     const file = document.getElementById('market_picture').files[0]
 
+    //Passando a key para pesquisar no Bing.
+    const provider = new BingProvider({ 
+      params: {
+        key: 'ApJOHkrHOc22p53qpw8drsNahv1selmPw_yq-xR72HESwtP35o8gYq7Nvwi_EF2N'
+      },
+    })
+    
+    //Passando o endereço para a API do Bing retornar a latitude e a longitude para adicionar no map.
+    const latLng = await provider.search(
+      { query: `${this.state.rua},${this.state.numero},${this.state.bairro},
+      ${this.state.cidade},${this.state.estado}`})
+
+    const latitude = latLng[0].y
+    const longitude = latLng[0].x
+
+    //Arrumando os dados para enviar ao banco
     const data = new FormData()
 
     data.append("market_name", this.state.marca)
@@ -57,20 +74,23 @@ class Register extends Component {
     data.append("market_neighborhood", this.state.bairro)
     data.append("market_city", this.state.cidade)
     data.append("market_uf", this.state.estado)
+    data.append("market_latitude", latitude)
+    data.append("market_longitude", longitude)
     data.append("market_picture", file, file.name)
 
-      try {
-        const response = await api.post('cadastro', data)
-  
-        alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
+    //Fazendo a inserção no banco.
+    try {
+      const response = await api.post('cadastro', data)
 
-        history.push('/')        
-      } catch(err) {
-        alert(err)
-      }
+      alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
+
+      history.push('/')        
+    } catch(err) {
+      alert(err)
+    }
   }
 
-  //Função responsável por "escutar" o Input do CEP, atualizando seu state para cada letra digitada
+  //Função responsável por "escutar" os inputs, atualizando os states
   handleChange({target}) {
     this.setState({
       [target.name]: target.value

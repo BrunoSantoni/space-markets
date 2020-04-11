@@ -11,13 +11,5 @@ module.exports = {
       if(err) { return console.log(err) }
       return res.json(data)
     })
-  },
-
-  async index(req, res) {
-    const auth = req.headers.auth
-
-    const products = await Product.find({market_id: auth})
-
-    return res.json(products)
   }
 }

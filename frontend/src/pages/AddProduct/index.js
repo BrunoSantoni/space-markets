@@ -16,6 +16,7 @@ const AddProduct = () => {
 
   const history = useHistory()
 
+  //FUNÇÃO RESPONSÁVEL POR ADICIONAR O PRODUTO NO BANCO
   async function handleAddProduct(e) {
     e.preventDefault()
 
@@ -29,24 +30,24 @@ const AddProduct = () => {
     data.append("product_picture", file)
 
     try {
-      await api.post('produtos/novo', data, {
+      await api.post('produtos', data, {
         headers: {
           auth: marketId,
         }
       })
 
-      alert('Produto adicionado com sucesso!');
+      alert('Produto adicionado com sucesso!')
 
-      history.push('/perfil');
+      history.push('/perfil')
     } catch(err) {
-      alert('Erro ao cadastrar produto', err);
+      alert('Erro ao cadastrar produto', err)
     }
     }
     return(
       <div className="add-product-container">
           <div className="content">
             <section>
-              <img src = {logo} alt="Be The Hero"/>
+              <img src = {logo} alt="Supermega"/>
 
                 <h1>Cadastrar novo produto</h1>
                 <p>Insira um novo produto para que todos possam ver que você possui a melhor oferta!</p>
@@ -73,7 +74,7 @@ const AddProduct = () => {
               type="text"
               placeholder="Valor em R$"
               value={preco}
-              onChange={e => setPreco(parseFloat(e.target.value))}/>
+              onChange={e => setPreco(e.target.value)}/>
 
               <input type="file" name="product_picture" id="product_picture"/>
               <button className="button" type="submit">Cadastrar</button>
