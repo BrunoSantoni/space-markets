@@ -1,7 +1,8 @@
 import React, { useState }from 'react'
-import { View, Image, TouchableOpacity } from 'react-native'
+import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+
 
 import TxtInput from '../../components/TxtInput'
 import TouchButton from '../../components/TouchButton'
@@ -10,14 +11,28 @@ import styles from './styles'
 import logo from '../../../assets/icon.png'
 import Screen from '../../components/Screen'
 
+import api from '../../services/api'
+
 export default function loginScreen() {
     const navigation = useNavigation()
-    const [username, setUsername] = useState('')
+    const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
 
-    function loginPress() {
-        console.log(username, password)
-        navigation.navigate('Home')
+    async function loginPress() {
+        try {
+            
+            const res = await api.post('userlogin', { mail, password })
+            const user = res.data._id
+            
+            AsyncStorage.setItem('user_id', user)
+            console.log(user)
+            AsyncStorage.setItem('user_mail', mail)
+                
+      
+            navigation.navigate('Home')
+        } catch(err) {
+            alert('E-mail ou senha incorretos!')
+        }
     }
 
     function navigateToRegister() {
@@ -31,8 +46,8 @@ export default function loginScreen() {
 
             <View style={styles.Container}>  
                 <TxtInput 
-                    value={username} 
-                    onChangeText={email => setUsername(email)} 
+                    value={mail} 
+                    onChangeText={email => setMail(email)} 
                     placeholder="Insira seu E-mail" 
                     style={styles.loginInput}
                 />

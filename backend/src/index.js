@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(morgan('dev'))
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')))
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'products')))
+app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'users')))
 
 app.use(require('./routes'))
 app.listen(3333)

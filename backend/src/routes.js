@@ -2,6 +2,7 @@ const routes = require('express').Router()
 const multer = require('multer')
 const multerConfig = require('./config/multer')
 const multerConfigProducts = require('./config/multerProduct')
+const multerConfigUser = require('./config/multerUser')
 
 
 const ProductController = require('./controllers/ProductController')
@@ -27,7 +28,9 @@ routes.post('/produtos/:id', ProductController.update)
 routes.delete('/produtos/:id', ProductController.delete)
 
 //MOBILE
-routes.post('/usercadastro', UserController.create)
+routes.get('/usercadastro', UserController.index)
+routes.post('/usercadastro', multer(multerConfigUser).single('user_picture'), UserController.create)
+
 routes.post('/userlogin', UserSessionController.create)
 
 module.exports = routes
