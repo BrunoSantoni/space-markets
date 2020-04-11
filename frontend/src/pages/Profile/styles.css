@@ -89,18 +89,17 @@
   display: flex;
 }
 
-.profile-container form input {
+.profile-container input {
   /* Resetando propriedades do global */
-  border-bottom: 0;
   height: 21px;
-  padding: 0;
+  padding: 0 .5rem;
+  border: 0;
 
   /* Setando propriedades */
   color: black;
   line-height: 21px;
-  font-size: 16px;
-  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
   
-  border: 0.1px solid;
-  border-color: #737380;
+  border-bottom: 1px solid;
 }

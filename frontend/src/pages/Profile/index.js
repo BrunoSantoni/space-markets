@@ -124,24 +124,24 @@ export default function Profile() {
         <ul>
           {products.map(product => ((
             <li key={product._id}>
-              <strong>IMAGEM:</strong>
-              <img src={product.product_picture_url} alt="Foto do produto" />
+              <section>
+                <img src={product.product_picture_url} alt="Foto do produto" />
+              </section>
+              <div>
+                <p><strong>PRODUTO:</strong>{productId == product._id ?
+                <input type="text" defaultValue={product.product_name}
+                onChange={e => setProduto(e.target.value)}/> : product.product_name}</p>
+                
 
-              <strong>PRODUTO:</strong>
-              {productId == product._id ?
-              <input type="text" defaultValue={product.product_name}
-              onChange={e => setProduto(e.target.value)}/> : <p>{product.product_name}</p>}
+                <p><strong>DESCRIÇÃO:</strong>{productId == product._id ?
+                <input type="text" defaultValue={product.product_description}
+                onChange={e => setDescricao(e.target.value)}/> : product.product_description}</p>
+                
 
-              <strong>DESCRIÇÃO:</strong>
-              {productId == product._id ?
-              <input type="text" defaultValue={product.product_description}
-              onChange={e => setDescricao(e.target.value)}/> : <p>{product.product_description}</p>}
-
-              <strong>VALOR:</strong>
-              {productId == product._id ?
-              <input type="text" defaultValue={product.product_price}
-              onChange={e => setPreco(e.target.value)}/> : <p>R$ {product.product_price}</p>}
-
+                <p><strong>VALOR:</strong>{productId == product._id ?
+                <input type="text" defaultValue={product.product_price}
+                onChange={e => setPreco(e.target.value)}/> : <>R$ {product.product_price}</>}</p>
+              </div>
               {productId == product._id ?
               <button onClick={() => 
               handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
