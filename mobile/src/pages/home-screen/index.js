@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, View, AsyncStorage } from 'react-native'
 
 import Screen from '../../components/Screen'
@@ -9,33 +9,33 @@ import TouchButton from '../../components/TouchButton'
 
 import api from '../../services/api'
 
-export default function HomeScreen(props){  
-    
+export default function HomeScreen(props){
+    const [username, setUsername] = useState('')
+    const [id, setId] = useState('')
 
+    //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
-        async function getUserId() {
-            try {
-                await AsyncStorage.getItem('user_mail')               
-            } catch(err) {
-                alert(err)
-            } 
+        async function getUserEmail() {
+            const user = await AsyncStorage.getItem('user_mail')
+            const user_id = await AsyncStorage.getItem('user_id')
+
+            api.get('usercadastro', {
+                headers: {
+                    auth: user
+                }
+            }).then(res => {
+                setUsername(res.data.user_name)
+                setId(user_id)
+            })
         }
-        const user = getUserId()
-        console.log("de baixo" + user)
-        api.get('usercadastro', {
-            headers: {
-                auth: user
-            }
-        }).then(res => {
-            //console.log(res.data)
-        })
-    }, [])
+        getUserEmail()
+    }, [id])
 
     return(
         <Screen>
             <View style={styles.stewardContainer}>
-                <Image source={Steward} style={styles.img} />
-                <Txt style={{fontSize: 20}}>Olá [nome do usuario]</Txt>
+                <Image source={require(`../../tmp/uploads/teste.png`) /* require(`../../../../backend/tmp/uploads/user/${id}.png`)*/} style={styles.img} />
+                <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
                 <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
             </View>
 

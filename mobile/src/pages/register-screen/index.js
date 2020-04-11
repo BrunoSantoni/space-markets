@@ -56,8 +56,6 @@ export default function RegisterScreen() {
       };
 
     async function handleRegister() {
-        //const file = document.getElementById('market_picture').files[0]
-
         if(senha === confirmSenha){
             const data = new FormData()
 

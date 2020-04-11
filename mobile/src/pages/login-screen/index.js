@@ -20,12 +20,12 @@ export default function loginScreen() {
 
     async function loginPress() {
         try {
-            
+            AsyncStorage.removeItem('user_id')
+            AsyncStorage.removeItem('user_mail')
             const res = await api.post('userlogin', { mail, password })
             const user = res.data._id
             
             AsyncStorage.setItem('user_id', user)
-            console.log(user)
             AsyncStorage.setItem('user_mail', mail)
                 
       
