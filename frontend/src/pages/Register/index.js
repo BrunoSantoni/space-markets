@@ -8,7 +8,7 @@ import { cepMask, cnpjMask } from './masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
-import registerImg from '../../assets/register-image.jpg'
+import registerImg from '../../assets/register-image.png'
 
 import './styles.css'
 

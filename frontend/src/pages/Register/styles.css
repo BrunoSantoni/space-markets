@@ -50,7 +50,7 @@
 
 .register-container .content section h1{
   font-size: 40px;
-  color: #c7342a;
+  color: #d80f19;
 }
 
 .register-container .content section p{
@@ -62,7 +62,7 @@
 
 .register-container .content section img {
   position: absolute;
-  width: 35%;
+  width: 40%;
   bottom: -10px;
   left: 0;
 }
@@ -91,6 +91,7 @@
 .register-container .button {
   margin-top: 8px;
   height: 50px;
+  background: #5cb85c;
 }
 
 .inativo {
@@ -102,20 +103,7 @@
 }
 
 .register-container .back-link {
-  color: #0092d5;
+  color: #000;
   margin: 0;
 }
 
-.ativo {
-  animation: cepAnimation 2s;
-}
-
-@keyframes cepAnimation {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}

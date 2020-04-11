@@ -24,11 +24,13 @@
   border-radius: 8px;
   position: relative;
   text-align: center;
+  display: flex;
+  box-shadow: 0 0 30px rgba(0, 0, 0, .2);
 }
 
 .profile-container ul li img {
-  max-width: 80px;
-  height: 80px;
+  max-width: 150px;
+  height: 150px;
   border-radius: 8px;
 }
 
@@ -37,22 +39,27 @@
   right: 24px;
   top: 24px;
   border: 0;
+  background: #ebe7e7;
+  padding: 8px;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-container ul li #edit-button {
   position: absolute; /* posição absoluta deixa o elemento "solto", flutuando pelo layout */
-  right: 64px;
+  right: 70px;
   top: 24px;
-  border: 0;
 }
 
 .profile-container ul li button:hover {
-  opacity: 0.8;
+  opacity: .8;
 }
 
 .profile-container ul li strong {
   display: block;
-  margin-bottom: 16px;
   color: #41414D;
 }
 
@@ -62,8 +69,24 @@
 
 .profile-container ul li p {
   color: #737380;
-  line-height: 21px;
-  font-size: 16px;
+  font-size: 14px;
+  margin: 0 0 1rem 1rem;
+  font-family: 'Roboto', sans-serif;
+  text-align: left;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile-container ul li div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-container ul li div:last-child p {
+  display: flex;
 }
 
 .profile-container form input {

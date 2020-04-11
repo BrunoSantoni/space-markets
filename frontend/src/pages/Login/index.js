@@ -6,7 +6,7 @@ import api from '../../services/api'
 
 import './styles.css'
 
-import loginImg from '../../assets/login-image.jpg'
+import loginImg from '../../assets/login-image.png'
 import logo from '../../assets/logo.png'
 
 export default function Login() {
@@ -39,7 +39,7 @@ export default function Login() {
           <img src= {logo} alt="Supermega"/>
           <form onSubmit={handleLogin}>
 
-            <h1>Faça seu Login</h1>
+            <h1>Seja bem-vindo!</h1>
 
             <input type = "text"
               placeholder = "Informe o ID do mercado" 
@@ -65,7 +65,7 @@ export default function Login() {
           </form>
         </section>
 
-        <img src= {loginImg} alt="Supermega"/>
+        <img src={loginImg} alt="Supermega" class="login-image"/>
       </div>
     </Fragment>
   )
