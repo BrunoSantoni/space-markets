@@ -15,6 +15,7 @@ export default function HomeScreen(props){
     const [id, setId] = useState('')
     const [picture, setPicture] = useState('')
     const [img, setImg] = useState('')
+    const [loading, setLoading] = useState(true);
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
@@ -30,6 +31,7 @@ export default function HomeScreen(props){
                 setUsername(res.data.user_name)
                 setId(user_id)
                 setPicture(res.data.user_profile_picture_url)
+                setLoading(false);
             })
         }
         getUserEmail()
@@ -38,7 +40,7 @@ export default function HomeScreen(props){
     return(
         <Screen>
             <View style={styles.stewardContainer}>
-                <Image style={styles.img} source={picture ? Loading : {uri: picture}}  />
+                <Image style={styles.img} source={loading ? Loading : {uri: picture}}  />
                 <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
                 <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
             </View>
