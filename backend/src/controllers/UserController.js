@@ -7,7 +7,6 @@ module.exports = {
 
     await User.findOne({user_mail: auth}, async function(err, data) {
       if(err) { return console.log(err) }
-      console.log(data)
       return res.json(data)
     })
   },
