@@ -27,9 +27,9 @@ export default function RegisterScreen() {
 
     const getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-          const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+          const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
           if (status !== 'granted') {
-            alert('Sorry, we need camera roll permissions to make this work!');
+            alert('Desculpe, você precisa permitir o acesso para continuar!')
           }
         }
     }
@@ -72,7 +72,7 @@ export default function RegisterScreen() {
                 Alert.alert(err)
             }
             setSubmit(true)
-            setTimeout(() => navigation.navigate('Home') , 3000)
+            setTimeout(() => navigation.navigate('Login') , 3000)
         } else{
             Alert.alert('Ops','Senhas não conferem')
         }

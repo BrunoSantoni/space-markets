@@ -12,6 +12,8 @@ import api from '../../services/api'
 export default function HomeScreen(props){
     const [username, setUsername] = useState('')
     const [id, setId] = useState('')
+    const [picture, setPicture] = useState('')
+    const [img, setImg] = useState('')
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
@@ -26,6 +28,7 @@ export default function HomeScreen(props){
             }).then(res => {
                 setUsername(res.data.user_name)
                 setId(user_id)
+                setPicture(res.data.user_profile_picture_url)
             })
         }
         getUserEmail()
@@ -34,7 +37,7 @@ export default function HomeScreen(props){
     return(
         <Screen>
             <View style={styles.stewardContainer}>
-                <Image source={require(`../../tmp/uploads/teste.png`) /* require(`../../../../backend/tmp/uploads/user/${id}.png`)*/} style={styles.img} />
+                <Image style={styles.img} source={{uri: picture}}  />
                 <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
                 <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
             </View>

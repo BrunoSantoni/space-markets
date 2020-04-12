@@ -4,13 +4,13 @@ const path = require('path')
 const storageTypes = {
   local: multer.diskStorage({
     destination: (req, file, cb) => { 
-      cb(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads', 'users'))
+      cb(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads', 'user'))
     },
   }),
 }
 
 module.exports = {
-  dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads', 'users'), 
+  dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads', 'user'), 
   storage: storageTypes[process.env.STORAGE_TYPE],
 
   limits: { 

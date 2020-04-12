@@ -4,10 +4,10 @@ const User = require('../models/User')
 module.exports = {
   async index(req, res) {
     const auth = req.headers.auth
-    console.log(auth)
 
     await User.findOne({user_mail: auth}, async function(err, data) {
       if(err) { return console.log(err) }
+      console.log(data)
       return res.json(data)
     })
   },
@@ -26,8 +26,10 @@ module.exports = {
     })
 
 
-    //await fs.writeFile(`../tmp/uploads/user/${user._id}.png`, user.user_profile_picture)
-    await fs.writeFile(`../mobile/src/tmp/uploads/${user._id}.png`, user.user_profile_picture)
+    await fs.writeFile(`../backend/tmp/uploads/user/${user._id}.png`, user.user_profile_picture)
+    //await fs.writeFile(`../mobile/src/tmp/uploads/${user._id}.png`, user.user_profile_picture)
+
+    
     return res.json(user)
   }
 }

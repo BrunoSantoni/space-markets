@@ -26,6 +26,16 @@ const UserSchema = new mongoose.Schema({
   user_profile_picture: {
     type: Buffer
   },
+
+  user_profile_picture_url: {
+    type: String
+  }
+})
+
+UserSchema.pre('save', function() {
+  if(!this.user_profile_picture_url) {
+    this.user_profile_picture_url = `${process.env.APP_MOBILE_URL}/files/${this._id}.png`
+  }
 })
 
 module.exports = mongoose.model('User', UserSchema)
