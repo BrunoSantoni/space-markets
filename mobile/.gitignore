@@ -9,7 +9,11 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+<<<<<<< HEAD
 services/*
+=======
+services/api.js
+>>>>>>> 1c1139df62852f471ade1c671b8bb820d37d54a7
 
 # macOS
 .DS_Store
