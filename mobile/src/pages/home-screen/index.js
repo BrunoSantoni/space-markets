@@ -4,6 +4,7 @@ import { Image, View, AsyncStorage } from 'react-native'
 import Screen from '../../components/Screen'
 import Txt from '../../components/Txt'
 import Steward from '../../../assets/img/steward.png'
+import Loading from '../../../assets/img/loading.gif'
 import styles from './styles'
 import TouchButton from '../../components/TouchButton'
 
@@ -37,7 +38,7 @@ export default function HomeScreen(props){
     return(
         <Screen>
             <View style={styles.stewardContainer}>
-                <Image style={styles.img} source={{uri: picture}}  />
+                <Image style={styles.img} source={picture ? Loading : {uri: picture}}  />
                 <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
                 <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
             </View>
