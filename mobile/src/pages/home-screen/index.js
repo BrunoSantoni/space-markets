@@ -14,8 +14,7 @@ export default function HomeScreen(props){
     const [username, setUsername] = useState('')
     const [id, setId] = useState('')
     const [picture, setPicture] = useState('')
-    const [img, setImg] = useState('')
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
@@ -31,7 +30,7 @@ export default function HomeScreen(props){
                 setUsername(res.data.user_name)
                 setId(user_id)
                 setPicture(res.data.user_profile_picture_url)
-                setLoading(false);
+                setLoading(false)
             })
         }
         getUserEmail()
