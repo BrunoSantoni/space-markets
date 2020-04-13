@@ -1,26 +1,40 @@
 {
+  "name": "SuperMega",
+  "displayName": "SuperMega",
   "expo": {
-    "name": "Super Mega",
+    "name": "SuperMega",
     "slug": "supermega",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#59cf59",
+    "icon": "./assets/icon2.png",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "androidNavigationBar": {
+      "visible": "sticky-immersive",
+      "barStyle": "light-content",
+      "backgroundColor": "#59cf59"
+    },
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#00000000",
+      "hidden": false,
+      "translucent": true
+    },
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#59cf59",
+      "image": "./assets/splash2.png",
+      "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
       "supportsTablet": true
     }

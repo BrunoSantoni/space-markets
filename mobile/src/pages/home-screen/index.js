@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Image, View, AsyncStorage } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 import Screen from '../../components/Screen'
 import Txt from '../../components/Txt'
@@ -15,6 +16,7 @@ export default function HomeScreen(props){
     const [id, setId] = useState('')
     const [picture, setPicture] = useState('')
     const [loading, setLoading] = useState(true)
+    const navigation = useNavigation()
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
@@ -45,9 +47,17 @@ export default function HomeScreen(props){
             </View>
 
             <View style={styles.optionContainer}>
-                <TouchButton style={styles.firstOption} textStyle={styles.optionText}>Encontre a melhor oferta</TouchButton>
-                <TouchButton style={styles.secondOption} textStyle={styles.optionText}>Encontre um comércio ou produto próximo</TouchButton>
+                <TouchButton style={styles.firstOption} textStyle={styles.optionText}>
+                    Encontre a melhor oferta
+                </TouchButton>
+                <TouchButton style={styles.secondOption} textStyle={styles.optionText} onPress={navigateToMap}>
+                    Encontre um comércio ou produto próximo
+                </TouchButton>
             </View>
         </Screen>
     )
+
+    function navigateToMap() {
+        navigation.navigate('Map')
+    }
 }   
