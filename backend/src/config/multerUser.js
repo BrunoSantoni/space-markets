@@ -33,18 +33,7 @@ const storageTypes = {
   cloudinary: cloudinaryStorage({
     cloudinary: cloudinary,
     folder: 'users',
-    allowedFormats: ['jpg', 'png'],
-    filename: (req, file, cb) => {
-      crypto.randomBytes(4, (err, hash) => {
-        if(err){
-          cb(err)
-        }
-        //Define o novo nome da imagem, adicionando os caracteres
-        const fileName = `${hash.toString('hex')}-${file.originalname}`
-
-        cb(null, fileName)
-      })
-    }
+    allowedFormats: ['jpg', 'png', 'jpeg'],
   })
 }
 

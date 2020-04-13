@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Image, View, AsyncStorage } from 'react-native'
+import { Image, View, AsyncStorage, Alert, BackHandler } from 'react-native'
+import { useBackHandler } from '@react-native-community/hooks'
+import { useNavigation } from '@react-navigation/native'
 
 import Screen from '../../components/Screen'
 import Txt from '../../components/Txt'
@@ -15,6 +17,25 @@ export default function HomeScreen(props){
     const [id, setId] = useState('')
     const [picture, setPicture] = useState('')
     const [loading, setLoading] = useState(true)
+    const [next, setNext] = useState(1)
+
+    const navigation = useNavigation()
+
+    const [content, setContent] = useState(
+        <Screen>
+            <View style={styles.stewardContainer}>
+                <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
+                <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
+                <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
+            </View>
+
+            <View style={styles.optionContainer}>
+                <TouchButton style={styles.firstOption} textStyle={styles.optionText}>Encontre a melhor oferta</TouchButton>
+                <TouchButton style={styles.secondOption} textStyle={styles.optionText}>Encontre um comércio ou produto próximo</TouchButton>
+            </View>
+        </Screen>
+    )
+    
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
@@ -36,18 +57,85 @@ export default function HomeScreen(props){
         getUserEmail()
     }, [id])
 
-    return(
-        <Screen>
-            <View style={styles.stewardContainer}>
-                <Image style={styles.img} source={loading ? Loading : {uri: picture}}  />
-                <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
-                <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
-            </View>
+    function navigateToProductList(){
+        navigation.navigate('ProductList')
+        setNext(0)
+    }
 
-            <View style={styles.optionContainer}>
-                <TouchButton style={styles.firstOption} textStyle={styles.optionText}>Encontre a melhor oferta</TouchButton>
-                <TouchButton style={styles.secondOption} textStyle={styles.optionText}>Encontre um comércio ou produto próximo</TouchButton>
-            </View>
-        </Screen>
-    )
+    useBackHandler(() => {
+        if(next === 2){
+            setContent(
+            <Screen>
+                <View style={styles.stewardContainer}>
+                    <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
+                    <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
+                    <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
+                </View>
+
+                <View style={styles.optionContainer}>
+                    <TouchButton style={styles.firstOption} textStyle={styles.optionText}>Encontre a melhor oferta</TouchButton>
+                    <TouchButton style={styles.secondOption} textStyle={styles.optionText}>Encontre um comércio ou produto próximo</TouchButton>
+                </View>
+            </Screen>
+            )
+
+            setNext(1)
+            return true
+        } else if(next === 1){
+            Alert.alert('SAIR', 'Tem certeza que quer sair?',[
+            {   
+                text: 'sim', 
+                onPress: () => {
+                    BackHandler.exitApp()
+                },
+                style: 'default'
+            },
+
+            {
+                text: 'não',
+                onPress: () => {},
+                style: 'default'
+            }
+            ])
+        return true
+        }
+        // setNext(2)
+        // return false
+    })
+
+    function optOneHandler(){
+        setContent(
+            <Screen>
+                <View style={styles.stewardContainer}>
+                    <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
+                    <Txt style={{fontSize: 20}}>Certo,</Txt>
+                    <Txt style={{fontSize: 20}}>me informe o nome do produto:</Txt>
+                </View>
+
+                <View style={styles.inputContainer}>
+                    <TxtInput placeholder="> Insira aqui..." style={{ height: 50 }} />
+                    <TxtInput placeholder="> Insira aqui..." style={{ height: 50 }} onSubmitEditing={() => navigateToProductList()} />
+                </View>
+            </Screen>
+        )
+        setNext(2)
+    }
+
+    function optTwoHandler() {
+        setContent(
+            <Screen>
+                <View style={styles.stewardContainer}>
+                    <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
+                    <Txt style={{fontSize: 20}}>Certo,</Txt>
+                    <Txt style={{fontSize: 20}}>me informe o nome do supermercado:</Txt>
+                </View>
+                <View style={styles.inputContainer2}>
+                    <TxtInput placeholder="> Insira aqui..." style={{ height: 50 }} />
+                </View>
+            </Screen>
+        )
+        setNext(2)
+    }
+
+    return content
 }   
