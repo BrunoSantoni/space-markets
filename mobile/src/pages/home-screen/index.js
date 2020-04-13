@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import { Image, View, AsyncStorage, Alert, BackHandler } from 'react-native'
 import { useBackHandler } from '@react-native-community/hooks'
 import { useNavigation } from '@react-navigation/native'
@@ -17,6 +18,7 @@ export default function HomeScreen(props){
     const [id, setId] = useState('')
     const [picture, setPicture] = useState('')
     const [loading, setLoading] = useState(true)
+
     // const [next, setNext] = useState(1)
     const navigation = useNavigation()
 
@@ -57,7 +59,11 @@ export default function HomeScreen(props){
 
     function navigateToProductList(){
         navigation.navigate('ProductList')
-        setNext(0)
+        //setNext(0) <- Não sei o que faz e deu erro
+    }
+
+    function navigateToMap() {
+        navigation.navigate('Map')
     }
     
     return (
@@ -69,8 +75,12 @@ export default function HomeScreen(props){
             </View>
 
             <View style={styles.optionContainer}>
-                <TouchButton style={styles.firstOption} textStyle={styles.optionText}>Encontre a melhor oferta</TouchButton>
-                <TouchButton style={styles.secondOption} textStyle={styles.optionText}>Encontre um comércio ou produto próximo</TouchButton>
+                <TouchButton style={styles.firstOption} textStyle={styles.optionText} onPress={navigateToProductList}>
+                    Encontre a melhor oferta
+                </TouchButton>
+                <TouchButton style={styles.secondOption} textStyle={styles.optionText} onPress={navigateToMap}>
+                    Encontre um comércio ou produto próximo
+                </TouchButton>
             </View>
         </Screen>
     )
