@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Image, View, AsyncStorage } from 'react-native'
+
+import { Image, View, AsyncStorage, Alert, BackHandler } from 'react-native'
+import { useBackHandler } from '@react-native-community/hooks'
 import { useNavigation } from '@react-navigation/native'
 
 import Screen from '../../components/Screen'
@@ -16,10 +18,25 @@ export default function HomeScreen(props){
     const [id, setId] = useState('')
     const [picture, setPicture] = useState('')
     const [loading, setLoading] = useState(true)
+
+    // const [next, setNext] = useState(1)
     const navigation = useNavigation()
+
+    const backAction = () => {
+        Alert.alert("Aviso", "Tem certeza que quer sair?", [
+          {
+            text: "Não",
+            onPress: () => null,
+            style: 'default'
+          },
+          { text: "Sim", onPress: () => navigation.goBack() }
+        ]);
+        return true;
+      };
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
         async function getUserEmail() {
             const user = await AsyncStorage.getItem('user_mail')
             const user_id = await AsyncStorage.getItem('user_id')
@@ -36,12 +53,19 @@ export default function HomeScreen(props){
             })
         }
         getUserEmail()
+        return () =>
+        BackHandler.removeEventListener("hardwareBackPress", backAction);
     }, [id])
 
-    return(
+    function navigateToProductList(){
+        navigation.navigate('ProductList')
+        setNext(0)
+    }
+    
+    return (
         <Screen>
             <View style={styles.stewardContainer}>
-                <Image style={styles.img} source={loading ? Loading : {uri: picture}}  />
+                <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
                 <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
                 <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
             </View>

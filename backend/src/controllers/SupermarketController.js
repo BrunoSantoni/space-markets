@@ -8,6 +8,7 @@ module.exports = {
       market_number, market_neighborhood, market_city, market_uf,
       market_latitude, market_longitude } = req.body
     const { key, url = '' } = req.file
+    console.log(req.file)
 
     const market_id = market_name.replace(/ /g,'') + crypto.randomBytes(2).toString('HEX')
 

@@ -4,8 +4,10 @@ import { createStackNavigator } from '@react-navigation/stack'
 import LoginScreen from './pages/login-screen'
 import RegisterScreen from './pages/register-screen'
 import HomeScreen from './pages/home-screen'
+
 import MapScreen from './pages/map-screen'
 import SuggestScreen from './pages/suggest-screen'
+import ProductListScreen from './pages/product-list-screen'
 
 const AppStack = createStackNavigator()
 
@@ -56,6 +58,8 @@ export default function Routes() {
                         },
                     }} 
                 />
+      
+                <AppStack.Screen name="ProductList" component={ProductListScreen} />
             </AppStack.Navigator>
         </NavigationContainer>
     )
