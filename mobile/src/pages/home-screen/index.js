@@ -59,7 +59,11 @@ export default function HomeScreen(props){
 
     function navigateToProductList(){
         navigation.navigate('ProductList')
-        setNext(0)
+        //setNext(0) <- Não sei o que faz e deu erro
+    }
+
+    function navigateToMap() {
+        navigation.navigate('Map')
     }
     
     return (
@@ -71,7 +75,7 @@ export default function HomeScreen(props){
             </View>
 
             <View style={styles.optionContainer}>
-                <TouchButton style={styles.firstOption} textStyle={styles.optionText}>
+                <TouchButton style={styles.firstOption} textStyle={styles.optionText} onPress={navigateToProductList}>
                     Encontre a melhor oferta
                 </TouchButton>
                 <TouchButton style={styles.secondOption} textStyle={styles.optionText} onPress={navigateToMap}>
@@ -80,8 +84,4 @@ export default function HomeScreen(props){
             </View>
         </Screen>
     )
-
-    function navigateToMap() {
-        navigation.navigate('Map')
-    }
 }   
