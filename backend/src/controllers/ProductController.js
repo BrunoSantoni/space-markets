@@ -12,7 +12,7 @@ module.exports = {
   //FUNÇÃO PARA INSERIR PRODUTOS, PRECISA PASSAR O ID REAL COMO PARÂMETRO PARA O HEADERS
   async create(req, res) {
     const { product_name, product_description, product_price } = req.body
-    const { key } = req.file
+    const { key, url = '' } = req.file
     
     const auth = req.headers.auth
 
@@ -22,7 +22,7 @@ module.exports = {
       product_price,
       market_id: auth,
       product_picture_key: key,      
-      product_picture_url: ''
+      product_picture_url: url
     })
 
     //const prod = await Product.find().populate('market_id', 'market_name').select('product_name')
