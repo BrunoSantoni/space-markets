@@ -1,11 +1,12 @@
 import React from 'react';
+import { Text } from 'react-native';
 
 import './styles';
 
-const ProductListScreen = () => {
-  <div>
-    Olá, mundo
-  </div>
+export default function ProductListScreen() {
+  return (
+    <Text>
+      Olá, mundo
+    </Text>
+  )
 }
-
-export default ProductListScreen
