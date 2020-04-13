@@ -83,35 +83,36 @@ export default function Profile() {
     }    
   }
 
+  const productsList = products.map(product => ((
+    <li key={product._id}>
+      <section>
+        <img src={product.product_picture_url} alt="Foto do produto" />
+      </section>
+      <div>
+        <p><strong>PRODUTO:</strong>{product.product_name}</p>
+
+        <p><strong>DESCRIÇÃO:</strong> {product.product_description}</p>
+
+        <p><strong>VALOR:</strong>R$ {product.product_price}</p>
+
+        <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
+            <FaPen size={26} color="#737380" />
+        </button>
+        <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
+            <FaTrash size={26} color="#C7342A" />
+        </button>
+      </div>
+    </li>
+    )));
+
   if(!showDiv) {
     return(
       <>
         <div className="profile-container">  
           <Header />
           <h1>Produtos Cadastrados</h1>
-            <ul>
-              {products.map(product => ((
-              <li key={product._id}>
-                <section>
-                  <img src={product.product_picture_url} alt="Foto do produto" />
-                </section>
-                <div>
-                  <p><strong>PRODUTO:</strong>{product.product_name}</p>
-
-                  <p><strong>DESCRIÇÃO:</strong> {product.product_description}</p>
-
-                  <p><strong>VALOR:</strong>R$ {product.product_price}</p>
-
-                  <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
-                      <FaPen size={26} color="#737380" />
-                  </button>
-                  <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
-                      <FaTrash size={26} color="#C7342A" />
-                  </button>
-                </div>
-              </li>
-              )))}
-            </ul>
+            {!productsList.length ? 
+            <h2> Parece que você ainda não possui nenhum produto :( </h2> : <ul> {productsList} </ul>}
         </div>      
       </>
     )
