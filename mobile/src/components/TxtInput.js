@@ -16,7 +16,7 @@ export default function TxtInput(props) {
 
 const styles = StyleSheet.create({
      input: {
-         fontFamily: Font.regular,
+         fontFamily: Font.italic,
          color: Font.color,
          fontSize: 18,
          backgroundColor: Color.thirdy,
