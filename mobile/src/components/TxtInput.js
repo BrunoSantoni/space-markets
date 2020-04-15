@@ -16,12 +16,10 @@ export default function TxtInput(props) {
 
 const styles = StyleSheet.create({
      input: {
-         fontFamily: Font.italic,
          color: Font.color,
          fontSize: 18,
          backgroundColor: Color.thirdy,
          marginVertical: 10,
-         borderRadius: 8,
-         paddingHorizontal: 10,
+         width: '100%'
      }
 })

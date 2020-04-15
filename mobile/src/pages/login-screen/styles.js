@@ -3,24 +3,25 @@ import Color from '../../constants/colors'
 
 export default StyleSheet.create({
     Container: {
-        backgroundColor: Color.primary,
         width: '100%',
-        maxWidth: 300,
+        maxWidth: 400,
         justifyContent: 'center',
         alignItems: 'center',
         height: 350,
-        borderRadius: 20    
+        borderRadius: 20,
+        backgroundColor: Color.primary
     },
 
     loginInput: {
         width: '100%',
-        maxWidth: 240,
+        maxWidth: 400,
         height: 48,
+        fontSize: 15
     },
 
     buttonIniciar: {
         width: '100%', 
-        maxWidth: 150,
+        maxWidth: 300,
         height: 50,
         marginTop: 20,
         marginBottom: 30,
@@ -28,14 +29,15 @@ export default StyleSheet.create({
     },
 
     registerLink: {
-        color: Color.thirdy,
-        textDecorationLine: 'underline'
+        color: '#000',
+        marginLeft: 15
     },
 
     registerLinkContainer: {
         marginTop: 20,
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
+        alignItems: 'center',
         width: '100%',
     }
 })
