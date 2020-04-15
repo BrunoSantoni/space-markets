@@ -6,7 +6,8 @@ import Routes from './src/Routes'
 
 const getFonts = () => Font.loadAsync({
     'rubik-regular': require('./assets/fonts/Rubik-Regular.ttf'),
-    'rubik-medium': require('./assets/fonts/Rubik-Medium.ttf')
+    'rubik-medium': require('./assets/fonts/Rubik-Medium.ttf'),
+    'rubik-italic': require('./assets/fonts/Rubik-Italic.ttf')
   })
 
 

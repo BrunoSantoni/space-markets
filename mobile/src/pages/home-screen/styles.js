@@ -37,6 +37,22 @@ export default StyleSheet.create({
         marginTop: 30,
     },
 
+    inputContainer: {
+        width: '100%',
+        height: '30%',
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: Color.secundary
+    },
+
+    inputContainer2: {
+        width: '100%',
+        height: '30%',
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: Color.primary
+    },
+
     optionText: {
         fontSize: 18,
         fontFamily: Font.regular

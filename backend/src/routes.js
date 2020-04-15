@@ -23,8 +23,7 @@ routes.get('/perfil', ProfileController.profileImage) //Rota para exibir a image
 
 routes.get('/produtos', ProductController.index)
 routes.post('/produtos', multer(multerConfigProducts).single('product_picture'),ProductController.create)
-
-routes.post('/produtos/:id', ProductController.update)
+routes.put('/produtos/:id', ProductController.update)
 routes.delete('/produtos/:id', ProductController.delete)
 
 //MOBILE

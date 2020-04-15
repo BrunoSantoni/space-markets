@@ -30,13 +30,13 @@ export default function HomeScreen(props){
             style: 'default'
           },
           { text: "Sim", onPress: () => navigation.goBack() }
-        ]);
+        ])
         return true;
-      };
+      }
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA
     useEffect(() => {
-        BackHandler.addEventListener("hardwareBackPress", backAction);
+        BackHandler.addEventListener("hardwareBackPress", backAction)
         async function getUserEmail() {
             const user = await AsyncStorage.getItem('user_mail')
             const user_id = await AsyncStorage.getItem('user_id')
@@ -54,7 +54,7 @@ export default function HomeScreen(props){
         }
         getUserEmail()
         return () =>
-        BackHandler.removeEventListener("hardwareBackPress", backAction);
+        BackHandler.removeEventListener("hardwareBackPress", backAction)
     }, [id])
 
     function navigateToProductList(){
