@@ -23,10 +23,6 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
 
-  user_profile_picture: {
-    type: Buffer
-  },
-
   user_profile_picture_url: {
     type: String
   }

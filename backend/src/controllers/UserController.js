@@ -15,7 +15,9 @@ module.exports = {
   async create(req, res) {
     const { user_name, user_mail, user_cpf, user_password, user_picture } = req.body
 
-    const user_profile_picture = new Buffer.from(user_picture.split(",")[1],"base64")
+    /* Salvar img em binary no banco */
+    //const user_profile_picture = new Buffer.from(user_picture.split(",")[1],"base64")
+    //await fs.writeFile(`../backend/tmp/uploads/user/${user._id}.png`, user.user_profile_picture)
 
     const url = await cloudinary.v2.uploader.upload(user_picture).then((res) => {
       return res.secure_url
@@ -26,12 +28,10 @@ module.exports = {
       user_mail,
       user_cpf,
       user_password,
-      user_profile_picture,
       user_profile_picture_url: url
     })
     
-    await fs.writeFile(`../backend/tmp/uploads/user/${user._id}.png`, user.user_profile_picture)
-    //await fs.writeFile(`../mobile/src/tmp/uploads/${user._id}.png`, user.user_profile_picture)
+    
     
     return res.json(user)
   }

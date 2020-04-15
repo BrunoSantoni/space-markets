@@ -54,7 +54,6 @@ export default function Profile() {
 
   //Faz a alteração do produto
   async function handleUpdate(prod_id, name, description, price) {
-    console.log(produto, descricao, preco)
 
     //As 3 variáveis abaixo receberão de uma que possui valor.
     const product_name = produto === '' ? name : produto
@@ -69,7 +68,7 @@ export default function Profile() {
 
     console.log(data)
     try {
-      await api.post(`produtos/${prod_id}`, data, {
+      await api.put(`produtos/${prod_id}`, data, {
         headers: {
           auth: id,
         }

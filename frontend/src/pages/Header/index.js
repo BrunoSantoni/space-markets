@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FaPowerOff } from 'react-icons/fa'
+import { FaPowerOff, FaUserEdit } from 'react-icons/fa'
 
 import './styles.css'
 
@@ -36,6 +36,9 @@ export default function Header() {
       <img src={picture} alt="Foto de perfil" />
       <span>Bem-vindo, {marketName}!</span>
       <Link className="button" id="btn-cadastro" to="/produtos/novo">Cadastrar novo produto</Link>
+      <button onClick={handleLogout} type="button">
+        <FaUserEdit size={18} color="#C7342A" />
+      </button>
       <button onClick={handleLogout} type="button">
         <FaPowerOff size={18} color="#C7342A" />
       </button>

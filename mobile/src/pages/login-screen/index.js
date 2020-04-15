@@ -83,10 +83,8 @@ export default function loginScreen() {
                         }
                     )
                 ]) 
-            ]).start();
+            ]).start()
         }, [])
-
-        console.log(positionTop);
       
         return (
             <Animated.Image
@@ -94,7 +92,7 @@ export default function loginScreen() {
                 style={{ ...props.style, opacity: fadeAnim, top: positionTop, left: positionLeft, height: heightAnim, width: widthAnim }}
             >
             </Animated.Image>
-            );
+            )
       }
 
     return (
