@@ -41,11 +41,11 @@ module.exports = {
     }
 
     await Product.updateOne({_id: id}, {
-      product_name: product_name,
-      product_description: product_description,
-      product_price: product_price
+      product_name,
+      product_description,
+      product_price
     }, function(err, affected, resp) {
-      console.log(resp)
+      if(err) return console.log(err)
     })
 
     return res.status(204).send()

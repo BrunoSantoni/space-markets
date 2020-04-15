@@ -24,6 +24,13 @@ const SupermarketSchema = new mongoose.Schema({
     maxlength: 20
   },
 
+  market_cep: {
+    type: String,
+    required: true,
+    minlength: 8,
+    maxlength: 11
+  },
+
   market_street: {
     type: String,
     required: true

@@ -31,12 +31,16 @@ export default function Header() {
     history.push('/')
   }
 
+  function handleEdit() {
+    history.push('/edit')
+  }
+
   return(
     <header>
       <img src={picture} alt="Foto de perfil" />
       <span>Bem-vindo, {marketName}!</span>
       <Link className="button" id="btn-cadastro" to="/produtos/novo">Cadastrar novo produto</Link>
-      <button onClick={handleLogout} type="button">
+      <button onClick={handleEdit} type="button">
         <FaUserEdit size={18} color="#C7342A" />
       </button>
       <button onClick={handleLogout} type="button">

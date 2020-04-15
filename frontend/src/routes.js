@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile'
 import AddProduct from './pages/AddProduct'
+import EditProduct from './pages/EditProfile'
 
 const Routes = () => {
   return(
@@ -14,6 +15,7 @@ const Routes = () => {
         <Route path="/cadastro" component={Register} />
         <Route path="/perfil" component={Profile} />
         <Route path="/produtos/novo" component={AddProduct} />
+        <Route path="/edit" component={EditProduct} />
       </Switch>
     </BrowserRouter>
   )

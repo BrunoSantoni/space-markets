@@ -56,6 +56,7 @@ export default function Profile() {
   async function handleUpdate(prod_id, name, description, price) {
 
     //As 3 variáveis abaixo receberão de uma que possui valor.
+    //Por exemplo, se o nome do produto estiver em branco, ele preencherá com o valor vindo do banco
     const product_name = produto === '' ? name : produto
     const product_description = descricao === '' ? description : descricao
     const product_price = preco === '' ? price : preco
@@ -65,8 +66,7 @@ export default function Profile() {
       product_description,
       product_price    
     }   
-
-    console.log(data)
+    
     try {
       await api.put(`produtos/${prod_id}`, data, {
         headers: {
@@ -128,21 +128,21 @@ export default function Profile() {
                 <img src={product.product_picture_url} alt="Foto do produto" />
               </section>
               <div>
-                <p><strong>PRODUTO:</strong>{productId == product._id ?
+                <p><strong>PRODUTO:</strong>{productId === product._id ?
                 <input type="text" defaultValue={product.product_name}
                 onChange={e => setProduto(e.target.value)}/> : product.product_name}</p>
                 
 
-                <p><strong>DESCRIÇÃO:</strong>{productId == product._id ?
+                <p><strong>DESCRIÇÃO:</strong>{productId === product._id ?
                 <input type="text" defaultValue={product.product_description}
                 onChange={e => setDescricao(e.target.value)}/> : product.product_description}</p>
                 
 
-                <p><strong>VALOR:</strong>{productId == product._id ?
+                <p><strong>VALOR:</strong>{productId === product._id ?
                 <input type="text" defaultValue={product.product_price}
                 onChange={e => setPreco(e.target.value)}/> : <>R$ {product.product_price}</>}</p>
               </div>
-              {productId == product._id ?
+              {productId === product._id ?
               <button onClick={() => 
               handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
               type="button" id="confirm-button">

@@ -17,7 +17,6 @@ class Register extends Component {
     super()
     this.state = {
       //Estados relacionados ao cepPromise
-      ativo: 'inativo',
       cep: '',
 
       //Estados relacionados ao BD
@@ -69,6 +68,7 @@ class Register extends Component {
     data.append("market_mail", this.state.email)
     data.append("market_password", this.state.senha)
     data.append("market_cnpj", this.state.cnpj)
+    data.append("market_cep", this.state.cep)
     data.append("market_street", this.state.rua)
     data.append("market_number", this.state.numero)
     data.append("market_neighborhood", this.state.bairro)

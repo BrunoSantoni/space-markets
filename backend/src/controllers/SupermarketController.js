@@ -3,8 +3,16 @@ const crypto = require('crypto')
 const Supermarket = require('../models/Supermarket')
 
 module.exports = {
+
+  async index(req, res) {
+    await Supermarket.find(function(err, data) {
+      if(err) { return console.log(err) }
+      return res.json(data)
+    })
+  },
+
   async create(req, res) {
-    const { market_name, market_mail, market_password, market_cnpj, market_street,
+    const { market_name, market_mail, market_password, market_cnpj, market_cep, market_street,
       market_number, market_neighborhood, market_city, market_uf,
       market_latitude, market_longitude } = req.body
     const { key, url = '' } = req.file
@@ -18,6 +26,7 @@ module.exports = {
       market_mail,
       market_password,
       market_cnpj,
+      market_cep,
       market_street,
       market_number,
       market_neighborhood,
