@@ -1,157 +1,129 @@
 // pedrov4z
 
-import React, { Component } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
     Text,
     Image,
     View,
     ScrollView,
     Dimensions,
-    TouchableOpacity,
+    TouchableOpacity
 } from 'react-native';
 import MapView from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
+import api from '../../services/api';
 
 const { width } = Dimensions.get('window');
 
-export default class MapScreen extends Component {
-    state = {
-        places: [
-            {
-                id: 1,
-                title: 'Pão de Mel',
-                description: '',
-                latitude: -23.581466,
-                longitude: -48.033675,
-            },
+export default function MapScreen() {
+    const mapRef = useRef(null);
+    const markRef = useRef(null);
+    const [mercados, setMercados] = useState([]);
+    let prevPlace = 0;
 
-            {
-                id: 2,
-                title: 'Politel',
-                description: '',
-                latitude: -23.581331,
-                longitude: -48.034835,
-            },
+    useEffect(() => {
+        api.get('mercados').then(res => setMercados(res.data))
+    }, []);
+    
+    const navigation = useNavigation();
 
-            {
-                id: 3,
-                title: 'Dia',
-                description: '',
-                latitude: -23.580181,
-                longitude: -48.031355,
-            },
-
-            {
-                id: 4,
-                title: 'Extra',
-                description: '',
-                latitude: -23.577314,
-                longitude: -48.037598,
-            },
-
-            {
-                id: 5,
-                title: 'Cofesa',
-                description: '',
-                latitude: -23.584357,
-                longitude: -48.048443,
-            },
-        ],
-    };
-
-    _mapReady = () => {
-        this.state.places[0].mark.showCallout();
-    };
-
-    render() {
-        const { latitude, longitude } = this.state.places[0];
-
-        return (
-            <View style={styles.container}>
-                <MapView
-                    ref={(map) => (this.mapView = map)}
-                    initialRegion={{
-                        latitude,
-                        longitude,
-                        latitudeDelta: 0.0142,
-                        longitudeDelta: 0.0131,
-                    }}
-                    style={styles.mapView}
-                    rotateEnabled={false}
-                    scrollEnabled={false}
-                    zoomEnabled={false}
-                    showsPointsOfInterest={false}
-                    showsBuildings={false}
-                    onMapReady={this._mapReady}
-                >
-                    {this.state.places.map((place) => (
-                        <MapView.Marker
-                            ref={(mark) => (place.mark = mark)}
-                            title={place.title}
-                            //description={place.description}
-                            key={place.id}
-                            coordinate={{
-                                latitude: place.latitude,
-                                longitude: place.longitude,
-                            }}
-                        >
-                            <Image
-                                source={require('../../../assets/img/marker.png')}
-                                style={styles.marker}
-                            />
-                        </MapView.Marker>
-                    ))}
-                </MapView>
-                <ScrollView
-                    style={styles.placesContainer}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    pagingEnabled
-                    onMomentumScrollEnd={(e) => {
-                        const scrolled = e.nativeEvent.contentOffset.x;
-
-                        const place =
-                            scrolled > 0
-                                ? scrolled / width
-                                : 0;
-
-                        const { latitude, longitude, mark } = this.state.places[
-                            place
-                        ];
-
-                        this.mapView.animateCamera(
-                            {
-                                center: {
-                                    latitude,
-                                    longitude,
-                                },
-                            },
-                            1000
-                        );
-
-                        setTimeout(() => {
-                            mark.showCallout();
-                        }, 1000);
-                    }}
-                >
-                    {this.state.places.map((place) => (
-                        <View style={styles.place} key={place.id}>
-                            <Text>{place.title}</Text>
-                            <Text>{place.description}</Text>
-                        </View>
-                    ))}
-                </ScrollView>
-                <TouchableOpacity 
-                style={styles.btnSugerir}
-                onPress={() => this.props.navigation.navigate('Suggest')}
-                >
-                    <Image
-                        source={require('../../../assets/img/btnAddMarket.png')}
-                        style={styles.btnSugerirImg}
-                    />
-                </TouchableOpacity>
-            </View>
-        );
+    function navigateToSuggest() {
+        navigation.navigate('Suggest')
     }
+
+    // function onMapReady() {
+    //     mercados[0].markRef.showCallout()
+    // }
+
+    return(
+        <View style={styles.container}>
+            <MapView
+            ref={mapRef}
+            initialRegion={{
+                latitude: -23.57881,
+                longitude: -48.03744,
+                latitudeDelta: 0.0142,
+                longitudeDelta: 0.0131,
+            }}
+            style={styles.mapView}
+            rotateEnabled={false}
+            scrollEnabled={true}
+            zoomEnabled={false}
+            showsPointsOfInterest={false}
+            showsBuildings={false}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            >
+                {mercados.map((mercado) => (
+                    <MapView.Marker
+                    ref={(markRef) => (mercado.markRef = markRef)}
+                    title={mercado.market_name}
+                    description={mercado.market_street + ', ' + mercado.market_number}
+                    key={mercado.market_id}
+                    coordinate={{
+                        latitude: mercado.market_latitude,
+                        longitude: mercado.market_longitude,
+                    }}
+                    >
+                        <Image
+                        source={require('../../../assets/img/marker.png')}
+                        style={styles.marker}
+                        />
+                    </MapView.Marker>
+                ))} 
+            </MapView>
+            
+            <ScrollView
+            style={styles.placesContainer}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            onMomentumScrollEnd={(e) => {
+                const scrolled = e.nativeEvent.contentOffset.x;
+
+                const place = scrolled > 0 ? scrolled / width : 0;
+            
+                console.log('prevPlace: ' + prevPlace);
+                console.log('place: ' + place);
+
+                if (place != prevPlace) {
+                    const { market_latitude, market_longitude, markRef } = mercados[place];
+
+                    mapRef.current.setCamera(
+                        {
+                            center: {
+                                latitude: market_latitude,
+                                longitude: market_longitude,
+                            },
+                        },
+                        1000
+                    );
+
+                    setTimeout(() => {
+                        markRef.showCallout();
+                    }, 1000);
+
+                    prevPlace = place;
+                }
+            }}>
+                { mercados.map((mercado) => (
+                    <View key={mercado.market_id} style={styles.place}>
+                        <Text>{ mercado.market_name }</Text>
+                        <Text>{ mercado.market_street + ', ' + mercado.market_number }</Text>
+                    </View>
+                )) }
+            </ScrollView>
+                    
+            <TouchableOpacity 
+            style={styles.btnSugerir}
+            onPress={navigateToSuggest}
+            >
+                <Image
+                source={require('../../../assets/img/btnAddMarket.png')}
+                style={styles.btnSugerirImg}
+                />
+            </TouchableOpacity>
+        </View>
+    );
 }

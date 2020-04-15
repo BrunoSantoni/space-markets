@@ -59,11 +59,11 @@ const SupermarketSchema = new mongoose.Schema({
   },
 
   market_latitude: {
-    type: String
+    type: Number
   },
 
   market_longitude: {
-    type: String
+    type: Number
   },
 
   market_picture_url: {

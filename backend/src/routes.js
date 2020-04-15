@@ -35,6 +35,6 @@ routes.post('/usercadastro', multer(multerConfigUser).single('user_picture'), Us
 
 routes.post('/userlogin', UserSessionController.create)
 
-routes.get('/markets', SupermarketController.index)
+routes.get('/mercados', SupermarketController.index)
 
 module.exports = routes
