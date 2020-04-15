@@ -13,42 +13,41 @@ export default StyleSheet.create({
         backgroundColor: Color.secundary,
         width: 175,
         height: 50,
-        marginVertical: 10,
     },
 
     registerContainer: {
-        width: 310,
-        maxWidth: '90%',
-        height: 650,
-        backgroundColor: Color.primary,
-        borderRadius: 20,
-        justifyContent: 'space-evenly',
-        alignItems:'center'
+        width: '100%',
     },
 
     registerInput: {
-        width: 260,
-        maxWidth: '85%',
-        height: 50,
-    },
-
-    registerInputNome: {
-        width: 260,
-        maxWidth: '85%',
-        height: 50,
-        marginTop: 20,
+        width: '100%',
+        fontSize: 13,
+        borderBottomColor: '#cecece',
+        borderBottomWidth: 2,
+        paddingVertical: 5,
+        color: '#000',
+        fontWeight: 'bold'
     },
 
     registerInputButton: {
         backgroundColor: Color.secundary,
-        width: 175,
-        height: 80,
-        marginTop: 30,
-        marginBottom: 20
+        width: 100,
+        height: 50,
     },
 
     textStyle: {
         color: 'white',
         fontSize: 15,
+    },
+
+    titleScreen: {
+        color: '#000',
+        fontSize: 60,
+        marginVertical: 30
+    },  
+
+    label: {
+        color: '#A9A9A9',
+        top: 13,
     }
 })

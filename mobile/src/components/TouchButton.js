@@ -8,6 +8,7 @@ export default function TouchButton(props) {
         <TouchableOpacity
             {...props}
             style={{...styles.button, ...props.style}}
+            activeOpacity={0.7}
         >
             <Text style={{...styles.buttonText, ...props.textStyle}}>{props.children}</Text>
         </TouchableOpacity>

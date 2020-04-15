@@ -3,7 +3,11 @@ import { Alert, View, Image } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from '@react-navigation/native'
 import Constants from 'expo-constants'
+import { Feather } from '@expo/vector-icons'
+import Lottie from 'lottie-react-native'
 
+import success from '../../../assets/animations/success.json'
+import error from '../../../assets/animations/error.json'
 import styles from './styles'
 import InputMask from '../../utils/inputMask'
 import Screen from '../../components/Screen'
@@ -67,12 +71,11 @@ export default function RegisterScreen() {
     
             try {
                 await api.post('usercadastro', data)
-                Alert.alert('Usuário cadastrado com sucesso!')
             } catch(err) {
                 Alert.alert(err)
             }
             setSubmit(true)
-            setTimeout(() => navigation.navigate('Login') , 3000)
+            setTimeout(() => navigation.navigate('Login') , 1000)
         } else{
             Alert.alert('Ops','Senhas não conferem')
         }
@@ -80,23 +83,35 @@ export default function RegisterScreen() {
 
     if(!submit){
         return (
-            <Screen>    
+            <Screen style={{ alignItems: 'flex-start' }}>
+                <Txt style={styles.titleScreen}>
+                    Registro
+                </Txt>    
                 <FixView style={styles.registerContainer} >
+                    <Txt style={styles.label}>
+                        Nome
+                    </Txt>
                     <TxtInput
                         value={nome} 
                         onChangeText={texto => setNome(texto)}
                         placeholder='Qual é seu nome?'
-                        style={styles.registerInputNome}
+                        style={styles.registerInput}
                     />
     
+                    <Txt style={styles.label}>
+                        Endereço de e-mail
+                    </Txt>
                     <TxtInput 
                         value={email}
                         onChangeText={texto => setEmail(texto)}
-                        placeholder='Qual é seu melhor E-mail?'
+                        placeholder='Qual é seu melhor e-mail?'
                         keyboardType='email-address'
                         style={styles.registerInput}
                     />
                     
+                    <Txt style={styles.label}>
+                        CPF
+                    </Txt>
                     <TxtInput 
                         value={cpf}
                         onChangeText={texto => {setCpf(InputMask.cpf(texto))}}
@@ -106,6 +121,9 @@ export default function RegisterScreen() {
                         style={styles.registerInput}
                     />
     
+                    <Txt style={styles.label}>
+                        Senha
+                    </Txt>
                     <TxtInput 
                         value={senha}
                         onChangeText={texto => setSenha(texto)}
@@ -113,7 +131,10 @@ export default function RegisterScreen() {
                         secureTextEntry={true}
                         style={styles.registerInput}
                     />
-    
+
+                    <Txt style={styles.label}>
+                        Confirme sua senha
+                    </Txt>
                     <TxtInput 
                         value={confirmSenha}
                         onChangeText={texto => setConfirmSenha(texto)}
@@ -122,32 +143,30 @@ export default function RegisterScreen() {
                         style={styles.registerInput}
                     />
 
-                    <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
-                        <Txt style={styles.textStyle}>Adicione uma foto de perfil bem daora!</Txt>
-                    </TouchButton>
-                    {foto && <Image source={{ uri: foto.uri }} style={styles.img} />}
-    
-                    <TouchButton onPress={handleRegister} style={styles.registerInputButton}>REGISTRAR</TouchButton>
-    
+                    <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 10}}>
+                        {foto ? 
+                        <Image source={{ uri: foto.uri }} style={styles.img} onPress={handleImg}/> : 
+                        <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
+                            <Txt style={styles.textStyle}>Adicione uma foto de perfil bem daora!</Txt>
+                        </TouchButton>}
+                        <TouchButton onPress={handleRegister} style={styles.registerInputButton}>
+                            <Feather name='arrow-right' size={18} color='#FFF' />
+                        </TouchButton>
+                    </View>
                 </FixView>
+
             </Screen>
         )
     }else if(submit){
         return(
             <Screen>
-                <FixView style={[styles.registerContainer, {backgroundColor: '#6CB85D', justifyContent: 'center'}]}>
-                    <Txt style={{fontFamily: 'rubik-medium', color:'#fff', fontSize: 24}}>Sucesso!</Txt>
-                    <Txt style={{fontFamily: 'rubik-medium', color:'#fff', fontSize: 24}}>Cadastro Concluído</Txt>
-                </FixView>
+                <Lottie source={success} autoPlay />
             </Screen>
         )
     }else{
         return(
             <Screen>
-                <FixView style={[styles.registerContainer, {backgroundColor: '#D03F36', justifyContent: 'center'}]}>
-                    <Txt style={{fontFamily: 'rubik-medium', color:'#fff', fontSize: 24}}>Ops!</Txt>
-                    <Txt style={{fontFamily: 'rubik-medium', color:'#fff', fontSize: 20, textAlign: 'center'}}>Parece que algo deu errado, tente novamente.</Txt>
-                </FixView>
+               <Lottie source={error} autoPlay />
             </Screen>
         )
     }

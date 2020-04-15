@@ -39,66 +39,10 @@ export default function loginScreen() {
         navigation.navigate('Register')
     }
 
-    const FadeImage = props => {
-        const [fadeAnim] = useState(new Animated.Value(0))
-        const [positionTop] = useState(new Animated.Value(50))
-        const [positionLeft] = useState(new Animated.Value(0))
-        const [heightAnim] = useState(new Animated.Value(200))
-        const [widthAnim] = useState(new Animated.Value(200))
-      
-        useEffect(() => {
-            Animated.sequence([
-                Animated.timing(
-                    fadeAnim,
-                    {
-                      toValue: 1,
-                      duration: 2000,
-                    },
-                ),
-                Animated.parallel([
-                    Animated.timing(
-                        positionTop,
-                        {
-                          toValue: -30,
-                          duration: 500,
-                        }
-                    ),
-                    Animated.timing(
-                        positionLeft,
-                        {
-                            toValue: -100,
-                            duration: 500,
-                        }
-                    ),
-                    Animated.timing(
-                        heightAnim,
-                        {
-                            toValue: 120
-                        }
-                    ),
-                    Animated.timing(
-                        widthAnim,
-                        {
-                            toValue: 120
-                        }
-                    )
-                ]) 
-            ]).start()
-        }, [])
-      
-        return (
-            <Animated.Image
-                source={props.source}
-                style={{ ...props.style, opacity: fadeAnim, top: positionTop, left: positionLeft, height: heightAnim, width: widthAnim }}
-            >
-            </Animated.Image>
-            )
-      }
-
     return (
-        <Screen style={{justifyContent: 'flex-start'}}>
+        <Screen style={{justifyContent: 'center'}}>
             
-            <FadeImage source={logo}/>
+            <Image source={logo} style={{ width: 300, height: 150 }}/>
 
             <View style={styles.Container}>  
                 <TxtInput 
@@ -114,16 +58,18 @@ export default function loginScreen() {
                     secureTextEntry={true} 
                     style={styles.loginInput}
                 />
-                
-                <TouchButton style={styles.buttonIniciar} onPress={loginPress}>
-                    INICIAR
-                </TouchButton>
 
-                <TouchableOpacity style={styles.registerLinkContainer} onPress={navigateToRegister} >
-                    <Txt style={styles.registerLink}>Não possuo cadastro</Txt>
-                    <Feather name='log-in' size={18} color='#fff' />
-                </TouchableOpacity>
+                <View style={{ width: '100%', alignItems: 'center' }}>
+                    <TouchButton style={styles.buttonIniciar} onPress={loginPress}>
+                        Iniciar
+                    </TouchButton>
+                    <TouchableOpacity style={styles.registerLinkContainer} onPress={navigateToRegister} >
+                        <Feather name='log-in' size={18} color='#000' />
+                        <Txt style={styles.registerLink}>Não possuo cadastro</Txt>
+                    </TouchableOpacity>
+                </View>
             </View>
+            
         </Screen>
     )
 }
