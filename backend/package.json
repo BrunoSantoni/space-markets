@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.656.0",
+    "celebrate": "^12.1.0",
     "cloudinary": "^1.21.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",

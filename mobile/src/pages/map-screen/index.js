@@ -1,6 +1,6 @@
 // pedrov4z
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react'
 import {
     Text,
     Image,
@@ -8,25 +8,26 @@ import {
     ScrollView,
     Dimensions,
     TouchableOpacity
-} from 'react-native';
-import MapView from 'react-native-maps';
-import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
-import api from '../../services/api';
+} from 'react-native'
+import MapView from 'react-native-maps'
+import { useNavigation } from '@react-navigation/native'
 
-const { width } = Dimensions.get('window');
+import styles from './styles'
+import api from '../../services/api'
+
+const { width } = Dimensions.get('window')
 
 export default function MapScreen() {
-    const mapRef = useRef(null);
-    const markRef = useRef(null);
-    const [mercados, setMercados] = useState([]);
-    let prevPlace = 0;
+    const mapRef = useRef(null)
+    const markRef = useRef(null)
+    const [mercados, setMercados] = useState([])
+    let prevPlace = 0
 
     useEffect(() => {
         api.get('mercados').then(res => setMercados(res.data))
-    }, []);
+    }, [])
     
-    const navigation = useNavigation();
+    const navigation = useNavigation()
 
     function navigateToSuggest() {
         navigation.navigate('Suggest')
@@ -80,15 +81,15 @@ export default function MapScreen() {
             showsHorizontalScrollIndicator={false}
             pagingEnabled
             onMomentumScrollEnd={(e) => {
-                const scrolled = e.nativeEvent.contentOffset.x;
+                const scrolled = e.nativeEvent.contentOffset.x
 
-                const place = scrolled > 0 ? scrolled / width : 0;
+                const place = scrolled > 0 ? scrolled / width : 0
             
-                console.log('prevPlace: ' + prevPlace);
-                console.log('place: ' + place);
+                console.log('prevPlace: ' + prevPlace)
+                console.log('place: ' + place)
 
                 if (place != prevPlace) {
-                    const { market_latitude, market_longitude, markRef } = mercados[place];
+                    const { market_latitude, market_longitude, markRef } = mercados[place]
 
                     mapRef.current.setCamera(
                         {
@@ -98,13 +99,13 @@ export default function MapScreen() {
                             },
                         },
                         1000
-                    );
+                    )
 
                     setTimeout(() => {
-                        markRef.showCallout();
-                    }, 1000);
+                        markRef.showCallout()
+                    }, 1000)
 
-                    prevPlace = place;
+                    prevPlace = place
                 }
             }}>
                 { mercados.map((mercado) => (
@@ -125,5 +126,5 @@ export default function MapScreen() {
                 />
             </TouchableOpacity>
         </View>
-    );
+    )
 }

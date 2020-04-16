@@ -54,8 +54,8 @@ class Register extends Component {
     })
     
     //Passando o endereço para a API do Bing retornar a latitude e a longitude para adicionar no map.
-    const latLng = await provider.search(
-      { query: `${this.state.rua},${this.state.numero},${this.state.bairro},
+    const latLng = await provider.search({
+      query: `${this.state.rua},${this.state.numero},${this.state.bairro},
       ${this.state.cidade},${this.state.estado}`})
 
     const latitude = latLng[0].y
@@ -80,7 +80,9 @@ class Register extends Component {
 
     //Fazendo a inserção no banco.
     try {
-      const response = await api.post('cadastro', data)
+      const response = await api.post('cadastro', data, function(err, res) {
+        if(err) return console.log(res)
+      })
 
       alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
 

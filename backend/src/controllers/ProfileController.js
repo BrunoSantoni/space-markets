@@ -15,7 +15,7 @@ module.exports = {
   async update(req, res) {
     const auth = req.headers.auth
     const { market_mail, market_password, market_cep, market_street, market_number,
-      market_neighborhood, market_city, market_uf } = req.body
+      market_neighborhood, market_city, market_uf, market_latitude, market_longitude } = req.body
 
     await Supermarket.updateOne({_id: auth}, {
       market_mail,
@@ -25,7 +25,9 @@ module.exports = {
       market_number,
       market_neighborhood,
       market_city,
-      market_uf
+      market_uf,
+      market_latitude,
+      market_longitude
     }, function(err, affected, resp) {
       if(err) return console.log(err)
     })

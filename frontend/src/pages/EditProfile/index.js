@@ -28,6 +28,8 @@ export default function EditProfile(){
 
   const id = localStorage.getItem('id')
 
+  const history = useHistory()
+
   useEffect(() => {
     api.get('edit', {
       headers: {
@@ -57,6 +59,19 @@ export default function EditProfile(){
   }  
 
   async function handleUpdate() {
+    const provider = new BingProvider({ 
+      params: {
+        key: 'ApJOHkrHOc22p53qpw8drsNahv1selmPw_yq-xR72HESwtP35o8gYq7Nvwi_EF2N'
+      },
+    })
+    
+    //Passando o endereço para a API do Bing retornar a latitude e a longitude para adicionar no map.
+    const latLng = await provider.search({
+      query: `${rua},${numero},${bairro},
+      ${cidade},${estado}`})
+
+    const market_latitude = latLng[0].y
+    const market_longitude = latLng[0].x
 
     //As 3 variáveis abaixo receberão de uma que possui valor.
     const market_mail = email === '' ? marketInfo.market_mail : email
@@ -76,7 +91,9 @@ export default function EditProfile(){
       market_number,
       market_neighborhood,
       market_city,
-      market_uf
+      market_uf,
+      market_latitude,
+      market_longitude
     }   
     
     try {
@@ -87,6 +104,7 @@ export default function EditProfile(){
       })
 
       alert('Informações alteradas com sucesso!')
+      history.push('/perfil')
     } catch(err) {
       alert('Erro ao alterar informações', err)
     }    
