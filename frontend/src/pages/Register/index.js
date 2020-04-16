@@ -81,12 +81,16 @@ class Register extends Component {
     //Fazendo a inserção no banco.
     try {
       const response = await api.post('cadastro', data, function(err, res) {
-        if(err) return console.log(res)
+        console.log(res)
       })
 
-      alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
+      if(response.data.market_id === undefined) {
+        alert(response.data.message)
+      } else {
+        alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
 
-      history.push('/')        
+        history.push('/') 
+      }             
     } catch(err) {
       alert(err)
     }

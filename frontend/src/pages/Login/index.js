@@ -65,7 +65,7 @@ export default function Login() {
           </form>
         </section>
 
-        <img src={loginImg} alt="Supermega" class="login-image"/>
+        <img src={loginImg} alt="Supermega" className="login-image"/>
       </div>
     </Fragment>
   )

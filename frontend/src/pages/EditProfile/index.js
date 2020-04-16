@@ -5,7 +5,7 @@ import { BingProvider } from 'leaflet-geosearch'
 
 import Header from '../Header'
 
-import { cepMask, cnpjMask } from '../Register/masks'
+import { cepMask } from '../Register/masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
