@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
+import { InputAdornment, TextField } from '@material-ui/core'
+
+import { moneyMask } from '../../helpers/masks'
 
 import api from '../../services/api'
 
@@ -11,7 +14,7 @@ import logo from '../../assets/logo.png'
 const AddProduct = () => {
   const[produto, setProduto] = useState('')
   const[descricao, setDescricao] = useState('')
-  const[preco, setPreco] = useState()
+  const[preco, setPreco] = useState('')
   const marketId = localStorage.getItem('id')
 
   const history = useHistory()
@@ -42,46 +45,61 @@ const AddProduct = () => {
     } catch(err) {
       alert('Erro ao cadastrar produto', err)
     }
-    }
-    return(
-      <div className="add-product-container">
-          <div className="content">
-            <section>
-              <img src = {logo} alt="Supermega"/>
+  }
+  return(
+    <div className="add-product-container">
+        <div className="content">
+          <section>
+            <img src = {logo} alt="Supermega"/>
 
-                <h1>Cadastrar novo produto</h1>
-                <p>Insira um novo produto para que todos possam ver que você possui a melhor oferta!</p>
-                <Link className="back-link" to="/perfil">
-                    <FaArrowLeft size={16} color="#E02041"/>
-                    Voltar para o perfil
-                </Link>
-            </section>
+              <h1>Cadastrar novo produto</h1>
+              <p>Insira um novo produto para que todos possam ver que você possui a melhor oferta!</p>
+              <Link className="back-link" to="/perfil">
+                  <FaArrowLeft size={16} color="#d80f19"/>
+                  Voltar para o perfil
+              </Link>
+          </section>
 
-            <form onSubmit={handleAddProduct}>
-              <input
-              type="text"
-              placeholder="Nome do Produto"
-              value={produto}
-              onChange={e => setProduto(e.target.value)}/>
+          <form onSubmit={handleAddProduct}>
+            <TextField
+            type="text" name="nome"
+            label="Nome do Produto"
+            required={true}
+            fullWidth={true}
+            variant="outlined"
+            value={produto}
+            onChange={e => setProduto(e.target.value)}/>
 
-              <textarea
-              type="text"
-              placeholder="Breve descrição"
-              value={descricao}
-              onChange={e => setDescricao(e.target.value)}/>
+            <TextField
+            type="text" name="descricao"
+            label="Breve descrição"
+            required={true}
+            multiline={true}
+            fullWidth={true} /* Faz pegar a largura toda do componente */
+            margin="normal"
+            variant="outlined"
+            value={descricao}
+            onChange={e => setDescricao(e.target.value)}/>
 
-              <input
-              type="text"
-              placeholder="Valor em R$"
-              value={preco}
-              onChange={e => setPreco(e.target.value)}/>
+            <TextField
+            id="outlined-adornment-amount"
+            type="text" name="preco"
+            label="Preço"
+            required={true}
+            fullWidth = {true}
+            InputProps={{
+              startAdornment: <InputAdornment position="start">R$</InputAdornment>
+            }}              
+            variant="outlined"
+            value={preco}
+            onChange={e => setPreco(e.target.value)}/>
 
-              <input type="file" name="product_picture" id="product_picture"/>
-              <button className="button" type="submit">Cadastrar</button>
-            </form>
-          </div>
-      </div>
-    )
+            <input type="file" name="product_picture" id="product_picture"/>
+            <button className="button" type="submit">Cadastrar</button>
+          </form>
+        </div>
+    </div>
+  )
 }
 
 export default AddProduct

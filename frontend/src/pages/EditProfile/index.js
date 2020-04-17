@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core'
 
 import Header from '../Header'
 
-import { cepMask } from '../Register/masks'
+import { cepMask } from '../../helpers/masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
@@ -50,7 +50,6 @@ export default function EditProfile(){
   }, [id])
 
   function handleKeyUp(value) {
-    console.log(marketInfo)
     value.length === 9 && cepPromise(cep).then(response => {
       setCidade(response.city)
       setBairro(response.neighborhood)
@@ -124,7 +123,7 @@ export default function EditProfile(){
             <h1>Altere seus dados!</h1>
             <p>Mudou de endereço? Tem um e-mail novo? <br/>Divida essa novidade com todos.</p>
             <Link className="back-link" to="/perfil">
-              <FaArrowLeft size={15} color="#000" />
+              <FaArrowLeft size={15} color="#d80f19" />
               Retornar para o seu perfil
             </Link>
             <img src={registerImg} alt=""/>

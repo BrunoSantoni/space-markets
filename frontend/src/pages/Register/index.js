@@ -4,7 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
 import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
 import { TextField } from '@material-ui/core'
 
-import { cepMask, cnpjMask } from './masks'
+import { cepMask, cnpjMask } from '../../helpers/masks'
 import { validateUser, validateMail,
   validatePassword, validateCnpj, validateCep } from '../../helpers/Validators'
 
@@ -154,7 +154,7 @@ class Register extends Component {
             <div>
               <TextField name="marca"
               label="Nome do mercado"
-              required="true"
+              required={true}
               error= {this.state.marcaError !== ''}
               value={this.state.marca}
               onChange={this.handleChange}
@@ -164,7 +164,7 @@ class Register extends Component {
 
               <TextField type="email" name="email"
               label="E-mail"
-              required="true"
+              required={true}
               error= {this.state.emailError !== ""}
               value={this.state.email}
               onChange={this.handleChange}
@@ -175,7 +175,7 @@ class Register extends Component {
 
               <TextField type="password" name="senha"
               label="Senha"
-              required="true"
+              required={true}
               error= {this.state.senhaError !== ""}
               value={this.state.senha}
               onChange={this.handleChange}
@@ -186,7 +186,7 @@ class Register extends Component {
 
               <TextField type="text" name="cnpj"
               label="CNPJ"
-              required="true"
+              required={true}
               error= {this.state.cnpjError !== ""}
               value={this.state.cnpj}
               onChange={ e => this.setState({ cnpj: cnpjMask(e.target.value) })}
@@ -198,7 +198,7 @@ class Register extends Component {
               <div className="address-content">
                 <TextField type="text" name="cep"
                 label="CEP"
-                required="true"
+                required={true}
                 error= {this.state.cepError !== ""}
                 value={this.state.cep}
                 onChange={ e => this.setState({ cep: cepMask(e.target.value) })}
@@ -214,32 +214,32 @@ class Register extends Component {
                 <div className="address-content">
                   <TextField type="text" name="rua"
                   label="Rua"
-                  required="true"
+                  required={true}
                   value={this.state.rua}
                   onChange={this.handleChange} disabled/>
 
                   <TextField type="text" className="input-address" name="numero"
                   label="Nº"
-                  required="true"
+                  required={true}
                   value={this.state.numero}
                   onChange={this.handleChange} />
                 </div>
                 <TextField type="text" name="bairro"
                 label="Bairro"
-                required="true"
+                required={true}
                 value={this.state.bairro}
                 onChange={this.handleChange} disabled/>
 
                 <div className="address-content">
                   <TextField type="text" name="cidade"
                   label="Cidade"
-                  required="true"
+                  required={true}
                   value={this.state.cidade}
                   onChange={this.handleChange} disabled/>
 
                   <TextField type="text" className="input-address" name="estado"
                   label="UF"
-                  required="true"
+                  required={true}
                   value={this.state.estado}
                   onChange={this.handleChange} disabled/>
                 </div>

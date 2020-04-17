@@ -95,7 +95,7 @@ module.exports = {
 
     if(!flag) {
       await Supermarket.updateOne({_id: auth}, {
-        market_mail,
+        market_mail: market_mail,
         market_password,
         market_cep,
         market_street,
