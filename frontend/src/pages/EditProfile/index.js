@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BingProvider } from 'leaflet-geosearch'
+import { TextField } from '@material-ui/core'
 
 import Header from '../Header'
 
@@ -97,14 +98,18 @@ export default function EditProfile(){
     }   
     
     try {
-      await api.put(`edit/${id}`, data, {
+      const response = await api.put(`edit/${id}`, data, {
         headers: {
           auth: id,
         }
       })
 
-      alert('Informações alteradas com sucesso!')
-      history.push('/perfil')
+      if(response.data.message === undefined) {
+        alert('Informações alteradas com sucesso!')
+        history.push('/perfil')
+      } else {
+        alert(response.data.message)
+      }
     } catch(err) {
       alert('Erro ao alterar informações', err)
     }    
@@ -113,7 +118,7 @@ export default function EditProfile(){
   return (
     <Fragment>
       <Header />
-      <div className="register-container">
+      <div className="edit-container">
         <div className="content">
           <section>
             <h1>Altere seus dados!</h1>
@@ -128,17 +133,22 @@ export default function EditProfile(){
           <form method="post">
           <div>
 
-            <input type="email" placeholder="E-mail" name="email"
+            <TextField type="email" name="email"
+            label="E-mail"
             defaultValue={email}
+            key={`${Math.floor((Math.random() * 1000))}-min` /* Usado para dar re-render a atualizar o valor do state */}
             onChange={e => setEmail(e.target.value)}/>
 
-            <input type="password" placeholder="Senha" name="senha"
+            <TextField type="password" name="senha"
+            label="Senha"
             defaultValue={senha}
             onChange={e => setSenha(e.target.value)}/>
             
             <div className="address-content">
-              <input type="text" placeholder="CEP" name="cep"
+              <TextField type="text" name="cep"
+              label="CEP" 
               defaultValue={cep}
+              key={`${Math.floor((Math.random() * 1000))}-min`}
               onChange={e => setCep(cepMask(e.target.value))}
               onKeyUp={e => handleKeyUp(e.target.value)}
               />
@@ -147,25 +157,30 @@ export default function EditProfile(){
             <div>
             <div>
               <div className="address-content">
-                <input type="text" placeholder="Rua" name="rua"
+                <TextField type="text" label="Rua" name="rua"
                 defaultValue={rua}
+                key={`${Math.floor((Math.random() * 1000))}-min`}
                 onChange={e => setRua(e.target.value)} disabled/>
 
-                <input type="text" placeholder="Nº" className="input-address" name="numero"
+                <TextField type="text" label="Nº" className="input-address" name="numero"
                 defaultValue={numero}
+                key={`${Math.floor((Math.random() * 1000))}-min`}
                 onChange={e => setNumero(e.target.value)} />
               </div>
-              <input type="text" placeholder="Bairro" name="bairro"
+              <TextField type="text" label="Bairro" name="bairro"
               defaultValue={bairro}
+              key={`${Math.floor((Math.random() * 1000))}-min`}
               onChange={e => setBairro(e.target.value)} disabled/>
 
               <div className="address-content">
-                <input type="text" placeholder="Cidade" name="cidade"
+                <TextField type="text" label="Cidade" name="cidade"
                 defaultValue={cidade}
+                key={`${Math.floor((Math.random() * 1000))}-min`}
                 onChange={e => setCidade(e.target.value)} disabled/>
 
-                <input type="text" placeholder="UF" className="input-address" name="estado"
+                <TextField type="text" label="UF" className="input-address" name="estado"
                 defaultValue={estado}
+                key={`${Math.floor((Math.random() * 1000))}-min`}
                 onChange={e => setEstado(e.target.value)} disabled/>
               </div>
             </div>
