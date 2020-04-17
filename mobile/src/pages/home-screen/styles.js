@@ -4,29 +4,33 @@ import Font from '../../constants/font'
 
 export default StyleSheet.create({
     img: {
-        width: 250,
+        width: 100,
         maxWidth: '95%',
-        height: 250,
+        height: 100,
+        borderRadius: 150,
+        marginBottom: 40,
+        position: 'absolute',
+        top: 40,
+        right: 30
     },
 
     stewardContainer:{
         width: '100%',
-        height: '70%',
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 40,
+        marginTop: 60
     },
 
     optionContainer:{
         width: '100%',
-        height: '30%',
-        justifyContent: 'space-evenly'
     },
 
     firstOption: {
         backgroundColor: Color.secundary,
         height: 50,
         width: '100%',
-        borderRadius: 0
+        borderRadius: 0,
+        paddingVertical: 30
     },
 
     secondOption:{
@@ -34,7 +38,8 @@ export default StyleSheet.create({
         height: 50,
         width: '100%',
         borderRadius: 0,
-        marginTop: 30,
+        marginTop: 20,
+        paddingVertical: 30
     },
 
     inputContainer: {

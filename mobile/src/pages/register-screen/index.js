@@ -15,6 +15,7 @@ import FixView from '../../components/FixView'
 import TxtInput from '../../components/TxtInput'
 import TouchButton from '../../components/TouchButton'
 import Txt from '../../components/Txt'
+import RegisterImage from '../../../assets/register-screen-image.png'
 
 import api from '../../services/api'
 
@@ -83,10 +84,11 @@ export default function RegisterScreen() {
 
     if(!submit){
         return (
-            <Screen style={{ alignItems: 'flex-start' }}>
+            <Screen style={{ alignItems: 'center' }}>
                 <Txt style={styles.titleScreen}>
-                    Registro
+                    Realize seu cadastro!
                 </Txt>    
+                <Image source={RegisterImage} resizeMode="contain" style={{width: 250, height: 200}}/>
                 <FixView style={styles.registerContainer} >
                     <Txt style={styles.label}>
                         Nome

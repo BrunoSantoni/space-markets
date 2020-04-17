@@ -1,6 +1,6 @@
 import React, { useState, useEffect }from 'react'
 import { View, Image, TouchableOpacity, AsyncStorage, Animated } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { Feather, FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 
 
@@ -42,34 +42,40 @@ export default function loginScreen() {
     return (
         <Screen style={{justifyContent: 'center'}}>
             
-            <Image source={logo} style={{ width: 300, height: 150 }}/>
-
-            <View style={styles.Container}>  
+            <View>
+                <Image source={logo} style={{ width: 300, height: 100 }}/>
+            </View>
+            <View style={styles.Container}>
+                <View style={styles.inputGroup}>
+                    <Txt>Email</Txt>
                 <TxtInput 
                     value={mail} 
                     onChangeText={email => setMail(email)} 
-                    placeholder="Insira seu e-mail" 
+                    placeholder="Insira seu e-mail"
+                    placeholderTextColor="#FFF" 
                     style={styles.loginInput}
                 />
+                </View>
+                <View style={styles.inputGroup}>
+                    <Txt>Senha</Txt>
                 <TxtInput 
                     value={password} 
                     onChangeText={password => setPassword(password)} 
                     placeholder="Insira sua senha" 
+                    placeholderTextColor="#FFF"
                     secureTextEntry={true} 
                     style={styles.loginInput}
                 />
-
-                <View style={{ width: '100%', alignItems: 'center' }}>
-                    <TouchButton style={styles.buttonIniciar} onPress={loginPress}>
-                        Iniciar
-                    </TouchButton>
-                    <TouchableOpacity style={styles.registerLinkContainer} onPress={navigateToRegister} >
-                        <Feather name='log-in' size={18} color='#000' />
-                        <Txt style={styles.registerLink}>Não possuo cadastro</Txt>
-                    </TouchableOpacity>
                 </View>
+                <TouchButton style={styles.buttonIniciar} onPress={loginPress}>
+                    Iniciar
+                </TouchButton>
+                    <TouchableOpacity style={styles.registerLinkContainer} onPress={navigateToRegister} >
+                        <Txt style={styles.registerLink}>Não possuo cadastro</Txt>
+                    <FontAwesome5 name='rocket' size={18} color='#FFF'/>
+
+                    </TouchableOpacity>
             </View>
-            
         </Screen>
     )
 }

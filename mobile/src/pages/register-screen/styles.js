@@ -20,13 +20,13 @@ export default StyleSheet.create({
     },
 
     registerInput: {
-        width: '100%',
-        fontSize: 13,
-        borderBottomColor: '#cecece',
-        borderBottomWidth: 2,
-        paddingVertical: 5,
+        height: 48,
+        fontSize: 15,
+        borderColor: Color.secundary,
+        borderWidth: 2,
+        paddingHorizontal: 10,
+        borderRadius: 5,
         color: '#000',
-        fontWeight: 'bold'
     },
 
     registerInputButton: {
@@ -42,12 +42,12 @@ export default StyleSheet.create({
 
     titleScreen: {
         color: '#000',
-        fontSize: 60,
-        marginVertical: 30
+        fontSize: 30,
+        marginBottom: 10
     },  
 
     label: {
         color: '#A9A9A9',
-        top: 13,
+        top: 5,
     }
 })
