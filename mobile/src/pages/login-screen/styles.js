@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import Color from '../../constants/colors'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 export default StyleSheet.create({
     Container: {
@@ -8,29 +9,42 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 350,
-        borderRadius: 20,
-        backgroundColor: Color.primary
+        borderRadius: 5,
+        borderWidth: 2,
+        borderColor: Color.secundary,
+        backgroundColor: Color.secundary,
+        marginTop: 36
     },
 
     loginInput: {
-        width: '100%',
-        maxWidth: 400,
         height: 48,
-        fontSize: 15
+        fontSize: 15,
+        borderColor: '#FFF',
+        borderWidth: 2,
+        backgroundColor: Colors.secundary,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        color: '#FFF',
     },
 
     buttonIniciar: {
         width: '100%', 
         maxWidth: 300,
         height: 50,
-        marginTop: 20,
-        marginBottom: 30,
-        backgroundColor: Color.secundary
+        backgroundColor: '#63b1b9',
+        marginTop: 25
     },
 
+    buttonText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginRight: 10
+    },  
+
     registerLink: {
-        color: '#000',
-        marginLeft: 15
+        color: '#FFF',
+        marginRight: 15,
+        textDecorationLine: 'underline'
     },
 
     registerLinkContainer: {
@@ -39,5 +53,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
+    },
+
+    inputGroup: {
+        width: '85%',
     }
 })

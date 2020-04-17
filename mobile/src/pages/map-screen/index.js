@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import MapView from 'react-native-maps'
 import { useNavigation } from '@react-navigation/native'
+import Logo from '../../components/Logo'
 
 import styles from './styles'
 import api from '../../services/api'
@@ -39,6 +40,7 @@ export default function MapScreen() {
 
     return(
         <View style={styles.container}>
+            <Logo />
             <MapView
             ref={mapRef}
             initialRegion={{
