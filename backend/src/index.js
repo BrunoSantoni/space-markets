@@ -1,4 +1,3 @@
-const { errors } = require('celebrate')
 require('dotenv').config()
 
 const express = require('express')
@@ -24,5 +23,4 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads',
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'user')))
 
 app.use(require('./routes'))
-app.use(errors())
 app.listen(3333)

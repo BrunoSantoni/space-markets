@@ -22,7 +22,7 @@ const ProductSchema = new mongoose.Schema({
     type: String
   },
 
-  product_picture_key: {
+  product_picture_key: { //Esse campo será usado para deletar a imagem do banco quando um produto for deletado
     type: String
   },
 

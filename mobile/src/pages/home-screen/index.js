@@ -10,6 +10,8 @@ import Steward from '../../../assets/img/steward.png'
 import Loading from '../../../assets/img/loading.gif'
 import styles from './styles'
 import TouchButton from '../../components/TouchButton'
+import Logo from '../../components/Logo'
+import HomeImage from '../../../assets/home-screen-image.png'
 
 import api from '../../services/api'
 
@@ -67,11 +69,13 @@ export default function HomeScreen(props){
     }
     
     return (
-        <Screen>
+        <Screen style={{justifyContent: 'center'}}>
+            <Logo />
+            <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
             <View style={styles.stewardContainer}>
-                <Image source={loading ? Loading : {uri: picture}} style={styles.img} />
-                <Txt style={{fontSize: 20}}>Olá, {username}</Txt>
-                <Txt style={{fontSize: 20}}>O que posso fazer por você hoje?</Txt>
+                <Txt style={{fontSize: 22, color: '#000', marginBottom: 20, textAlign: 'center'}}>Seja bem-vindo, {username}!</Txt>
+                <Image source={HomeImage} style={{ width: 300, marginBottom: 20 }} resizeMode="contain"/>
+                <Txt style={{fontSize: 15, color: '#000', textAlign: 'center'}}>O que nós da equipe Space Markets podemos fazer por você hoje?</Txt>
             </View>
 
             <View style={styles.optionContainer}>

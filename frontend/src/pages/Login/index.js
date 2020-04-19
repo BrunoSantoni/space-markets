@@ -40,6 +40,7 @@ export default function Login() {
           <form onSubmit={handleLogin}>
 
             <h1>Seja bem-vindo!</h1>
+            <p>Um <strong>espaço</strong> para compartilhar seu mercado!</p>
 
             <input type = "text"
               placeholder = "Informe o ID do mercado" 
@@ -58,14 +59,14 @@ export default function Login() {
 
             <Link className="back-link" to="/cadastro">
               <p>
-                <FaArrowRight size={16} color="000"/>
+                <FaArrowRight size={16} color="#63b1b9"/>
                 Não possui cadastro? Cadastre-se já!
               </p>  
             </Link>
           </form>
         </section>
 
-        <img src={loginImg} alt="Supermega" class="login-image"/>
+        <img src={loginImg} alt="Supermega" className="login-image"/>
       </div>
     </Fragment>
   )

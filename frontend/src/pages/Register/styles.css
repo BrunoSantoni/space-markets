@@ -1,11 +1,12 @@
 .address-content {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0 !important;
 }
 
 .input-address {
-  width: 20%;
-  margin-left: 7px;
+  width: 20% !important;
+  margin-left: 7px !important;
 }
 
 .register-container {
@@ -36,7 +37,7 @@
 
 .register-container .content section {
   width: 100%;
-  max-width: 650px;
+  max-width: 665px;
   border-radius: 8px;
   color: #0092d5;
   position: relative;
@@ -49,7 +50,7 @@
 
 .register-container .content section h1{
   font-size: 40px;
-  color: #d80f19;
+  color: #74a2d6;
 }
 
 .register-container .content section p{
@@ -69,7 +70,7 @@
 
 .register-container .content form {
   width: 100%;
-  max-width: 650px;
+  max-width: 665px;
   margin-top: 2rem;
 
   display: flex;
@@ -79,18 +80,17 @@
 .register-container .content form div {
   width: 100%;
   max-width: 320px;
+  margin-bottom: 5px;
 }
 
 .register-container .content form input {
   margin-top: 8px;
-  height: 50px;
   font-size: 16px;
 }
 
 .register-container .button {
   margin-top: 8px;
   height: 50px;
-  background: #5cb85c;
 }
 
 .inativo {

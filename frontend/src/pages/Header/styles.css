@@ -1,6 +1,10 @@
 header {
   display: flex;
   align-items: center;
+  padding: 1rem 2rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 header span {
@@ -9,10 +13,34 @@ header span {
 }
 
 header img {
+  position: relative;
+	display: inline-block;
   height: 108px;
   width: 108px;
   border-radius: 100%;
-  box-shadow: 0 0 5px black;
+}
+
+header .container {
+  position: relative;
+}
+
+header .edit {
+  position: absolute;
+  padding-top: 10px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0; /* O invisível */
+}
+
+header .container:hover .edit {
+  opacity: 1;
+}
+
+header #btn-edit-pic {
+  height: 0;
+  border: 0;
 }
 
 header #btn-cadastro {
@@ -27,7 +55,7 @@ header #btn-cadastro {
   justify-content: center;
 }
 
-header button {
+header .btn-header {
   height: 60px;
   width: 60px;
   border-radius: 4px;

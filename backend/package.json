@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "aws-sdk": "^2.656.0",
-    "celebrate": "^12.1.0",
     "cloudinary": "^1.21.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "joi": "^14.3.1",
     "jquery": "^3.4.1",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
@@ -23,7 +23,8 @@
     "multer-storage-cloudinary": "^2.2.1",
     "mz": "^2.7.0",
     "promisify": "^0.0.3",
-    "yarn": "^1.22.4"
+    "yarn": "^1.22.4",
+    "yup": "^0.28.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

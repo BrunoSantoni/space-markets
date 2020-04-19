@@ -2,18 +2,18 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BingProvider } from 'leaflet-geosearch'
+import { TextField } from '@material-ui/core'
+import NumberFormat from 'react-number-format'
 
-import Header from '../Header'
-
-import { cepMask, cnpjMask } from '../Register/masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
-import registerImg from '../../assets/register-image.png'
+import editImg from '../../assets/edit-image.png'
 
 import './styles.css'
 
 export default function EditProfile(){
+
   const [cep, setCep] = useState('')
 
   const [email, setEmail] = useState('')
@@ -49,7 +49,6 @@ export default function EditProfile(){
   }, [id])
 
   function handleKeyUp(value) {
-    console.log(marketInfo)
     value.length === 9 && cepPromise(cep).then(response => {
       setCidade(response.city)
       setBairro(response.neighborhood)
@@ -97,14 +96,18 @@ export default function EditProfile(){
     }   
     
     try {
-      await api.put(`edit/${id}`, data, {
+      const response = await api.put(`edit/${id}`, data, {
         headers: {
           auth: id,
         }
       })
 
-      alert('Informações alteradas com sucesso!')
-      history.push('/perfil')
+      if(response.data.message === undefined) {
+        alert('Informações alteradas com sucesso!')
+        history.push('/perfil')
+      } else {
+        alert(response.data.message)
+      }
     } catch(err) {
       alert('Erro ao alterar informações', err)
     }    
@@ -112,60 +115,63 @@ export default function EditProfile(){
 
   return (
     <Fragment>
-      <Header />
-      <div className="register-container">
+      <div className="edit-container">
         <div className="content">
           <section>
             <h1>Altere seus dados!</h1>
             <p>Mudou de endereço? Tem um e-mail novo? <br/>Divida essa novidade com todos.</p>
             <Link className="back-link" to="/perfil">
-              <FaArrowLeft size={15} color="#000" />
+              <FaArrowLeft size={15} color="#63b1b9" />
               Retornar para o seu perfil
             </Link>
-            <img src={registerImg} alt=""/>
+            <img src={editImg} alt="Astronauta"/>
           </section>
 
           <form method="post">
           <div>
 
-            <input type="email" placeholder="E-mail" name="email"
-            defaultValue={email}
+            <TextField type="email" name="email"
+            label="E-mail"
+            value={email}
             onChange={e => setEmail(e.target.value)}/>
 
-            <input type="password" placeholder="Senha" name="senha"
-            defaultValue={senha}
+            <TextField type="password" name="senha"
+            label="Senha"
             onChange={e => setSenha(e.target.value)}/>
             
             <div className="address-content">
-              <input type="text" placeholder="CEP" name="cep"
-              defaultValue={cep}
-              onChange={e => setCep(cepMask(e.target.value))}
+              <NumberFormat type="text" name="cep"
+              label="CEP" 
+              value={cep}
+              onChange={e => setCep(e.target.value)}
               onKeyUp={e => handleKeyUp(e.target.value)}
+              customInput={TextField}
+              format="#####-###"
               />
             </div>
             </div>
             <div>
             <div>
               <div className="address-content">
-                <input type="text" placeholder="Rua" name="rua"
-                defaultValue={rua}
+                <TextField type="text" label="Rua" name="rua"
+                value={rua}
                 onChange={e => setRua(e.target.value)} disabled/>
 
-                <input type="text" placeholder="Nº" className="input-address" name="numero"
-                defaultValue={numero}
+                <TextField type="text" label="Nº" className="input-address" name="numero"
+                value={numero}
                 onChange={e => setNumero(e.target.value)} />
               </div>
-              <input type="text" placeholder="Bairro" name="bairro"
-              defaultValue={bairro}
+              <TextField type="text" label="Bairro" name="bairro"
+              value={bairro}
               onChange={e => setBairro(e.target.value)} disabled/>
 
               <div className="address-content">
-                <input type="text" placeholder="Cidade" name="cidade"
-                defaultValue={cidade}
+                <TextField type="text" label="Cidade" name="cidade"
+                value={cidade}
                 onChange={e => setCidade(e.target.value)} disabled/>
 
-                <input type="text" placeholder="UF" className="input-address" name="estado"
-                defaultValue={estado}
+                <TextField type="text" label="UF" className="input-address" name="estado"
+                value={estado}
                 onChange={e => setEstado(e.target.value)} disabled/>
               </div>
             </div>

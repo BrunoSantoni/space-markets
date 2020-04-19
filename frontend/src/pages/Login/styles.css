@@ -20,7 +20,7 @@
 .login-container .form img {
   position: absolute;
   top: -120px;
-  left: 25%;
+  left: 50px;
   border-radius: 8px;
 }
 
@@ -31,8 +31,12 @@
 
 .login-container .form form h1 {
   font-size: 32px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+}
+
+.login-container .form form p {
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
 .login-container .form form input + input {
@@ -45,6 +49,10 @@
 
   display: flex;
   align-items: center;
+}
+
+.login-container .login-image {
+  width: 600px;
 }
 
 .back-link p {
