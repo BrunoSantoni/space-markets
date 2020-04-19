@@ -56,5 +56,41 @@ export default StyleSheet.create({
         maxHeight: 150,
         backgroundColor: '#FFF',
         marginHorizontal: 20,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        padding: 20,
+    },
+    
+    nome: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        backgroundColor: 'transparent',
+    },
+    
+    endereco: {
+        color: '#999',
+        fontSize: 12,
+        marginTop: 5,
+    },
+
+    placeImg: {
+        position: 'absolute',
+        resizeMode: 'contain',
+        width: 50,
+        height: 50,
+        right: 10,
+    },
+
+    placeBtn: {
+        height: 25,
+        marginTop: 10,
+        backgroundColor:'#59cf59',
+        justifyContent: 'center',
+    },
+
+    placeBtnText: {
+        color: 'white',
+        fontSize: 15,
+        alignSelf: 'center',
     },
 });

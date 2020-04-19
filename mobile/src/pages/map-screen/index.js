@@ -24,13 +24,13 @@ export default function MapScreen() {
     const mapRef = useRef(null)
     const navigation = useNavigation()
     const [mercados, setMercados] = useState([])
-    const [isBusy, setBusy] = useState(true)
+    const [loading, setLoading] = useState(true)
     
     useEffect(() => {
         api.get('mercados').then(res => {
             setMercados(res.data)
             console.log(res.data)
-            setBusy(false)
+            setLoading(false)
         })
     }, [])
     
@@ -44,7 +44,7 @@ export default function MapScreen() {
     }
 
     return(
-        isBusy ? <Logo/> :
+        loading ? <Logo/> :
             <View style={styles.container}>
                 <Logo/>
                 <MapView
@@ -117,8 +117,19 @@ export default function MapScreen() {
                 }}>
                     {mercados.map((mercado) => (
                         <View key={mercado.market_id} style={styles.place}>
-                            <Text>{ mercado.market_name }</Text>
-                            <Text>{ mercado.market_street + ', ' + mercado.market_number }</Text>
+                            <Image source={{uri: mercado.market_picture_url}} style={styles.placeImg} />
+                            <Text style={styles.nome}>{ mercado.market_name }</Text>
+                            <Text style={styles.endereco}>{ mercado.market_street + ', ' + mercado.market_number }</Text>
+                            <TouchableOpacity 
+                            style={styles.placeBtn}
+                            >
+                                <Text style={styles.placeBtnText}>Ver produtos</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity 
+                            style={styles.placeBtn}
+                            >
+                                <Text style={styles.placeBtnText}>Rota até aqui</Text>
+                            </TouchableOpacity>
                         </View>
                     ))}
                 </ScrollView>
