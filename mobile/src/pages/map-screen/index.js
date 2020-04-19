@@ -92,7 +92,7 @@ export default function MapScreen() {
                 onMomentumScrollEnd={(e) => {
                     const scrolled = e.nativeEvent.contentOffset.x
     
-                    const place = scrolled > 0 ? scrolled / width : 0
+                    const place = scrolled > 0 ? Math.round(scrolled / width) : 0
                 
                     console.log('prevPlace: ' + prevPlace)
                     console.log('place: ' + place)
