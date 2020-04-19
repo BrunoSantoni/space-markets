@@ -3,8 +3,8 @@ import { Link, withRouter } from 'react-router-dom' //Lib que redireciona e adic
 import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
 import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
 import { TextField } from '@material-ui/core'
+import NumberFormat from 'react-number-format'
 
-import { cepMask, cnpjMask } from '../../helpers/masks'
 import { validateUser, validateMail,
   validatePassword, validateCnpj, validateCep } from '../../helpers/Validators'
 
@@ -103,8 +103,7 @@ class Register extends Component {
         }             
       } catch(err) {
         alert(err)
-      }
-    
+      }   
   }
 
   //Função responsável por "escutar" os inputs, atualizando os states
@@ -184,29 +183,33 @@ class Register extends Component {
               })}
               helperText={this.state.senhaError === '' ? '' : this.state.senhaError}/>
 
-              <TextField type="text" name="cnpj"
+              <NumberFormat type="text" name="cnpj"
               label="CNPJ"
               required={true}
               error= {this.state.cnpjError !== ""}
               value={this.state.cnpj}
-              onChange={ e => this.setState({ cnpj: cnpjMask(e.target.value) })}
+              onChange={ e => this.setState({ cnpj: e.target.value })}
               onBlur={() => this.setState({
                 cnpjError: validateCnpj(this.state.cnpj)
               })}
-              helperText={this.state.cnpjError === '' ? '' : this.state.cnpjError}/>
+              helperText={this.state.cnpjError === '' ? '' : this.state.cnpjError}
+              customInput={TextField}
+              format="##.###.###/####-##"/>
               
               <div className="address-content">
-                <TextField type="text" name="cep"
+                <NumberFormat type="text" name="cep"
                 label="CEP"
                 required={true}
                 error= {this.state.cepError !== ""}
                 value={this.state.cep}
-                onChange={ e => this.setState({ cep: cepMask(e.target.value) })}
+                onChange={ e => this.setState({ cep: e.target.value })}
                 onBlur={() => this.setState({
                   cepError: validateCep(this.state.cep)
                 })}
                 helperText={this.state.cepError === '' ? '' : this.state.cepError}
-                onKeyUp={e => this.handleKeyUp(e.target.value)}/>
+                onKeyUp={e => this.handleKeyUp(e.target.value)}
+                customInput={TextField}
+                format="#####-###"/>
               </div>
               </div>
               <div>
@@ -244,7 +247,7 @@ class Register extends Component {
                   onChange={this.handleChange} disabled/>
                 </div>
 
-                <input type="file" name="market_picture" id="market_picture"/>
+                <input type="file" name="market_picture" id="market_picture" required/>
               </div>
               <button type="submit" className="button">Cadastrar</button>
               </div>

@@ -13,9 +13,34 @@ header span {
 }
 
 header img {
+  position: relative;
+	display: inline-block;
   height: 108px;
   width: 108px;
   border-radius: 100%;
+}
+
+header .container {
+  position: relative;
+}
+
+header .edit {
+  position: absolute;
+  padding-top: 10px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0; /* O invisível */
+}
+
+header .container:hover .edit {
+  opacity: 1;
+}
+
+header #btn-edit-pic {
+  height: 0;
+  border: 0;
 }
 
 header #btn-cadastro {
@@ -30,7 +55,7 @@ header #btn-cadastro {
   justify-content: center;
 }
 
-header button {
+header .btn-header {
   height: 60px;
   width: 60px;
   border-radius: 4px;

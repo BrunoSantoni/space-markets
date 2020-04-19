@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { InputAdornment, TextField } from '@material-ui/core'
-
-import { moneyMask } from '../../helpers/masks'
+import NumberFormat from 'react-number-format'
 
 import api from '../../services/api'
 
@@ -55,7 +54,7 @@ const AddProduct = () => {
               <h1>Cadastrar novo produto</h1>
               <p>Insira um novo produto para que todos possam ver que você possui a melhor oferta!</p>
               <Link className="back-link" to="/perfil">
-                  <FaArrowLeft size={16} color="#d80f19"/>
+                  <FaArrowLeft size={16} color="#63b1b9"/>
                   Voltar para o perfil
               </Link>
           </section>
@@ -81,8 +80,8 @@ const AddProduct = () => {
             value={descricao}
             onChange={e => setDescricao(e.target.value)}/>
 
-            <TextField
-            id="outlined-adornment-amount"
+
+            <NumberFormat
             type="text" name="preco"
             label="Preço"
             required={true}
@@ -92,9 +91,13 @@ const AddProduct = () => {
             }}              
             variant="outlined"
             value={preco}
-            onChange={e => setPreco(e.target.value)}/>
+            onChange={e => setPreco(e.target.value)}
+            customInput={TextField}
+            thousandSeparator= '.'
+            decimalSeparator= ','
+            />
 
-            <input type="file" name="product_picture" id="product_picture"/>
+            <input type="file" name="product_picture" id="product_picture" required/>
             <button className="button" type="submit">Cadastrar</button>
           </form>
         </div>

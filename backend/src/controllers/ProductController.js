@@ -4,6 +4,8 @@ const validator = require('../Validators/validators')
 
 const Joi = require('joi')
 
+const cloudinary = require('../config/cloudinaryConfig')
+
 module.exports = {
   async index(req, res) {
     const auth = req.headers.auth
@@ -16,7 +18,7 @@ module.exports = {
   //FUNÇÃO PARA INSERIR PRODUTOS, PRECISA PASSAR O ID REAL COMO PARÂMETRO PARA O HEADERS
   async create(req, res) {
     const { product_name, product_description, product_price } = req.body
-    const { url = '' } = req.file
+    const { public_id, url = '' } = req.file
     let flag = false
     
     const auth = req.headers.auth
@@ -34,7 +36,8 @@ module.exports = {
         product_description,
         product_price,
         market_id: auth,  
-        product_picture_url: url
+        product_picture_url: url,
+        product_picture_key: public_id
       })
   
       //const prod = await Product.find().populate('market_id', 'market_name').select('product_name')
@@ -80,6 +83,12 @@ module.exports = {
     }
 
     await product.remove()
+    
+    /* Deletar imagem do banco */
+    await cloudinary.v2.uploader.destroy(product.product_picture_key, function(err, result) {
+      if(err) console.log(err)
+      console.log(result)
+    })
 
     return res.status(204).send()
     /* Status 204 indica uma resposta que teve sucesso, mas não tem nenhum conteúdo para retornar. */

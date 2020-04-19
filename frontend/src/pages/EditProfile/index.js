@@ -3,10 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BingProvider } from 'leaflet-geosearch'
 import { TextField } from '@material-ui/core'
+import NumberFormat from 'react-number-format'
 
-import Header from '../Header'
-
-import { cepMask } from '../../helpers/masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
@@ -15,6 +13,7 @@ import editImg from '../../assets/edit-image.png'
 import './styles.css'
 
 export default function EditProfile(){
+
   const [cep, setCep] = useState('')
 
   const [email, setEmail] = useState('')
@@ -125,7 +124,7 @@ export default function EditProfile(){
               <FaArrowLeft size={15} color="#63b1b9" />
               Retornar para o seu perfil
             </Link>
-            <img src={editImg} alt=""/>
+            <img src={editImg} alt="Astronauta"/>
           </section>
 
           <form method="post">
@@ -133,22 +132,21 @@ export default function EditProfile(){
 
             <TextField type="email" name="email"
             label="E-mail"
-            defaultValue={email}
-            key={`${Math.floor((Math.random() * 1000))}-min` /* Usado para dar re-render a atualizar o valor do state */}
+            value={email}
             onChange={e => setEmail(e.target.value)}/>
 
             <TextField type="password" name="senha"
             label="Senha"
-            defaultValue={senha}
             onChange={e => setSenha(e.target.value)}/>
             
             <div className="address-content">
-              <TextField type="text" name="cep"
+              <NumberFormat type="text" name="cep"
               label="CEP" 
-              defaultValue={cep}
-              key={`${Math.floor((Math.random() * 1000))}-min`}
-              onChange={e => setCep(cepMask(e.target.value))}
+              value={cep}
+              onChange={e => setCep(e.target.value)}
               onKeyUp={e => handleKeyUp(e.target.value)}
+              customInput={TextField}
+              format="#####-###"
               />
             </div>
             </div>
@@ -156,29 +154,24 @@ export default function EditProfile(){
             <div>
               <div className="address-content">
                 <TextField type="text" label="Rua" name="rua"
-                defaultValue={rua}
-                key={`${Math.floor((Math.random() * 1000))}-min`}
+                value={rua}
                 onChange={e => setRua(e.target.value)} disabled/>
 
                 <TextField type="text" label="Nº" className="input-address" name="numero"
-                defaultValue={numero}
-                key={`${Math.floor((Math.random() * 1000))}-min`}
+                value={numero}
                 onChange={e => setNumero(e.target.value)} />
               </div>
               <TextField type="text" label="Bairro" name="bairro"
-              defaultValue={bairro}
-              key={`${Math.floor((Math.random() * 1000))}-min`}
+              value={bairro}
               onChange={e => setBairro(e.target.value)} disabled/>
 
               <div className="address-content">
                 <TextField type="text" label="Cidade" name="cidade"
-                defaultValue={cidade}
-                key={`${Math.floor((Math.random() * 1000))}-min`}
+                value={cidade}
                 onChange={e => setCidade(e.target.value)} disabled/>
 
                 <TextField type="text" label="UF" className="input-address" name="estado"
-                defaultValue={estado}
-                key={`${Math.floor((Math.random() * 1000))}-min`}
+                value={estado}
                 onChange={e => setEstado(e.target.value)} disabled/>
               </div>
             </div>

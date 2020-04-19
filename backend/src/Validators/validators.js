@@ -31,7 +31,7 @@ const supermarketValidatorUpdate = Joi.object().keys({
 const productValidatorCreate = Joi.object().keys({
   product_name: Joi.string().required().error(new Error('Nome do produto não pode estar em branco')),
   product_description: Joi.string().required().error(new Error('Descrição não pode estar em branco')),
-  product_price: Joi.string().required().error(new Error('Produto deve conter um preço'))
+  product_price: Joi.string().required().max(2000).error(new Error('Preço não deve ser superior a R$2.000,00'))
 })
 
 module.exports = {

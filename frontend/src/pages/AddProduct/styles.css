@@ -11,6 +11,7 @@
 }
 
 .add-product-container .content {
+  position: relative;
   width: 100%;
   padding: 96px;
   background: #f0f0f5;
@@ -42,7 +43,7 @@
 
 .add-product-container .content section img {
   position: absolute;
-  top: 80px;
+  top: 20px;
 }
 
 .add-product-container .content form {

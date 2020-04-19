@@ -22,9 +22,10 @@ routes.put('/edit/:id', SupermarketController.update)
 routes.get('/edit', SupermarketController.currentSupermarket)
 
 routes.get('/perfil', SupermarketController.profileImage) //Rota para exibir a imagem de perfil
+routes.put('/perfil/:id', multer(multerConfig).single('market_new_picture'), SupermarketController.updateImg) //Rota para editar a imagem de perfil do mercado
 
 routes.get('/produtos', ProductController.index)
-routes.post('/produtos', multer(multerConfigProducts).single('product_picture'),ProductController.create)
+routes.post('/produtos', multer(multerConfigProducts).single('product_picture'), ProductController.create)
 routes.put('/produtos/:id', ProductController.update)
 routes.delete('/produtos/:id', ProductController.delete)
 

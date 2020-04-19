@@ -69,6 +69,10 @@ const SupermarketSchema = new mongoose.Schema({
   market_picture_url: {
     type: String
   },
+
+  market_picture_key: {
+    type: String
+  }
 })
 
 SupermarketSchema.pre('save', function() {
