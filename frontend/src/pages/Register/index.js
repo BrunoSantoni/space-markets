@@ -144,7 +144,7 @@ class Register extends Component {
               <h1>Cadastre-se!</h1>
               <p>Faça seu cadastro e compartilhe os preços <br/>do seu mercado para toda a população.</p>
               <Link className="back-link" to="/">
-                <FaArrowLeft size={15} color="#d80f19" />
+                <FaArrowLeft size={15} color="#74a2d6" />
                 Retornar para a home
               </Link>
               <img src={registerImg} alt=""/>

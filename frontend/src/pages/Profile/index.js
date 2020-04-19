@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaTrash, FaPen, FaSave } from 'react-icons/fa'
+import emptyImage from '../../assets/empty-image.png'
 
 import './styles.css'
 
@@ -95,10 +96,10 @@ export default function Profile() {
         <p><strong>VALOR:</strong>R$ {product.product_price}</p>
 
         <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
-            <FaPen size={26} color="#737380" />
+            <FaPen size={26} color="#74a2d6" />
         </button>
         <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
-            <FaTrash size={26} color="#C7342A" />
+            <FaTrash size={26} color="#74a2d6" />
         </button>
       </div>
     </li>
@@ -109,9 +110,20 @@ export default function Profile() {
       <>
         <div className="profile-container">  
           <Header />
-          <h1>Produtos Cadastrados</h1>
+          <div className="product-container">
+          
             {!productsList.length ? 
-            <h2> Parece que você ainda não possui nenhum produto :( </h2> : <ul> {productsList} </ul>}
+            <div className="div-empty">
+              <h1>Cadastre seus produtos!</h1>
+              <img src={emptyImage}/>
+              <h2> Parece que você ainda não possui nenhum produto cadastrado :( </h2>
+            </div> :
+            <>
+              <h1>Produtos cadastrados</h1>
+              <ul> {productsList} </ul>
+            </>
+            }
+          </div>
         </div>      
       </>
     )
@@ -120,7 +132,8 @@ export default function Profile() {
       <>
       <div className="profile-container">
         <Header />
-        <h1>Produtos Cadastrados</h1>
+        <div className="product-container">
+        <h1>Produtos cadastrados</h1>
         <ul>
           {products.map(product => ((
             <li key={product._id}>
@@ -146,11 +159,12 @@ export default function Profile() {
               <button onClick={() => 
               handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
               type="button" id="confirm-button">
-                <FaSave size={20} color="#13C0F0" />
+                <FaSave size={20} color="#74a2d6" />
               </button> : null}
             </li>
           )))}
         </ul>
+        </div>
       </div> 
       </>
     )

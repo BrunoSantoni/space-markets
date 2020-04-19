@@ -10,7 +10,7 @@ import { cepMask } from '../Register/masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
-import registerImg from '../../assets/register-image.png'
+import editImg from '../../assets/edit-image.png'
 
 import './styles.css'
 
@@ -117,17 +117,16 @@ export default function EditProfile(){
 
   return (
     <Fragment>
-      <Header />
       <div className="edit-container">
         <div className="content">
           <section>
             <h1>Altere seus dados!</h1>
             <p>Mudou de endereço? Tem um e-mail novo? <br/>Divida essa novidade com todos.</p>
             <Link className="back-link" to="/perfil">
-              <FaArrowLeft size={15} color="#000" />
+              <FaArrowLeft size={15} color="#63b1b9" />
               Retornar para o seu perfil
             </Link>
-            <img src={registerImg} alt=""/>
+            <img src={editImg} alt=""/>
           </section>
 
           <form method="post">

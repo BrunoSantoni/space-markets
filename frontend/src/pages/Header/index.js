@@ -41,10 +41,10 @@ export default function Header() {
       <span>Bem-vindo, {marketName}!</span>
       <Link className="button" id="btn-cadastro" to="/produtos/novo">Cadastrar novo produto</Link>
       <button onClick={handleEdit} type="button">
-        <FaUserEdit size={18} color="#C7342A" />
+        <FaUserEdit size={18} color="#74a2d6" />
       </button>
       <button onClick={handleLogout} type="button">
-        <FaPowerOff size={18} color="#C7342A" />
+        <FaPowerOff size={18} color="#74a2d6" />
       </button>
     </header>
   )
