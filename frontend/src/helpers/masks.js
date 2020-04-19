@@ -1,3 +1,10 @@
+export function moneyMask(value) {
+  return value
+  .toFixed(2)
+  .replace('.', ',')
+  .replace(/(\d)(?=(\d{3})+\,)/g, "$1.")
+}
+
 export function cepMask(value) {
   return value
     .replace(/\D/g, '') // substitui qualquer caracter que nao seja numero por nada

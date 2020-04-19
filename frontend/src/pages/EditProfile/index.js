@@ -6,7 +6,7 @@ import { TextField } from '@material-ui/core'
 
 import Header from '../Header'
 
-import { cepMask } from '../Register/masks'
+import { cepMask } from '../../helpers/masks'
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
 
@@ -50,7 +50,6 @@ export default function EditProfile(){
   }, [id])
 
   function handleKeyUp(value) {
-    console.log(marketInfo)
     value.length === 9 && cepPromise(cep).then(response => {
       setCidade(response.city)
       setBairro(response.neighborhood)

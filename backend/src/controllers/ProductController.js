@@ -1,5 +1,9 @@
 const Product = require('../models/Product')
 
+const validator = require('../Validators/validators')
+
+const Joi = require('joi')
+
 module.exports = {
   async index(req, res) {
     const auth = req.headers.auth
@@ -12,21 +16,33 @@ module.exports = {
   //FUNÇÃO PARA INSERIR PRODUTOS, PRECISA PASSAR O ID REAL COMO PARÂMETRO PARA O HEADERS
   async create(req, res) {
     const { product_name, product_description, product_price } = req.body
-    const { key, url = '' } = req.file
+    const { url = '' } = req.file
+    let flag = false
     
     const auth = req.headers.auth
 
-    const prod = await Product.create({
-      product_name,
-      product_description,
-      product_price,
-      market_id: auth,
-      product_picture_key: key,      
-      product_picture_url: url
+    const message = Joi.validate(req.body, validator.productValidatorCreate,(err, res) => {
+      if(err) {
+        flag = true
+        return err.message
+      }
     })
 
-    //const prod = await Product.find().populate('market_id', 'market_name').select('product_name')
-    return res.json(prod)
+    if(!flag) {
+      const prod = await Product.create({
+        product_name,
+        product_description,
+        product_price,
+        market_id: auth,  
+        product_picture_url: url
+      })
+  
+      //const prod = await Product.find().populate('market_id', 'market_name').select('product_name')
+      return res.json(prod)
+    } else {
+      return res.json({message})
+    }
+    
   },
 
   async update(req, res) {

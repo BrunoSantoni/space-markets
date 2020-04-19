@@ -50,11 +50,7 @@
   max-width: 450px;
 }
 
-.add-product-container .content form input {
-  margin-top: 8px;
-}
-
 .add-product-container .content form textarea {
   background: transparent;
-  border: 1px solid black;
+  margin: 0 16;
 }

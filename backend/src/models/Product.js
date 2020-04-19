@@ -22,10 +22,6 @@ const ProductSchema = new mongoose.Schema({
     type: String
   },
 
-  product_picture_key: {
-    type: String
-  },
-
   market_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: Supermarket
