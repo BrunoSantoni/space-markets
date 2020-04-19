@@ -28,7 +28,14 @@ const supermarketValidatorUpdate = Joi.object().keys({
   market_longitude: Joi.number().required().error(new Error('Informe um CEP para preencher o endereço'))
 })
 
+const productValidatorCreate = Joi.object().keys({
+  product_name: Joi.string().required().error(new Error('Nome do produto não pode estar em branco')),
+  product_description: Joi.string().required().error(new Error('Descrição não pode estar em branco')),
+  product_price: Joi.string().required().error(new Error('Produto deve conter um preço'))
+})
+
 module.exports = {
   supermarketValidatorCreate,
-  supermarketValidatorUpdate
+  supermarketValidatorUpdate,
+  productValidatorCreate
 }

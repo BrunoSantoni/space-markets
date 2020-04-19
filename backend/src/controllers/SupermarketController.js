@@ -39,7 +39,7 @@ module.exports = {
     const { market_name, market_mail, market_password, market_cnpj, market_cep, market_street,
       market_number, market_neighborhood, market_city, market_uf,
       market_latitude, market_longitude } = req.body
-    const { key, url = '' } = req.file
+    const { url = '' } = req.file
 
     let flag = false
 
@@ -69,7 +69,6 @@ module.exports = {
         market_uf,
         market_latitude,
         market_longitude,
-        market_picture_key: key,
         market_picture_url: url
       })
   
