@@ -1,6 +1,6 @@
 // pedrov4z
 
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import {
     Text,
     Image,
@@ -17,25 +17,21 @@ import api from '../../services/api'
 
 const { width } = Dimensions.get('window')
 
+let prevPlace = 0
+
 export default function MapScreen() {
     const mapRef = useRef(null)
-    const markRef = useRef(null)
-    const [mercados, setMercados] = useState([])
-    let prevPlace = 0
-
-    useEffect(() => {
-        api.get('mercados').then(res => setMercados(res.data))
-    }, [])
-    
     const navigation = useNavigation()
+    const [mercados, setMercados] = useState([])
+    
+    const loadMercados = () => {
+        api.get('mercados')
+        .then(res => setMercados(res.data))
+    }
 
     function navigateToSuggest() {
         navigation.navigate('Suggest')
     }
-
-    // function onMapReady() {
-    //     mercados[0].markRef.showCallout()
-    // }
 
     return(
         <View style={styles.container}>
@@ -55,6 +51,7 @@ export default function MapScreen() {
             showsBuildings={false}
             showsUserLocation={true}
             showsMyLocationButton={true}
+            onMapReady={loadMercados}
             >
                 {mercados.map((mercado) => (
                     <MapView.Marker
@@ -72,7 +69,7 @@ export default function MapScreen() {
                         style={styles.marker}
                         />
                     </MapView.Marker>
-                ))} 
+                ))}
             </MapView>
             
             <ScrollView
@@ -100,10 +97,8 @@ export default function MapScreen() {
                         },
                         1000
                     )
-
-                    setTimeout(() => {
-                        markRef.showCallout()
-                    }, 1000)
+                    
+                    markRef.showCallout()
 
                     prevPlace = place
                 }
