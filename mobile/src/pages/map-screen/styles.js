@@ -41,6 +41,7 @@ export default StyleSheet.create({
     },
 
     marker: {
+        resizeMode: 'contain',
         width: 40,
         height: 57,
     },

@@ -77,7 +77,8 @@ export default function MapScreen() {
                         }}
                         >
                             <Image
-                            source={require('../../../assets/img/marker.png')}
+                            //source={require('../../../assets/img/marker.png')}
+                            source={{uri: mercado.market_picture_url}}
                             style={styles.marker}
                             />
                         </MapView.Marker>
