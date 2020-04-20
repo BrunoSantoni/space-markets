@@ -22,7 +22,6 @@
     "multer-s3": "^2.9.0",
     "multer-storage-cloudinary": "^2.2.1",
     "mz": "^2.7.0",
-    "promisify": "^0.0.3",
     "yarn": "^1.22.4",
     "yup": "^0.28.3"
   },

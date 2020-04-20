@@ -28,10 +28,10 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-UserSchema.pre('save', function() {
-  if(!this.user_profile_picture_url) {
-    this.user_profile_picture_url = `${process.env.APP_MOBILE_URL}/files/${this._id}.png`
-  }
-})
+// UserSchema.pre('save', function() {
+//   if(!this.user_profile_picture_url) {
+//     this.user_profile_picture_url = `${process.env.APP_MOBILE_URL}/files/${this._id}.png`
+//   }
+// })
 
 module.exports = mongoose.model('User', UserSchema)

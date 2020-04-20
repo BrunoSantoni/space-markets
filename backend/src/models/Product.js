@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Supermarket = require('./Supermarket')
-const { promisify } = require('util') //Converte a forma antiga de callbacks para a nova forma
+// const { promisify } = require('util') //Converte a forma antiga de callbacks para a nova forma
 
 const ProductSchema = new mongoose.Schema({
   product_name: {
@@ -32,16 +32,16 @@ const ProductSchema = new mongoose.Schema({
   }
 })
 
-ProductSchema.pre('save', function() {
-  if(!this.product_picture_url) {
-    this.product_picture_url = `${process.env.APP_URL}/files/${this.product_picture_key}`
-  }
-})
+// ProductSchema.pre('save', function() {
+//   if(!this.product_picture_url) {
+//     this.product_picture_url = `${process.env.APP_URL}/files/${this.product_picture_key}`
+//   }
+// })
 
-ProductSchema.pre('remove', function() {
-  return promisify(fs.unlink)(
-    path.resolve(__dirname, '..', '..', 'tmp', 'uploads', this.key)
-  )
-})
+// // ProductSchema.pre('remove', function() {
+// //   return promisify(fs.unlink)(
+// //     path.resolve(__dirname, '..', '..', 'tmp', 'uploads', this.key)
+// //   )
+// // })
 
 module.exports = mongoose.model('Product', ProductSchema)

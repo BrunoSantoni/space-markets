@@ -75,10 +75,10 @@ const SupermarketSchema = new mongoose.Schema({
   }
 })
 
-SupermarketSchema.pre('save', function() {
-  if(!this.market_picture_url) {
-    this.market_picture_url = `${process.env.APP_URL}/files/${this.market_picture_key}`
-  }
-})
+// SupermarketSchema.pre('save', function() {
+//   if(!this.market_picture_url) {
+//     this.market_picture_url = `${process.env.APP_URL}/files/${this.market_picture_key}`
+//   }
+// })
 
 module.exports = mongoose.model('Supermarket', SupermarketSchema)
