@@ -13,33 +13,41 @@ header span {
 }
 
 header img {
-  position: relative;
-	display: inline-block;
-  height: 108px;
-  width: 108px;
-  border-radius: 100%;
+  max-width: 100%;
+  width: 100%;
 }
 
 header .container {
   position: relative;
+  width: 108px;
+  height: 108px;
+  border-radius: 100%;
+  overflow: hidden;
 }
 
 header .edit {
   position: absolute;
-  padding-top: 10px;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
-  opacity: 0; /* O invisível */
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  transition: all .2s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-header .container:hover .edit {
+header .edit:hover {
   opacity: 1;
 }
 
 header #btn-edit-pic {
-  height: 0;
+  background: transparent;
+  height: 25px;
+  width: 25px;
   border: 0;
 }
 

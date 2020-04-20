@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FaPowerOff, FaUserEdit, FaEdit } from 'react-icons/fa'
+import { FaPowerOff, FaUserEdit, FaEdit, FaImage } from 'react-icons/fa'
 
 import './styles.css'
 
@@ -38,30 +38,30 @@ export default function Header() {
     history.push('/edit')
   }
 
-  function handleImgEdit() {
+  function handleImgEdit(e) {
+    e.preventDefault()
     document.getElementById('market_new_picture').click()
+  }
 
-    setTimeout( async () => {
-      const file = document.getElementById('market_new_picture').files[0]
-    
-      const data = new FormData()
-  
-      data.append("market_new_picture", file, file.name)
-  
-      try {
-        const response = await api.put(`perfil/${id}`, data, {
-          headers: {
-            auth: id
-          }
-        })
-  
-        alert('Foto de perfil alterada com sucesso\nAgora todos podem ver seu novo logotipo!')
+  const uploadImage = async () => {
+    const file = document.getElementById('market_new_picture').files[0]
+    const data = new FormData()
 
-        setPictureKey(response.data.market_picture_key)            
-      } catch(err) {
-        alert(err)
-      }   
-    }, 3000)
+    data.append("market_new_picture", file, file.name)
+
+    try {
+      const response = await api.put(`perfil/${id}`, data, {
+        headers: {
+          auth: id
+        }
+      })
+
+      alert('Foto de perfil alterada com sucesso\nAgora todos podem ver seu novo logotipo!')
+
+      setPictureKey(response.data.market_picture_key)            
+    } catch(err) {
+      alert(err)
+    }   
   }
 
   return(
@@ -69,9 +69,9 @@ export default function Header() {
       <div className="container">
         <img src={picture} alt="Foto de perfil" />
         <div className="edit">
-        <input id="market_new_picture" name="market_new_picture" type="file" hidden/>
+        <input id="market_new_picture" name="market_new_picture" type="file" onInput={uploadImage} hidden/>
           <button onClick={handleImgEdit} type="button" id="btn-edit-pic">
-            <FaEdit size={20} color="#74a2d6" />
+            <FaImage size={25} color="#FFF" />
           </button>
         </div>
       </div>      

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { FaTrash, FaPen, FaSave } from 'react-icons/fa'
+import { FaTrashAlt, FaPen, FaSave } from 'react-icons/fa'
 import emptyImage from '../../assets/empty-image.png'
 
 import './styles.css'
@@ -96,10 +96,10 @@ export default function Profile() {
         <p><strong>VALOR:</strong>R$ {product.product_price}</p>
 
         <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
-            <FaPen size={26} color="#74a2d6" />
+            <FaPen size={22} color="#FFF" />
         </button>
         <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
-            <FaTrash size={26} color="#74a2d6" />
+            <FaTrashAlt size={22} color="#FFF" />
         </button>
       </div>
     </li>
@@ -159,7 +159,7 @@ export default function Profile() {
               <button onClick={() => 
               handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
               type="button" id="confirm-button">
-                <FaSave size={20} color="#74a2d6" />
+                <FaSave size={20} color="#FFF" />
               </button> : null}
             </li>
           )))}

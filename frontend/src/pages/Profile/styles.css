@@ -20,7 +20,13 @@
   position: relative;
   text-align: center;
   display: flex;
-  box-shadow: 0 0 30px rgba(0, 0, 0, .2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all .15s ease-in-out;
+}
+
+.profile-container ul li:hover {
+  transform: scale(1.005);
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
 .profile-container ul li img {
@@ -34,9 +40,10 @@
   right: 24px;
   top: 24px;
   border: 0;
-  background: #ebe7e7;
+  background: #63b1b9;
   padding: 8px;
   border-radius: 8px;
+  transition: all .2s;
 
   display: flex;
   justify-content: center;
