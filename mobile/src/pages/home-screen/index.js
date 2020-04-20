@@ -61,7 +61,6 @@ export default function HomeScreen(props){
 
     function navigateToProductList(){
         navigation.navigate('ProductList')
-        //setNext(0) <- Não sei o que faz e deu erro
     }
 
     function navigateToMap() {
@@ -75,7 +74,7 @@ export default function HomeScreen(props){
             <View style={styles.stewardContainer}>
                 <Txt style={{fontSize: 22, color: '#000', marginBottom: 20, textAlign: 'center'}}>Seja bem-vindo, {username}!</Txt>
                 <Image source={HomeImage} style={{ width: 300, marginBottom: 20 }} resizeMode="contain"/>
-                <Txt style={{fontSize: 15, color: '#000', textAlign: 'center'}}>O que nós da equipe Space Markets podemos fazer por você hoje?</Txt>
+                <Txt style={{fontSize: 15, color: '#000', textAlign: 'center'}}>O que nós podemos fazer por você hoje?</Txt>
             </View>
 
             <View style={styles.optionContainer}>

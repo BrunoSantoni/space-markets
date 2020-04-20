@@ -18,7 +18,7 @@ export default StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         marginBottom: 40,
-        marginTop: 60
+        marginTop: 120
     },
 
     optionContainer:{
@@ -38,7 +38,8 @@ export default StyleSheet.create({
         height: 50,
         width: '100%',
         borderRadius: 0,
-        marginTop: 20,
+        marginTop: 10,
+        marginBottom: 10,
         paddingVertical: 30
     },
 
