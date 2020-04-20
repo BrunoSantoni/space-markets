@@ -8,12 +8,32 @@ import {
 const { width } = Dimensions.get('window');
 
 export default StyleSheet.create({
+    marketContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        width: '100%',
+    },
+
+    btnContainer: {
+        flexDirection: 'row',
+        width: width - 155,
+        justifyContent: 'space-between'
+    },
+
+    productsContainer: {
+        height: 170,
+        backgroundColor: '#F6F6F6',
+        alignItems: 'center',
+        padding: 20,
+        width: width
+    },
+
     btnSugerir: {
         position: 'absolute',
         width: 50,
         height: 50,
         borderRadius: 100,
-        backgroundColor: '#59cf59',
+        backgroundColor: '#63b1b9',
         justifyContent: 'center',
         alignItems: 'center',
         top: 50,
@@ -41,31 +61,27 @@ export default StyleSheet.create({
     },
 
     marker: {
-        resizeMode: 'contain',
-        width: 40,
-        height: 57,
+        width: 30,
+        height: 30,
+        borderRadius: 20
     },
 
     placesContainer: {
         width: '100%',
-        maxHeight: 150,
-        marginBottom: 30,
+        maxHeight: 300,
     },
 
     place: {
-        width: width - 40,
-        maxHeight: 150,
+        width: width,
+        maxHeight: 130,
         backgroundColor: '#FFF',
-        marginHorizontal: 20,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
         padding: 20,
     },
     
     nome: {
         fontWeight: 'bold',
         fontSize: 18,
-        backgroundColor: 'transparent',
+        backgroundColor: '#fff',
     },
     
     endereco: {
@@ -75,23 +91,56 @@ export default StyleSheet.create({
     },
 
     placeImg: {
-        position: 'absolute',
-        resizeMode: 'contain',
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         right: 10,
+        borderColor: '#000',
+        borderWidth: 1,
+        borderRadius: 30,
+        padding: 4,
+        resizeMode: 'cover'
     },
 
     placeBtn: {
-        height: 25,
+        height: 35,
         marginTop: 10,
-        backgroundColor:'#59cf59',
+        backgroundColor:'#63b1b9',
         justifyContent: 'center',
+        borderRadius: 8,
+        paddingHorizontal: 12,
     },
 
     placeBtnText: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 13,
         alignSelf: 'center',
     },
+
+    productsTitle: {
+        width: '100%',
+        textAlign: 'center',
+        textTransform: 'uppercase',
+    },
+
+    listProducts: {
+        flexDirection: 'row',
+        marginTop: 15,
+        width: '100%',
+        justifyContent: 'center'
+    },
+
+    productItem: {
+        marginHorizontal: 8
+    },
+
+    productImg: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginBottom: 5
+    },
+
+    productPrice: {
+        textAlign: 'center'
+    }
 });

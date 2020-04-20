@@ -117,20 +117,57 @@ export default function MapScreen() {
                     } 
                 }}>
                     {mercados.map((mercado) => (
-                        <View key={mercado.market_id} style={styles.place}>
-                            <Image source={{uri: mercado.market_picture_url}} style={styles.placeImg} />
-                            <Text style={styles.nome}>{ mercado.market_name }</Text>
-                            <Text style={styles.endereco}>{ mercado.market_street + ', ' + mercado.market_number }</Text>
-                            <TouchableOpacity 
-                            style={styles.placeBtn}
-                            >
-                                <Text style={styles.placeBtnText}>Ver produtos</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity 
-                            style={styles.placeBtn}
-                            >
-                                <Text style={styles.placeBtnText}>Rota até aqui</Text>
-                            </TouchableOpacity>
+                        <View>
+                            <View key={mercado.market_id} style={styles.place}>
+                                <View style={styles.marketContainer}>
+                                    <View>
+                                        <Image source={{uri: mercado.market_picture_url}} style={styles.placeImg} />
+                                        <Text>2,5 km</Text>
+                                    </View>
+
+                                    <View style={styles.actContainer}>
+                                        <Text style={styles.nome}>{ mercado.market_name }</Text>
+                                        <Text style={styles.endereco}>{ mercado.market_street + ', ' + mercado.market_number }</Text>
+                                        <View style={styles.btnContainer}>
+                                            <TouchableOpacity 
+                                            style={styles.placeBtn}
+                                            >
+                                                <Text style={styles.placeBtnText}>Ver produtos</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity 
+                                            style={styles.placeBtn}
+                                            >
+                                                <Text style={styles.placeBtnText}>Rota até aqui</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View>
+                            </View>
+                            <View style={styles.productsContainer}>
+                                <Text style={styles.productsTitle}>Principais promoções {mercado.market_name}</Text>
+                                <View style={styles.listProducts}>
+                                    <View style={styles.productItem}>
+                                        <Image source={{uri: mercado.market_picture_url}} style={styles.productImg}/>
+                                        <Text style={styles.productPrice}>R$ 2,50</Text>
+                                    </View>
+                                    <View style={styles.productItem}>
+                                        <Image source={{uri: mercado.market_picture_url}} style={styles.productImg}/>
+                                        <Text style={styles.productPrice}>R$ 2,50</Text>
+                                    </View>
+                                    <View style={styles.productItem}>
+                                        <Image source={{uri: mercado.market_picture_url}} style={styles.productImg}/>
+                                        <Text style={styles.productPrice}>R$ 2,50</Text>
+                                    </View>
+                                    <View style={styles.productItem}>
+                                        <Image source={{uri: mercado.market_picture_url}} style={styles.productImg}/>
+                                        <Text style={styles.productPrice}>R$ 2,50</Text>
+                                    </View>
+                                    <View style={styles.productItem}>
+                                        <Image source={{uri: mercado.market_picture_url}} style={styles.productImg}/>
+                                        <Text style={styles.productPrice}>R$ 2,50</Text>
+                                    </View>
+                                </View>
+                            </View>
                         </View>
                     ))}
                 </ScrollView>
