@@ -1,6 +1,6 @@
-import React, { useState, useEffect }from 'react'
-import { View, Image, TouchableOpacity, AsyncStorage, Animated } from 'react-native'
-import { Feather, FontAwesome5 } from '@expo/vector-icons'
+import React, { useState }from 'react'
+import { View, Image, TouchableOpacity, AsyncStorage } from 'react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 
 
