@@ -48,11 +48,10 @@ export default StyleSheet.create({
     btnContainer: {
         flexDirection: 'row',
         width: width - 155,
-        justifyContent: 'space-between'
     },
 
     expandBtn: {
-        width: '100%',
+        width: 40,
         alignItems: 'center',
         height: 22,
         backgroundColor:'#63b1b9',
@@ -68,7 +67,8 @@ export default StyleSheet.create({
     productsContainer: {
         backgroundColor: '#F6F6F6',
         alignItems: 'center',
-        width: width
+        width: width,
+        paddingVertical: 10
     },
 
     marker: {
@@ -119,7 +119,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 8,
         paddingHorizontal: '8%',
-        marginHorizontal: '1%',
     },
 
     placeBtnText: {

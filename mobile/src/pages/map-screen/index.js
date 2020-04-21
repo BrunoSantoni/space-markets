@@ -48,6 +48,10 @@ export default function MapScreen() {
         productsVisible ? setProductsVisible(false) : setProductsVisible(true)
     }
 
+    function navigateToMarketProducts() {
+        navigation.navigate('MarketProducts');
+    }
+
     return loading ? (
         <Logo />
     ) : (
@@ -181,6 +185,7 @@ export default function MapScreen() {
                                             <View style={styles.btnContainer}>
                                                 <TouchableOpacity
                                                     style={styles.placeBtn}
+                                                    onPress={navigateToMarketProducts}
                                                 >
                                                     <Text
                                                         style={
@@ -201,11 +206,8 @@ export default function MapScreen() {
                                                         Rota até aqui
                                                     </Text>
                                                 </TouchableOpacity>
-                                            </View>
-                                        </View>
-                                    </View>
-                                    <TouchableOpacity
-                                        style={styles.expandBtn}
+                                                <TouchableOpacity
+                                        style={styles.placeBtn}
                                         onPress={toggleProductsVisibility}
                                     >
                                         {productsVisible ? (
@@ -218,6 +220,9 @@ export default function MapScreen() {
                                             </Text>
                                         )}
                                     </TouchableOpacity>
+                                            </View>
+                                        </View>
+                                    </View>
                                 </View>
                                 {productsVisible ? (
                                     <View style={styles.productsContainer}>

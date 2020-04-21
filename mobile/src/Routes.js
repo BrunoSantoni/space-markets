@@ -8,6 +8,7 @@ import HomeScreen from './pages/home-screen'
 import MapScreen from './pages/map-screen'
 import SuggestScreen from './pages/suggest-screen'
 import ProductListScreen from './pages/product-list-screen'
+import MarketProducts from './pages/market-products'
 
 const AppStack = createStackNavigator()
 
@@ -65,6 +66,14 @@ export default function Routes() {
                     options={{
                         headerShown: false,
                         title: "Lista de Produtos"                        
+                    }} />
+
+                <AppStack.Screen 
+                    name="MarketProducts" 
+                    component={MarketProducts}
+                    options={{
+                        headerShown: false,
+                        title: "Produtos do mercado"                        
                     }} />
             </AppStack.Navigator>
         </NavigationContainer>
