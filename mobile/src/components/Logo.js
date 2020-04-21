@@ -10,10 +10,10 @@ export default function Logo() {
 
 const styles = StyleSheet.create({
     logo: {
-        width: 200,
+        width: '55%',
         position: 'absolute',
-        top: 0,
-        left: 10,
+        top: '0%',
+        left: '5%',
         zIndex: 100
     }
 })
