@@ -3,52 +3,32 @@
 import { 
     StyleSheet, 
     Dimensions 
-} from 'react-native';
+} from 'react-native'
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
-    marketContainer: {
-        flexDirection: 'row',
-        paddingHorizontal: 10,
-        width: '100%',
-    },
-
-    btnContainer: {
-        flexDirection: 'row',
-        width: width - 155
-    },
-
-    productsContainer: {
-        height: 170,
-        backgroundColor: '#F6F6F6',
-        alignItems: 'center',
-        padding: 20,
-        width: width
+    container: {
+        flex: 1,
     },
 
     btnSugerir: {
         position: 'absolute',
-        width: 50,
-        height: 50,
+        width: '20%',
+        height: '8%',
         borderRadius: 100,
         backgroundColor: '#63b1b9',
         justifyContent: 'center',
         alignItems: 'center',
-        top: 50,
-        right: 15,
+        top: '10%',
+        right: '5%',
         borderWidth: 2,
     },
 
     btnSugerirImg: {
-        height: 32,
-        width: 32,
-    },
-
-    container: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
+        resizeMode: 'contain',
+        height: '75%',
+        width: '75%',
     },
 
     mapView: {
@@ -59,6 +39,38 @@ export default StyleSheet.create({
         right: 0,
     },
 
+    marketContainer: {
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+        width: '100%',
+    },
+
+    btnContainer: {
+        flexDirection: 'row',
+        width: width - 155,
+        justifyContent: 'space-between'
+    },
+
+    expandBtn: {
+        width: '100%',
+        alignItems: 'center',
+        height: 22,
+        backgroundColor:'#63b1b9',
+        borderRadius: 8,
+        marginTop: 5,
+    },
+
+    expandBtnText: {
+        color: 'white',
+        fontSize: 14,
+    },
+
+    productsContainer: {
+        backgroundColor: '#F6F6F6',
+        alignItems: 'center',
+        width: width
+    },
+
     marker: {
         width: 30,
         height: 30,
@@ -66,15 +78,14 @@ export default StyleSheet.create({
     },
 
     placesContainer: {
-        width: '100%',
-        maxHeight: 300,
+        position: 'absolute',
+        bottom: 0,
     },
 
     place: {
         width: width,
-        maxHeight: 130,
         backgroundColor: '#FFF',
-        padding: 20,
+        padding: 15,
     },
     
     nome: {
@@ -107,7 +118,8 @@ export default StyleSheet.create({
         backgroundColor:'#63b1b9',
         justifyContent: 'center',
         borderRadius: 8,
-        paddingHorizontal: 12,
+        paddingHorizontal: '8%',
+        marginHorizontal: '1%',
     },
 
     placeBtnText: {
@@ -126,7 +138,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginTop: 15,
         width: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     productItem: {
@@ -143,4 +155,4 @@ export default StyleSheet.create({
     productPrice: {
         textAlign: 'center'
     }
-});
+})

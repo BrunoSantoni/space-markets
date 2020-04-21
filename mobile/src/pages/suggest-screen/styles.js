@@ -15,7 +15,7 @@ export default StyleSheet.create({
         height: 50,
         marginTop: 20,
         marginBottom: 30,
-        backgroundColor:'#59cf59',
+        backgroundColor:'#63b1b9',
         justifyContent: 'center',
     },
 
