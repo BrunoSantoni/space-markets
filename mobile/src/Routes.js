@@ -48,7 +48,7 @@ export default function Routes() {
                     options={{
                         title: "Sugerir",
                         headerStyle: {
-                            backgroundColor: '#59cf59',
+                            backgroundColor: '#63b1b9',
                             height: 150,
                         },
                         headerTintColor: '#fff',
@@ -65,7 +65,7 @@ export default function Routes() {
                     options={{
                         title: "Lista de Produtos",
                         headerStyle: {
-                            backgroundColor: '#59cf59',
+                            backgroundColor: '#63b1b9',
                             height: 150,
                         },
                         headerTintColor: '#fff',
