@@ -29,8 +29,7 @@ export default StyleSheet.create({
         backgroundColor: Color.secundary,
         height: 50,
         width: '100%',
-        borderRadius: 0,
-        paddingVertical: 30
+        borderRadius: 0
     },
 
     secondOption:{
@@ -38,9 +37,8 @@ export default StyleSheet.create({
         height: 50,
         width: '100%',
         borderRadius: 0,
-        marginTop: 10,
-        marginBottom: 10,
-        paddingVertical: 30
+        marginTop: 15,
+        marginBottom: 5
     },
 
     inputContainer: {
@@ -61,6 +59,7 @@ export default StyleSheet.create({
 
     optionText: {
         fontSize: 18,
+        color: '#fff',
         fontFamily: Font.regular
     }
 })

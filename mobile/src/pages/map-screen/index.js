@@ -32,7 +32,6 @@ export default function MapScreen() {
     useEffect(() => {
         api.get('mercados').then((res) => {
             setMercados(res.data)
-            console.log(res.data)
             setLoading(false)
         })
     }, [])
@@ -131,9 +130,6 @@ export default function MapScreen() {
                                 animated: false,
                             })
                         }
-
-                        console.log('prevPlace: ' + prevPlace)
-                        console.log('place: ' + place)
 
                         if (place != prevPlace) {
                             const {

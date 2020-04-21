@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import { Image, View, AsyncStorage, Alert, BackHandler } from 'react-native'
-import { useBackHandler } from '@react-native-community/hooks'
 import { useNavigation } from '@react-navigation/native'
 
 import Screen from '../../components/Screen'
 import Txt from '../../components/Txt'
-import Steward from '../../../assets/img/steward.png'
 import Loading from '../../../assets/img/loading.gif'
 import styles from './styles'
 import TouchButton from '../../components/TouchButton'
@@ -82,7 +80,7 @@ export default function HomeScreen(props){
                     Encontre a melhor oferta
                 </TouchButton>
                 <TouchButton style={styles.secondOption} textStyle={styles.optionText} onPress={navigateToMap}>
-                    Encontre um comércio ou produto próximo
+                    Encontre um mercado
                 </TouchButton>
             </View>
         </Screen>

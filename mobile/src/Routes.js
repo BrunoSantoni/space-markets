@@ -63,16 +63,8 @@ export default function Routes() {
                     name="ProductList" 
                     component={ProductListScreen}
                     options={{
-                        title: "Lista de Produtos",
-                        headerStyle: {
-                            backgroundColor: '#63b1b9',
-                            height: 150,
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            fontSize: 30,
-                        },
+                        headerShown: false,
+                        title: "Lista de Produtos"                        
                     }} />
             </AppStack.Navigator>
         </NavigationContainer>
