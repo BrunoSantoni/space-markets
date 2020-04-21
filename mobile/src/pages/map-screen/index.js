@@ -111,10 +111,14 @@ export default function MapScreen() {
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     initialNumToRender={1}
-                    keyExtractor={item => item.id}
-                    getItemLayout={(data, index) => (
-                        {length: width, offset: width * index, index}
-                    )}
+                    keyExtractor={(item, index) => {
+                        return item.id
+                    }}
+                    getItemLayout={(data, index) => ({
+                        length: width,
+                        offset: width * index,
+                        index,
+                    })}
                     onMomentumScrollEnd={(e) => {
                         const scrolled = e.nativeEvent.contentOffset.x
 
@@ -156,9 +160,7 @@ export default function MapScreen() {
                     renderItem={() =>
                         mercados.map((mercado) => (
                             <View key={mercado.market_id}>
-                                <View
-                                    style={styles.place}
-                                >
+                                <View style={styles.place}>
                                     <View style={styles.marketContainer}>
                                         <View>
                                             <Image
@@ -212,11 +214,11 @@ export default function MapScreen() {
                                     >
                                         {productsVisible ? (
                                             <Text style={styles.expandBtnText}>
-                                                ˄
+                                                ▲
                                             </Text>
                                         ) : (
                                             <Text style={styles.expandBtnText}>
-                                                ˅
+                                                ▼
                                             </Text>
                                         )}
                                     </TouchableOpacity>

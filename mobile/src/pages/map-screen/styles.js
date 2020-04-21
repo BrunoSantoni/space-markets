@@ -62,7 +62,7 @@ export default StyleSheet.create({
 
     expandBtnText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 14,
     },
 
     productsContainer: {
