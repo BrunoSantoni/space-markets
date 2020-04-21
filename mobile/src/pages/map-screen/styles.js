@@ -16,8 +16,7 @@ export default StyleSheet.create({
 
     btnContainer: {
         flexDirection: 'row',
-        width: width - 155,
-        justifyContent: 'space-between'
+        width: width - 155
     },
 
     productsContainer: {
@@ -104,6 +103,7 @@ export default StyleSheet.create({
     placeBtn: {
         height: 35,
         marginTop: 10,
+        marginRight: 5,
         backgroundColor:'#63b1b9',
         justifyContent: 'center',
         borderRadius: 8,

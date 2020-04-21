@@ -57,7 +57,7 @@ export default function MapScreen() {
                 }}
                 style={styles.mapView}
                 rotateEnabled={false}
-                scrollEnabled={false}
+                scrollEnabled={true}
                 zoomEnabled={false}
                 showsPointsOfInterest={false}
                 showsBuildings={false}
