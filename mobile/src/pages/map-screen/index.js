@@ -48,8 +48,12 @@ export default function MapScreen() {
         productsVisible ? setProductsVisible(false) : setProductsVisible(true)
     }
 
-    function navigateToMarketProducts() {
-        navigation.navigate('MarketProducts');
+    function navigateToMarketProducts(marketId, marketName, marketPicture) {
+        navigation.navigate('MarketProducts', {
+            marketId: marketId,
+            marketName: marketName,
+            marketPicture: marketPicture
+        })
     }
 
     return loading ? (
@@ -185,7 +189,8 @@ export default function MapScreen() {
                                             <View style={styles.btnContainer}>
                                                 <TouchableOpacity
                                                     style={styles.placeBtn}
-                                                    onPress={navigateToMarketProducts}
+                                                    onPress={() => navigateToMarketProducts(mercado._id,
+                                                        mercado.market_name, mercado.market_picture_url)}
                                                 >
                                                     <Text
                                                         style={

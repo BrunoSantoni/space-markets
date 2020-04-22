@@ -23,15 +23,8 @@ export default function HomeScreen(props){
     const navigation = useNavigation()
 
     const backAction = () => {
-        Alert.alert("Aviso", "Tem certeza que quer sair?", [
-          {
-            text: "Não",
-            onPress: () => null,
-            style: 'default'
-          },
-          { text: "Sim", onPress: () => navigation.goBack() }
-        ])
-        return true;
+        navigation.goBack()
+        return true
       }
 
     //BOTA TUDO DENTRO DO ASYNC SENÃO NÃO ESPERA

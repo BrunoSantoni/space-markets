@@ -1,4 +1,3 @@
-const fs = require('mz/fs')
 const User = require('../models/User')
 const cloudinary = require('../config/cloudinaryConfig')
 

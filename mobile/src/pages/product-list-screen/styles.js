@@ -47,6 +47,10 @@ export default StyleSheet.create({
     resizeMode: 'cover'
   },
 
+  even: {
+    backgroundColor: '#D3D3D3',
+  },
+
   productInfo: {
     bottom: 5,
     textAlign: 'center'

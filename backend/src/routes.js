@@ -12,6 +12,7 @@ const SupermarketSessionController = require('./controllers/SupermarketSessionCo
 
 const UserController = require('./controllers/UserController')
 const UserSessionController = require('./controllers/UserSessionController')
+const SearchController = require('./controllers/SearchController')
 
 //WEB
 routes.post('/login', SupermarketSessionController.create)
@@ -36,5 +37,7 @@ routes.post('/usercadastro', multer(multerConfigUser).single('user_picture'), Us
 routes.post('/userlogin', UserSessionController.create)
 
 routes.get('/mercados', SupermarketController.index)
+
+routes.get('/buscaproduto', SearchController.index)
 
 module.exports = routes

@@ -103,7 +103,7 @@ export default function Profile() {
         </button>
       </div>
     </li>
-    )));
+    )))
 
   if(!showDiv) {
     return(

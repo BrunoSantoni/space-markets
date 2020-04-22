@@ -28,7 +28,7 @@ const ProductSchema = new mongoose.Schema({
 
   market_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: Supermarket
+    ref: 'Supermarket'
   }
 })
 
