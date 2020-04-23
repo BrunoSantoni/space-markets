@@ -31,6 +31,16 @@ export default function MapScreen() {
     const [productsVisible, setProductsVisible] = useState(true)
 
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            () => {}, //sucesso
+            () => {}, //error
+            {
+                timeout: 2000,
+                enableHighAccuracy: true,
+                maximumAge: 1000
+            }
+        )
+
         api.get('mercados').then((res) => {
             setMercados(res.data)
             setLoading(false)
