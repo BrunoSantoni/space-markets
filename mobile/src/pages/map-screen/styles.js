@@ -12,6 +12,13 @@ export default StyleSheet.create({
         flex: 1,
     },
 
+    hidden: {
+        width: 0,
+        height: 0,
+        bottom: -100,
+        position: 'absolute',
+    },
+
     btnSugerir: {
         position: 'absolute',
         width: '20%',

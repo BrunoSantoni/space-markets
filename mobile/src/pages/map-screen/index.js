@@ -27,9 +27,20 @@ export default function MapScreen() {
     const navigation = useNavigation()
     const [mercados, setMercados] = useState([])
     const [loading, setLoading] = useState(true)
+    const [placesVisible, setPlacesVisible] = useState(true)
     const [productsVisible, setProductsVisible] = useState(true)
 
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            () => {}, //sucesso
+            () => {}, //error
+            {
+                timeout: 2000,
+                enableHighAccuracy: true,
+                maximumAge: 1000
+            }
+        )
+
         api.get('mercados').then((res) => {
             setMercados(res.data)
             setLoading(false)
@@ -52,7 +63,7 @@ export default function MapScreen() {
         navigation.navigate('MarketProducts', {
             marketId: marketId,
             marketName: marketName,
-            marketPicture: marketPicture
+            marketPicture: marketPicture,
         })
     }
 
@@ -79,6 +90,9 @@ export default function MapScreen() {
                 showsUserLocation={true}
                 showsMyLocationButton={true}
                 onMapReady={showFirstCallout}
+                onPress={() => {
+                    if (placesVisible) setPlacesVisible(false)
+                }}
             >
                 {mercados.map((mercado, index) => (
                     <MapView.Marker
@@ -93,6 +107,7 @@ export default function MapScreen() {
                             longitude: mercado.market_longitude,
                         }}
                         onPress={() => {
+                            if (!placesVisible) setPlacesVisible(true)
                             placesRef.current.scrollToIndex({
                                 animated: true,
                                 index: index,
@@ -110,7 +125,7 @@ export default function MapScreen() {
                 ))}
             </MapView>
 
-            <View style={styles.placesContainer}>
+            <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
                 <FlatList
                     ref={placesRef}
                     data={mercados}
@@ -189,8 +204,13 @@ export default function MapScreen() {
                                             <View style={styles.btnContainer}>
                                                 <TouchableOpacity
                                                     style={styles.placeBtn}
-                                                    onPress={() => navigateToMarketProducts(mercado._id,
-                                                        mercado.market_name, mercado.market_picture_url)}
+                                                    onPress={() =>
+                                                        navigateToMarketProducts(
+                                                            mercado._id,
+                                                            mercado.market_name,
+                                                            mercado.market_picture_url
+                                                        )
+                                                    }
                                                 >
                                                     <Text
                                                         style={
@@ -212,61 +232,58 @@ export default function MapScreen() {
                                                     </Text>
                                                 </TouchableOpacity>
                                                 <TouchableOpacity
-                                        style={styles.placeBtn}
-                                        onPress={toggleProductsVisibility}
-                                    >
-                                        {productsVisible ? (
-                                            <Text style={styles.expandBtnText}>
-                                                ▲
-                                            </Text>
-                                        ) : (
-                                            <Text style={styles.expandBtnText}>
-                                                ▼
-                                            </Text>
-                                        )}
-                                    </TouchableOpacity>
+                                                    style={styles.placeBtn}
+                                                    onPress={
+                                                        toggleProductsVisibility
+                                                    }
+                                                >
+                                                    <Text
+                                                        style={
+                                                            styles.expandBtnText
+                                                        }
+                                                    >
+                                                        {productsVisible
+                                                            ? '▲'
+                                                            : '▼'}
+                                                    </Text>
+                                                </TouchableOpacity>
                                             </View>
                                         </View>
                                     </View>
                                 </View>
-                                {productsVisible ? (
-                                    <View style={styles.productsContainer}>
-                                        <Text style={styles.productsTitle}>
-                                            Principais promoções{' '}
-                                            {mercado.market_name}
-                                        </Text>
-                                        <View style={styles.listProducts}>
-                                            <View style={styles.productItem}>
-                                                <Image
-                                                    source={{
-                                                        uri:
-                                                            mercado.market_picture_url,
-                                                    }}
-                                                    style={styles.productImg}
-                                                />
-                                                <Text
-                                                    style={styles.productPrice}
-                                                >
-                                                    R$ 2,50
-                                                </Text>
-                                            </View>
-                                            <View style={styles.productItem}>
-                                                <Image
-                                                    source={{
-                                                        uri:
-                                                            mercado.market_picture_url,
-                                                    }}
-                                                    style={styles.productImg}
-                                                />
-                                                <Text
-                                                    style={styles.productPrice}
-                                                >
-                                                    R$ 2,50
-                                                </Text>
-                                            </View>
+
+                                <View style={[productsVisible ? styles.productsContainer : styles.hidden]}>
+                                    <Text style={styles.productsTitle}>
+                                        Principais promoções{' '}
+                                        {mercado.market_name}
+                                    </Text>
+                                    <View style={styles.listProducts}>
+                                        <View style={styles.productItem}>
+                                            <Image
+                                                source={{
+                                                    uri:
+                                                        mercado.market_picture_url,
+                                                }}
+                                                style={styles.productImg}
+                                            />
+                                            <Text style={styles.productPrice}>
+                                                R$ 2,50
+                                            </Text>
+                                        </View>
+                                        <View style={styles.productItem}>
+                                            <Image
+                                                source={{
+                                                    uri:
+                                                        mercado.market_picture_url,
+                                                }}
+                                                style={styles.productImg}
+                                            />
+                                            <Text style={styles.productPrice}>
+                                                R$ 2,50
+                                            </Text>
                                         </View>
                                     </View>
-                                ) : null}
+                                </View>
                             </View>
                         ))
                     }
