@@ -9,6 +9,7 @@ const Joi = require('joi')
 
 module.exports = {
 
+  /* Retorna todos os mercados para serem exibidos na map_screen do mobile */
   async index(req, res) {
     await Supermarket.find(function(err, data) {
       if(err) { return console.log(err) }
@@ -16,6 +17,7 @@ module.exports = {
     })
   },
 
+  /* Retorna dados do mercado logado na web para que possa ser alterado */
   async currentSupermarket(req, res) {
     const auth = req.headers.auth
 
@@ -25,7 +27,7 @@ module.exports = {
     })
   },
 
-  //Função para retornar a imagem do usuário para o front;
+  /* Retorna a imagem do usuário para ser exibida no perfil na web */
   async profileImage(req, res) {
     const auth = req.headers.auth
     
@@ -36,6 +38,7 @@ module.exports = {
     })
   },
 
+  /* Faz a inserção do mercado no banco de dados */
   async create(req, res) {
     const { market_name, market_mail, market_password, market_cnpj, market_cep, market_street,
       market_number, market_neighborhood, market_city, market_uf,
@@ -80,6 +83,7 @@ module.exports = {
     }
   },
 
+  /* Atualiza os dados de um mercado já cadastrado (menos a imagem, ela é feita em uma função separada) */
   async update(req, res) {
     const auth = req.headers.auth
     const { market_mail, market_password, market_cep, market_street, market_number,
@@ -116,6 +120,7 @@ module.exports = {
     }    
   },
 
+  /* Atualiza a imagem de perfil do mercado */
   async updateImg(req, res) {
     const auth = req.headers.auth
     const { public_id, url = '' } = req.file

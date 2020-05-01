@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const Supermarket = require('./Supermarket')
 // const { promisify } = require('util') //Converte a forma antiga de callbacks para a nova forma
 
 const ProductSchema = new mongoose.Schema({

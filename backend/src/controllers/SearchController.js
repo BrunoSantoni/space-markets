@@ -1,6 +1,7 @@
 const Product = require('../models/Product')
 
 module.exports = {
+  /* Retorna todos os produtos que contém a pesquisa feita pelo usuário e a informação do mercado */
   async index(req, res) {
     const search = req.headers.search
 

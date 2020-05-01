@@ -16,7 +16,7 @@ export default function Header() {
 
   const history = useHistory()
 
-  //Busca a imagem de perfil do mercado
+  /* Busca a imagem de perfil do mercado */
   useEffect(() => {
     api.get('perfil', {
       headers: {
