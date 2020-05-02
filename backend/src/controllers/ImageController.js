@@ -45,7 +45,6 @@ module.exports = {
     if (flag) {
       await cloudinary.v2.uploader.destroy(market.market_picture_key, (err) => {
         if (err) res.json(err)
-        res.status(204)
       })
     }
   },
