@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 
 const SupermarketSchema = new mongoose.Schema({
-  market_id: {
-    type: String,
-  },
-
   market_name: {
     type: String,
     required: true,

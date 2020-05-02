@@ -1,5 +1,3 @@
-const crypto = require('crypto')
-
 const Joi = require('joi')
 const Supermarket = require('../models/Supermarket')
 
@@ -46,10 +44,6 @@ module.exports = {
 
     let flag = false
 
-    // eslint-disable-next-line operator-linebreak
-    const market_id =
-      market_name.replace(/ /g, '') + crypto.randomBytes(2).toString('HEX')
-
     // Validando os dados
 
     const message = Joi.validate(
@@ -64,8 +58,7 @@ module.exports = {
     )
 
     if (!flag) {
-      await Supermarket.create({
-        market_id,
+      const market = await Supermarket.create({
         market_name,
         market_mail,
         market_password,
@@ -82,7 +75,7 @@ module.exports = {
         market_picture_key: public_id,
       })
 
-      return res.json({ market_id })
+      return res.json(market)
     }
     return res.json({ message })
   },

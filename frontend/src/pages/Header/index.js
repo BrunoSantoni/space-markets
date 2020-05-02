@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FaPowerOff, FaUserEdit, FaEdit, FaImage } from 'react-icons/fa'
+import { FaPowerOff, FaUserEdit, FaImage } from 'react-icons/fa'
 
 import './styles.css'
 
@@ -10,7 +10,6 @@ export default function Header() {
   const [picture, setPicture] = useState('')
   const [pictureKey, setPictureKey] = useState('')
 
-  const marketId = localStorage.getItem('market_id')
   const marketName = localStorage.getItem('market_name')
   const id = localStorage.getItem('id')
 
@@ -20,13 +19,13 @@ export default function Header() {
   useEffect(() => {
     api.get('perfil', {
       headers: {
-        auth: marketId
+        auth: id
       }
     }).then(res => {
       setPicture(res.data[0].market_picture_url)
       setPictureKey(res.data[0].market_picture_key)
     })
-  }, [pictureKey])
+  }, [id])
 
   function handleLogout() {
     localStorage.clear()

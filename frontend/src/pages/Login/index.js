@@ -11,7 +11,7 @@ import logo from '../../assets/logo.png'
 
 export default function Login() {
 
-  const [id, setId] = useState('')
+  const [mail, setMail] = useState('')
   const [password, setPassword] = useState('')
   const history = useHistory()
 
@@ -19,9 +19,8 @@ export default function Login() {
     e.preventDefault()
     
     try {
-      const res = await api.post('login', { id, password })
+      const res = await api.post('login', { mail, password })
 
-      localStorage.setItem('market_id', id)
       localStorage.setItem('market_name', res.data.market_name)
       localStorage.setItem('id', res.data._id)
 
@@ -43,9 +42,9 @@ export default function Login() {
             <p>Um <strong>espaço</strong> para compartilhar seu mercado!</p>
 
             <input type = "text"
-              placeholder = "Informe o ID do mercado" 
-              value = {id}
-              onChange = {e => setId(e.target.value)}
+              placeholder = "Informe o e-mail do mercado" 
+              value = {mail}
+              onChange = {e => setMail(e.target.value)}
             />              
 
             

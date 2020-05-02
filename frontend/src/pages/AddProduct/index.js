@@ -14,7 +14,7 @@ const AddProduct = () => {
   const[produto, setProduto] = useState('')
   const[descricao, setDescricao] = useState('')
   const[preco, setPreco] = useState('')
-  const marketId = localStorage.getItem('id')
+  const id = localStorage.getItem('id')
 
   const history = useHistory()
 
@@ -34,7 +34,7 @@ const AddProduct = () => {
     try {
       await api.post('produtos', data, {
         headers: {
-          auth: marketId,
+          auth: id,
         }
       })
 

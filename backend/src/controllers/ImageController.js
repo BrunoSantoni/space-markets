@@ -8,9 +8,9 @@ module.exports = {
   async show(req, res) {
     const { auth } = req.headers
 
-    // SELECT market_picture_url FROM Supermarket
+    // SELECT market_picture_url FROM Supermarket WHERE Supermarket_id
     await Supermarket.find(
-      { market_id: auth },
+      { _id: auth },
       { _id: 0, market_picture_url: 1 },
       (err, data) => {
         if (err) {

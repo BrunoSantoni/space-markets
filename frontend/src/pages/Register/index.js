@@ -94,10 +94,10 @@ class Register extends Component {
       try {
         const response = await api.post('cadastro', data)
 
-        if(response.data.market_id === undefined) {
+        if(response.data._id === undefined) {
           alert(response.data.message)
         } else {
-          alert('Cadastro realizado com sucesso\nSeu ID de acesso: ' + response.data.market_id)
+          alert('Cadastro realizado com sucesso. Seja muito bem-vindo!')
 
           history.push('/') 
         }             
