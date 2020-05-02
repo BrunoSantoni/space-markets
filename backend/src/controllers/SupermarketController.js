@@ -1,64 +1,69 @@
 const crypto = require('crypto')
 
+const Joi = require('joi')
 const Supermarket = require('../models/Supermarket')
 
 const validator = require('../Validators/validators')
-const cloudinary = require('../config/cloudinaryConfig')
-
-const Joi = require('joi')
 
 module.exports = {
-
   /* Retorna todos os mercados para serem exibidos na map_screen do mobile */
   async index(req, res) {
-    await Supermarket.find(function(err, data) {
-      if(err) { return console.log(err) }
+    await Supermarket.find((err, data) => {
+      if (err) {
+        return res.json(err)
+      }
       return res.json(data)
     })
   },
 
   /* Retorna dados do mercado logado na web para que possa ser alterado */
-  async currentSupermarket(req, res) {
-    const auth = req.headers.auth
+  async show(req, res) {
+    const { auth } = req.headers
 
-    await Supermarket.find({_id: auth}, function(err, data) {
-      if(err) return console.log(err)
-      return res.json(data)
-    })
-  },
-
-  /* Retorna a imagem do usuário para ser exibida no perfil na web */
-  async profileImage(req, res) {
-    const auth = req.headers.auth
-    
-    //SELECT market_picture_url FROM Supermarket
-    await Supermarket.find({market_id: auth}, {_id: 0, market_picture_url: 1}, function(err, data) {
-      if(err) { return console.log(err) }
+    await Supermarket.find({ _id: auth }, (err, data) => {
+      if (err) return res.json(err)
       return res.json(data)
     })
   },
 
   /* Faz a inserção do mercado no banco de dados */
   async create(req, res) {
-    const { market_name, market_mail, market_password, market_cnpj, market_cep, market_street,
-      market_number, market_neighborhood, market_city, market_uf,
-      market_latitude, market_longitude } = req.body
+    const {
+      market_name,
+      market_mail,
+      market_password,
+      market_cnpj,
+      market_cep,
+      market_street,
+      market_number,
+      market_neighborhood,
+      market_city,
+      market_uf,
+      market_latitude,
+      market_longitude,
+    } = req.body
     const { public_id, url = '' } = req.file
 
     let flag = false
 
-    const market_id = market_name.replace(/ /g,'') + crypto.randomBytes(2).toString('HEX')
+    // eslint-disable-next-line operator-linebreak
+    const market_id =
+      market_name.replace(/ /g, '') + crypto.randomBytes(2).toString('HEX')
 
-    //Validando os dados
+    // Validando os dados
 
-    const message = Joi.validate(req.body, validator.supermarketValidatorCreate,(err, res) => {
-      if(err) {
-        flag = true
-        return err.message
-      }
-    })
+    const message = Joi.validate(
+      req.body,
+      validator.supermarketValidatorCreate,
+      (err) => {
+        if (err) {
+          flag = true
+          return err.message
+        }
+      },
+    )
 
-    if(!flag){
+    if (!flag) {
       await Supermarket.create({
         market_id,
         market_name,
@@ -74,75 +79,66 @@ module.exports = {
         market_latitude,
         market_longitude,
         market_picture_url: url,
-        market_picture_key: public_id
+        market_picture_key: public_id,
       })
-  
-      return res.json({market_id})
-    } else {
-      return res.json({message})
+
+      return res.json({ market_id })
     }
+    return res.json({ message })
   },
 
-  /* Atualiza os dados de um mercado já cadastrado (menos a imagem, ela é feita em uma função separada) */
+  /* Atualiza os dados de um mercado já cadastrad
+  (menos a imagem, ela é feita em uma função separada) */
   async update(req, res) {
-    const auth = req.headers.auth
-    const { market_mail, market_password, market_cep, market_street, market_number,
-      market_neighborhood, market_city, market_uf, market_latitude, market_longitude } = req.body
+    const { auth } = req.headers
+    const {
+      market_mail,
+      market_password,
+      market_cep,
+      market_street,
+      market_number,
+      market_neighborhood,
+      market_city,
+      market_uf,
+      market_latitude,
+      market_longitude,
+    } = req.body
 
     let flag = false
 
-    const message = Joi.validate(req.body, validator.supermarketValidatorUpdate,(err, res) => {
-      if(err) {
-        flag = true
-        return err.message
-      }
-    })
+    const message = Joi.validate(
+      req.body,
+      validator.supermarketValidatorUpdate,
+      (err) => {
+        if (err) {
+          flag = true
+          return err.message
+        }
+      },
+    )
 
-    if(!flag) {
-      await Supermarket.updateOne({_id: auth}, {
-        market_mail: market_mail,
-        market_password,
-        market_cep,
-        market_street,
-        market_number,
-        market_neighborhood,
-        market_city,
-        market_uf,
-        market_latitude,
-        market_longitude
-      }, function(err, affected, resp) {
-        if(err) return console.log(err)
-      })
-  
+    if (!flag) {
+      await Supermarket.updateOne(
+        { _id: auth },
+        {
+          market_mail,
+          market_password,
+          market_cep,
+          market_street,
+          market_number,
+          market_neighborhood,
+          market_city,
+          market_uf,
+          market_latitude,
+          market_longitude,
+        },
+        (err) => {
+          if (err) return res.json(err)
+        },
+      )
+
       return res.status(204).send()
-    } else {
-      return res.json({message})
-    }    
-  },
-
-  /* Atualiza a imagem de perfil do mercado */
-  async updateImg(req, res) {
-    const auth = req.headers.auth
-    const { public_id, url = '' } = req.file
-    let flag = false
-
-    const market = await Supermarket.findById(auth)
-    
-    await Supermarket.updateOne({_id: auth}, {
-      market_picture_url: url,
-      market_picture_key: public_id
-    }, function(err, data) {
-      if(err) return console.log(err)
-      flag = true
-      return res.json(data)
-    })
-    
-    if(flag) {
-      await cloudinary.v2.uploader.destroy(market.market_picture_key, function(err, result) {
-        if(err) console.log(err)
-        console.log(result)
-      })
     }
-    
-  }
+    return res.json({ message })
+  },
 }

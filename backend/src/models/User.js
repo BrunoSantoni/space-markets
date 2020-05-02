@@ -3,29 +3,29 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
   user_name: {
     type: String,
-    required: true
+    required: true,
   },
-  
+
   user_mail: {
     type: String,
-    required: true
+    required: true,
   },
 
   user_cpf: {
     type: String,
     required: true,
     minlength: 11,
-    maxlength: 15
+    maxlength: 15,
   },
 
   user_password: {
     type: String,
-    required: true
+    required: true,
   },
 
   user_profile_picture_url: {
-    type: String
-  }
+    type: String,
+  },
 })
 
 // UserSchema.pre('save', function() {

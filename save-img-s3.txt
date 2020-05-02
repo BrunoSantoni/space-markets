@@ -1,0 +1,19 @@
+multer config files . js
+
+s3: multerS3({
+    s3: new aws.S3(),
+    bucket: 'supermega',
+    contentType: multerS3.AUTO_CONTENT_TYPE, // NÃO FAZ O DOWNLOAD DO ARQUIVO, SÓ EXIBE EM TELA.
+    acl: 'public-read',
+    key: (req, file, cb) => {
+      crypto.randomBytes(4, (err, hash) => {
+        if (err) {
+          cb(err)
+        }
+        // Define o novo nome da imagem, adicionando os caracteres
+        const fileName = `${hash.toString('hex')}-${file.originalname}`
+
+        cb(null, fileName)
+      })
+    },
+  }),

@@ -4,31 +4,32 @@ const mongoose = require('mongoose')
 const ProductSchema = new mongoose.Schema({
   product_name: {
     type: String,
-    required: true
+    required: true,
   },
 
   product_description: {
     type: String,
-    required: true
+    required: true,
   },
 
   product_price: {
     type: String,
-    required: true
+    required: true,
   },
 
   product_picture_url: {
-    type: String
+    type: String,
   },
 
-  product_picture_key: { //Esse campo será usado para deletar a imagem do banco quando um produto for deletado
-    type: String
+  product_picture_key: {
+    // Esse campo será usado para deletar a imagem do banco quando um produto for deletado
+    type: String,
   },
 
   market_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Supermarket'
-  }
+    ref: 'Supermarket',
+  },
 })
 
 // ProductSchema.pre('save', function() {
