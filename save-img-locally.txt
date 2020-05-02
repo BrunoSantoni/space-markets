@@ -23,6 +23,8 @@ UserController.js
 
 multer config files.js
 
+dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'), // Para onde irão os uploads
+
 local: multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, path.resolve(__dirname, '..', '..', 'tmp', 'uploads'))

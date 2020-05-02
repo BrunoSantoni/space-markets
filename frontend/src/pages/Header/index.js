@@ -9,9 +9,10 @@ import api from '../../services/api'
 export default function Header() {
   const [picture, setPicture] = useState('')
   const [pictureKey, setPictureKey] = useState('')
+  let newPicture = false
 
   const marketName = localStorage.getItem('market_name')
-  const id = localStorage.getItem('id')
+  const marketId = localStorage.getItem('id')
 
   const history = useHistory()
 
@@ -19,13 +20,13 @@ export default function Header() {
   useEffect(() => {
     api.get('perfil', {
       headers: {
-        auth: id
+        auth: marketId
       }
     }).then(res => {
       setPicture(res.data[0].market_picture_url)
       setPictureKey(res.data[0].market_picture_key)
     })
-  }, [id])
+  }, [marketId, newPicture])
 
   function handleLogout() {
     localStorage.clear()
@@ -49,15 +50,16 @@ export default function Header() {
     data.append("market_new_picture", file, file.name)
 
     try {
-      const response = await api.put(`perfil/${id}`, data, {
+      const response = await api.put(`perfil/${marketId}`, data, {
         headers: {
-          auth: id
+          auth: marketId,
         }
       })
 
       alert('Foto de perfil alterada com sucesso\nAgora todos podem ver seu novo logotipo!')
 
-      setPictureKey(response.data.market_picture_key)            
+      setPictureKey(response.data.market_picture_key)
+      newPicture = true         
     } catch(err) {
       alert(err)
     }   

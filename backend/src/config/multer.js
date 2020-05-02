@@ -41,7 +41,6 @@ const storageTypes = {
 }
 
 module.exports = {
-  dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'), // Para onde irão os uploads
   storage: storageTypes[process.env.STORAGE_TYPE],
 
   // Define limitações de: tamanho, tipo de arquivo, arquivos simultâneos
