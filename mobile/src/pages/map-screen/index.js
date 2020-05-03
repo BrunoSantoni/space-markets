@@ -101,7 +101,7 @@ export default function MapScreen() {
                         description={
                             mercado.market_street + ', ' + mercado.market_number
                         }
-                        key={mercado.market_id}
+                        key={index}
                         coordinate={{
                             latitude: mercado.market_latitude,
                             longitude: mercado.market_longitude,
@@ -113,11 +113,9 @@ export default function MapScreen() {
                                 index: index,
                             })
                             prevPlace = index
-                            console.log('prevPlace: ' + prevPlace)
                         }}
                     >
                         <Image
-                            //source={require('../../../assets/img/marker.png')}
                             source={{ uri: mercado.market_picture_url }}
                             style={styles.marker}
                         />
@@ -133,9 +131,7 @@ export default function MapScreen() {
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     initialNumToRender={1}
-                    keyExtractor={(item, index) => {
-                        return item.id
-                    }}
+                    keyExtractor={item => item.market_id}
                     getItemLayout={(data, index) => ({
                         length: width,
                         offset: width * index,
@@ -177,8 +173,8 @@ export default function MapScreen() {
                         }
                     }}
                     renderItem={() =>
-                        mercados.map((mercado) => (
-                            <View key={mercado.market_id}>
+                        mercados.map((mercado, index) => (
+                            <View key={index}>
                                 <View style={styles.place}>
                                     <View style={styles.marketContainer}>
                                         <View>
