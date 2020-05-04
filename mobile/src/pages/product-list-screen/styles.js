@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import Color from '../../constants/colors'
 import Constants from 'expo-constants'
 
@@ -34,8 +34,10 @@ export default StyleSheet.create({
 
   productList: {
     flexDirection: 'row',
-    paddingHorizontal: 20,
-    marginVertical: 10
+    paddingHorizontal: 15,
+    marginTop: 10,
+    marginBottom: 20,
+    width: 300
   },
 
   productImage: {
@@ -50,6 +52,13 @@ export default StyleSheet.create({
   even: {
     backgroundColor: '#D3D3D3',
   },
+  
+  location: {
+    flexDirection: 'row',
+    position: 'absolute',
+    marginTop: 96,
+    marginLeft: 12
+  },
 
   productInfo: {
     bottom: 5,
@@ -58,11 +67,13 @@ export default StyleSheet.create({
 
   textProduct: {
     textTransform: 'capitalize',
-    fontSize: 25
+    fontSize: 25,
   },
 
-  txtProduct: {
+  textProductPrice: {
+    fontSize: 30,
     fontStyle: 'italic',
-    fontSize: 20
+    textAlign: 'right',
+    color: 'green'
   }
 })

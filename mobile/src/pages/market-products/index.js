@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styles from '../market-products/styles';
-import steward from '../../../assets/img/steward.png'
+
+import { useNavigation } from '@react-navigation/native'
 
 import api from '../../services/api'
 
 export default function MarketProducts({ route }) {
+    const navigation = useNavigation()
     const { marketId, marketName, marketPicture } = route.params
     const [products, setProducts] = useState([])
 
@@ -18,6 +20,10 @@ export default function MarketProducts({ route }) {
             setProducts(res.data)
         })
     }, [marketId])
+
+    function navigateToMap() {
+        navigation.navigate('Map')
+    }
 
     const productsList = products.map((product, index) => (
         index % 2 === 0 ?
@@ -54,7 +60,7 @@ export default function MarketProducts({ route }) {
                 <View>
                     <Text style={styles.headerName}>{marketName}</Text>
                     <TouchableOpacity style={styles.backBtn}>
-                        <Text style={styles.backBtnText}>Voltar</Text>
+                        <Text style={styles.backBtnText} onPress={navigateToMap}>Voltar</Text>
                     </TouchableOpacity>
                 </View>
             </View>

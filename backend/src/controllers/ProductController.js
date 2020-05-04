@@ -18,7 +18,7 @@ module.exports = {
   async show(req, res) {
     const { search } = req.headers
 
-    await Product.find({ product_name: search })
+    await Product.find({ product_name: new RegExp(`.*${search}.*`, 'i') })
       .populate({ path: 'market_id', select: 'market_name' })
       .exec((err, product) => {
         if (err) return res.json(err)

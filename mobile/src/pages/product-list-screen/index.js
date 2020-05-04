@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
-import { Image, Text, View, TextInput, Alert } from 'react-native'
-import TxtInput from '../../components/TxtInput'
+import { Image, Text, View, TextInput, Alert, FlatList } from 'react-native'
 import Color from '../../constants/colors'
 import { useNavigation } from '@react-navigation/native'
 
 import Icons from '@expo/vector-icons/FontAwesome'
 
-import logo from '../../../assets/icon.png'
-
 import styles from './styles'
-import Logo from '../../components/Logo'
 
 import api from '../../services/api'
 
@@ -38,17 +34,23 @@ export default function ProductListScreen() {
   }
 
   const productsList = products.length > 0 ? 
-    products.map((product, index) => (
-      <View style={styles.productList}>
-        <Image source={{uri: product.product_picture_url}} style={styles.productImage}></Image>
-        <View style={styles.productInfo}>
-          <Text style={[styles.textProduct, {fontWeight: 'bold'}]}>{product.market_id.market_name}</Text>
-          <Text><Text style={[styles.textProduct, {fontSize: 20}]}>R${product.product_price} - </Text>
-          <Text style={[styles.textProduct, {fontSize: 20, fontStyle: 'italic'}]}>{product.product_description}</Text></Text>
-          <Text style={[styles.textProduct, {fontSize: 20}]}>Localização: 2,5km</Text>
+    <FlatList data={products} keyExtractor={(product) => product._id} renderItem = {({item: product, index}) =>
+      <View style={(index % 2) ? styles.even : undefined}>
+        <View style={styles.productList}>
+          <Image source={{uri: product.product_picture_url}} style={styles.productImage} />
+          <View style={styles.productInfo}>
+            <Text style={[styles.textProduct, {fontWeight: 'bold'}]}>{product.market_id.market_name}</Text>
+            <Text style={[styles.textProduct, {fontSize: 20, fontStyle: 'italic'}]}>{product.product_description}</Text>
+            <Text style={styles.textProductPrice}>R${product.product_price}</Text>
+          </View>
+        </View>
+        <View style={styles.location}>
+          <Icons name="map-marker" size={25} color={Color.primary} style={[{marginRight: 5}]}/>
+          <Text style={[styles.textProduct, {fontSize: 20}]}>2,5km</Text>
         </View>
       </View>
-    )) : <Text>Não há produtos :(</Text>
+      }
+    /> : <Text>Não há produtos :(</Text>
 
   return (
     <View style={styles.container}>
