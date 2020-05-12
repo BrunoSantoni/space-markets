@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Image, Text, View, TextInput, Alert, FlatList } from 'react-native'
+import { Image, Text, View, TextInput, Alert, FlatList, TouchableOpacity } from 'react-native'
 import Color from '../../constants/colors'
 import { useNavigation } from '@react-navigation/native'
 
@@ -33,8 +33,26 @@ export default function ProductListScreen() {
     navigation.navigate('Home')
   }
 
+  function navigateToMarketProducts(marketId, marketName, marketPicture) {
+    navigation.navigate('MarketProducts', {
+      marketId: marketId,
+      marketName: marketName,
+      marketPicture: marketPicture,
+    })
+  }
+
   const productsList = products.length > 0 ? 
-    <FlatList data={products} keyExtractor={(product) => product._id} renderItem = {({item: product, index}) =>
+    <FlatList data={products} keyExtractor={(product) => product._id} renderItem = {({item: product, index}) => (
+    <TouchableOpacity
+      style={styles.placeBtn}
+      onPress={() =>
+        navigateToMarketProducts(
+          product.market_id._id,
+          product.market_id.market_name,
+          product.market_id.market_picture_url
+        )
+      }
+    >
       <View style={(index % 2) ? styles.even : undefined}>
         <View style={styles.productList}>
           <Image source={{uri: product.product_picture_url}} style={styles.productImage} />
@@ -49,7 +67,8 @@ export default function ProductListScreen() {
           <Text style={[styles.textProduct, {fontSize: 20}]}>2,5km</Text>
         </View>
       </View>
-      }
+      </TouchableOpacity>
+    )}
     /> : <Text>Não há produtos :(</Text>
 
   return (
