@@ -22,7 +22,7 @@ export default function MarketProducts({ route }) {
     }, [marketId])
 
     function navigateToMap() {
-        navigation.navigate('Map')
+        navigation.goBack()
     }
 
     const productsList = products.map((product, index) => (
