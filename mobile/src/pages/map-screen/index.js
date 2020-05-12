@@ -10,8 +10,6 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import MapView from 'react-native-maps'
 
-import Logo from '../../components/Logo'
-
 import styles from './styles'
 import api from '../../services/api'
 
@@ -105,7 +103,7 @@ export default function MapScreen() {
   }
 
   return loading ? (
-    <Logo />
+    <></>
   ) : (
     <View style={styles.container}>
       <MapView

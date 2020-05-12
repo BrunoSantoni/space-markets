@@ -38,8 +38,17 @@ export default function Routes() {
                     name="Map"
                     component={MapScreen} 
                     options={{
-                        headerShown: false,
+                        headerShown: true,
                         title: 'Mapa',
+                        headerStyle: {
+                            backgroundColor: '#fff',
+                            height: 80,
+                        },
+                        headerTintColor: '#63b1b9',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                            fontSize: 24,
+                        },
                     }}
                 />
 
