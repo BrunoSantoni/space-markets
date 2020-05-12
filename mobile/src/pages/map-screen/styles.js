@@ -1,5 +1,3 @@
-// pedrov4z
-
 import { 
     StyleSheet, 
     Dimensions 
