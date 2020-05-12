@@ -26,10 +26,10 @@ export default function MapScreen() {
   const [mercados, setMercados] = useState([])
   const [loading, setLoading] = useState(true)
   const [placesVisible, setPlacesVisible] = useState(true)
-  const [productsVisible, setProductsVisible] = useState(true)
+  const [productsVisible, setProductsVisible] = useState(false)
   const [selectedPlace, selectPlace] = useState(0)
 
-  const dummyText = '▬▬▬▬'
+  const dummyText = '▬▬▬'
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
 
@@ -50,14 +50,15 @@ export default function MapScreen() {
     })
   }, [])
 
+  useEffect(() => {
+    if (!loading) centerMapCamera()
+  }, [selectedPlace]);
+
   function navigateToSuggest() {
     navigation.navigate('Suggest')
   }
 
   function centerMapCamera() {
-    console.log('centerMapCamera()')
-    console.log('selectedPlace: '+selectedPlace)
-
     const { market_latitude, market_longitude, markRef } = mercados[selectedPlace]
 
     mapRef.current.animateToRegion(
@@ -87,35 +88,22 @@ export default function MapScreen() {
   }
 
   function handleScroll(action) {
-    // 0 - Go to previous
-    // 2 - Go to next
-
     const mLen = mercados.length - 1
 
-    let previous
-    let next
+    let previous, next
 
     if (selectedPlace == 0) {
-      console.log('selectedPlace == 0')
       previous = mLen
       next = selectedPlace + 1
     } else if (selectedPlace == mLen) {
-      console.log('selectedPlace == mLen')
       previous = selectedPlace - 1
       next = 0
     } else {
-      console.log('else')
       previous = selectedPlace - 1
       next = selectedPlace + 1
     }
 
-    console.log('next: '+next)
-    console.log('action: '+action)
-    if (action == 0) selectPlace(previous)
-    else if (action == 2) selectPlace(next)
-
-    console.log('selectedPlace: '+selectedPlace)
-    centerMapCamera()
+    (action == 0) ? selectPlace(previous) : selectPlace(next)
   }
 
   return loading ? (
