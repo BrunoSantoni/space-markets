@@ -72,7 +72,7 @@ export default function MapScreen() {
     )
 
     markRef.showCallout()
-    scrollRef.current.scrollTo({ x: 360, y: 0, animated: false })
+    scrollRef.current.scrollTo({ x: width, y: 0, animated: false })
   }
 
   function toggleProductsVisibility() {
@@ -110,8 +110,6 @@ export default function MapScreen() {
     <Logo />
   ) : (
     <View style={styles.container}>
-      <Logo />
-
       <MapView
         ref={mapRef}
         style={styles.mapView}
@@ -121,6 +119,7 @@ export default function MapScreen() {
         showsPointsOfInterest={false}
         showsBuildings={false}
         showsUserLocation={true}
+        showsMyLocationButton={false}
         onMapReady={centerMapCamera}
         onPress={() => {
           if (placesVisible) setPlacesVisible(false)
@@ -335,13 +334,6 @@ export default function MapScreen() {
           </View>
         </ScrollView>
       </View>
-
-      <TouchableOpacity style={styles.btnSugerir} onPress={navigateToSuggest}>
-        <Image
-          source={require('../../../assets/img/btnAddMarket.png')}
-          style={styles.btnSugerirImg}
-        />
-      </TouchableOpacity>
     </View>
   )
 }
