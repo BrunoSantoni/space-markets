@@ -1,5 +1,3 @@
-// pedrov4z
-
 import { 
     StyleSheet, 
     Dimensions 
@@ -19,25 +17,6 @@ export default StyleSheet.create({
         position: 'absolute',
     },
 
-    btnSugerir: {
-        position: 'absolute',
-        width: '20%',
-        height: '8%',
-        borderRadius: 100,
-        backgroundColor: '#63b1b9',
-        justifyContent: 'center',
-        alignItems: 'center',
-        top: '10%',
-        right: '5%',
-        borderWidth: 2,
-    },
-
-    btnSugerirImg: {
-        resizeMode: 'contain',
-        height: '75%',
-        width: '75%',
-    },
-
     mapView: {
         position: 'absolute',
         top: 0,
@@ -49,7 +28,6 @@ export default StyleSheet.create({
     marketContainer: {
         flexDirection: 'row',
         paddingHorizontal: 10,
-        width: '100%',
     },
 
     btnContainer: {
@@ -98,7 +76,6 @@ export default StyleSheet.create({
     nome: {
         fontWeight: 'bold',
         fontSize: 18,
-        backgroundColor: '#fff',
     },
     
     endereco: {
