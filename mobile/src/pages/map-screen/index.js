@@ -1,5 +1,3 @@
-// pedrov4z
-
 import React, { useRef, useState, useEffect } from 'react'
 import {
   Text,
