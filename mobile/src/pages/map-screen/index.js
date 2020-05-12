@@ -3,7 +3,7 @@ import {
   Text,
   Image,
   View,
-  FlatList,
+  ScrollView,
   Dimensions,
   TouchableOpacity,
 } from 'react-native'
@@ -17,17 +17,17 @@ import api from '../../services/api'
 
 const { width } = Dimensions.get('window')
 
-let prevPlace = 0
-
 export default function MapScreen() {
   const mapRef = useRef(null)
-  const placesRef = useRef(null)
+  const scrollRef = useRef(null)
   const navigation = useNavigation()
   const [mercados, setMercados] = useState([])
   const [loading, setLoading] = useState(true)
   const [placesVisible, setPlacesVisible] = useState(true)
-  const [productsVisible, setProductsVisible] = useState(true)
+  const [productsVisible, setProductsVisible] = useState(false)
+  const [selectedPlace, selectPlace] = useState(0)
 
+  const dummyText = '▬▬▬'
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
 
@@ -48,12 +48,29 @@ export default function MapScreen() {
     })
   }, [])
 
+  useEffect(() => {
+    if (!loading) centerMapCamera()
+  }, [selectedPlace]);
+
   function navigateToSuggest() {
     navigation.navigate('Suggest')
   }
 
-  function showFirstCallout() {
-    mercados[0].markRef.showCallout()
+  function centerMapCamera() {
+    const { market_latitude, market_longitude, markRef } = mercados[selectedPlace]
+
+    mapRef.current.animateToRegion(
+      {
+        latitude: market_latitude,
+        longitude: market_longitude,
+        latitudeDelta: defaultLatDelta,
+        longitudeDelta: defaultLongDelta,
+      },
+      750
+    )
+
+    markRef.showCallout()
+    scrollRef.current.scrollTo({ x: width, y: 0, animated: false })
   }
 
   function toggleProductsVisibility() {
@@ -68,20 +85,31 @@ export default function MapScreen() {
     })
   }
 
+  function handleScroll(action) {
+    const mLen = mercados.length - 1
+
+    let previous, next
+
+    if (selectedPlace == 0) {
+      previous = mLen
+      next = selectedPlace + 1
+    } else if (selectedPlace == mLen) {
+      previous = selectedPlace - 1
+      next = 0
+    } else {
+      previous = selectedPlace - 1
+      next = selectedPlace + 1
+    }
+
+    (action == 0) ? selectPlace(previous) : selectPlace(next)
+  }
+
   return loading ? (
     <Logo />
   ) : (
     <View style={styles.container}>
-      <Logo />
-
       <MapView
         ref={mapRef}
-        initialRegion={{
-          latitude: mercados[0].market_latitude,
-          longitude: mercados[0].market_longitude,
-          latitudeDelta: defaultLatDelta,
-          longitudeDelta: defaultLongDelta,
-        }}
         style={styles.mapView}
         rotateEnabled={false}
         scrollEnabled={true}
@@ -89,7 +117,8 @@ export default function MapScreen() {
         showsPointsOfInterest={false}
         showsBuildings={false}
         showsUserLocation={true}
-        onMapReady={showFirstCallout}
+        showsMyLocationButton={false}
+        onMapReady={centerMapCamera}
         onPress={() => {
           if (placesVisible) setPlacesVisible(false)
         }}
@@ -106,11 +135,7 @@ export default function MapScreen() {
             }}
             onPress={() => {
               if (!placesVisible) setPlacesVisible(true)
-              placesRef.current.scrollToIndex({
-                animated: true,
-                index: index,
-              })
-              prevPlace = index
+              selectPlace(index)
             }}
           >
             <Image
@@ -122,140 +147,191 @@ export default function MapScreen() {
       </MapView>
 
       <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
-        <FlatList
-          ref={placesRef}
-          data={mercados}
+        <ScrollView
+          ref={scrollRef}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          keyExtractor={(item, index) => {
-            //console.log('FlatList keyExtractor: ' + index) // descomenta pra ver o problema
-            return item.market_id
-          }}
-          getItemLayout={(data, index) => ({
-            length: width,
-            offset: width * index,
-            index,
-          })}
           onMomentumScrollEnd={(e) => {
-            const scrolled = e.nativeEvent.contentOffset.x
-
-            let place = Math.round(scrolled / width)
-
-            if (place == mercados.length) {
-              place = 0
-              placesRef.current.scrollToOffset({
-                x: 0,
-                animated: false,
-              })
-            }
-
-            if (place != prevPlace) {
-              const { market_latitude, market_longitude, markRef } = mercados[place]
-
-              mapRef.current.animateToRegion(
-                {
-                  latitude: market_latitude,
-                  longitude: market_longitude,
-                  latitudeDelta: defaultLatDelta,
-                  longitudeDelta: defaultLongDelta,
-                },
-                750
-              )
-
-              markRef.showCallout()
-
-              prevPlace = place
-            }
+            const action = Math.round(e.nativeEvent.contentOffset.x / width)
+            if (action != 1) handleScroll(action)
           }}
-          renderItem={({item, index}) => (
-            <View key={index}>
-              <View style={styles.place}>
-                <View style={styles.marketContainer}>
-                  <View>
-                    <Image
-                      source={{
-                        uri: item.market_picture_url,
-                      }}
-                      style={styles.placeImg}
-                    />
-                    <Text>2,5 km</Text>
-                  </View>
-
-                  <View>
-                    <Text style={styles.nome}>{item.market_name}</Text>
-                    <Text style={styles.endereco}>
-                      {item.market_street + ', ' + item.market_number}
-                    </Text>
-                    <View style={styles.btnContainer}>
-                      <TouchableOpacity
-                        style={styles.placeBtn}
-                        onPress={() =>
-                          navigateToMarketProducts(
-                            item._id,
-                            item.market_name,
-                            item.market_picture_url
-                          )
-                        }
-                      >
-                        <Text style={styles.placeBtnText}>Ver produtos</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.placeBtn}>
-                        <Text style={styles.placeBtnText}>Rota até aqui</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={styles.placeBtn}
-                        onPress={toggleProductsVisibility}
-                      >
-                        <Text style={styles.expandBtnText}>
-                          {productsVisible ? '▲' : '▼'}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+        >
+          <View>
+            <View style={styles.place}>
+              <View style={styles.marketContainer}>
+                <View>
+                  <Image style={styles.placeImg} />
+                  <Text>{dummyText}</Text>
                 </View>
-              </View>
 
-              <View
-                style={[
-                  productsVisible ? styles.productsContainer : styles.hidden,
-                ]}
-              >
-                <Text style={styles.productsTitle}>
-                  Principais promoções {item.market_name}
-                </Text>
-                <View style={styles.listProducts}>
-                  <View style={styles.productItem}>
-                    <Image
-                      source={{
-                        uri: item.market_picture_url,
-                      }}
-                      style={styles.productImg}
-                    />
-                    <Text style={styles.productPrice}>R$ 2,50</Text>
-                  </View>
-                  <View style={styles.productItem}>
-                    <Image
-                      source={{
-                        uri: item.market_picture_url,
-                      }}
-                      style={styles.productImg}
-                    />
-                    <Text style={styles.productPrice}>R$ 2,50</Text>
+                <View>
+                  <Text style={styles.nome}>{dummyText}</Text>
+                  <Text style={styles.endereco}>{dummyText}</Text>
+                  <View style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.placeBtnText}>{dummyText}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.placeBtnText}>{dummyText}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.expandBtnText}>
+                        {productsVisible ? '▲' : '▼'}
+                      </Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
             </View>
-          )}
-        />
-      </View>
 
-      <TouchableOpacity style={styles.btnSugerir} onPress={navigateToSuggest}>
-        <Image
-          source={require('../../../assets/img/btnAddMarket.png')}
-          style={styles.btnSugerirImg}
-        />
-      </TouchableOpacity>
+            <View
+              style={[
+                productsVisible ? styles.productsContainer : styles.hidden,
+              ]}
+            >
+              <Text style={styles.productsTitle}>{dummyText}</Text>
+              <View style={styles.listProducts}>
+                <View style={styles.productItem}>
+                  <Image style={styles.productImg} />
+                  <Text style={styles.productPrice}>{dummyText}</Text>
+                </View>
+                <View style={styles.productItem}>
+                  <Image style={styles.productImg} />
+                  <Text style={styles.productPrice}>{dummyText}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View>
+            <View style={styles.place}>
+              <View style={styles.marketContainer}>
+                <View>
+                  <Image
+                    source={{
+                      uri: mercados[selectedPlace].market_picture_url,
+                    }}
+                    style={styles.placeImg}
+                  />
+                  <Text>2,5 km</Text>
+                </View>
+
+                <View>
+                  <Text style={styles.nome}>
+                    {mercados[selectedPlace].market_name}
+                  </Text>
+                  <Text style={styles.endereco}>
+                    {mercados[selectedPlace].market_street +
+                      ', ' +
+                      mercados[selectedPlace].market_number}
+                  </Text>
+                  <View style={styles.btnContainer}>
+                    <TouchableOpacity
+                      style={styles.placeBtn}
+                      onPress={() =>
+                        navigateToMarketProducts(
+                          mercados[selectedPlace]._id,
+                          mercados[selectedPlace].market_name,
+                          mercados[selectedPlace].market_picture_url
+                        )
+                      }
+                    >
+                      <Text style={styles.placeBtnText}>Ver produtos</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.placeBtnText}>Rota até aqui</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={styles.placeBtn}
+                      onPress={toggleProductsVisibility}
+                    >
+                      <Text style={styles.expandBtnText}>
+                        {productsVisible ? '▲' : '▼'}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <View
+              style={[
+                productsVisible ? styles.productsContainer : styles.hidden,
+              ]}
+            >
+              <Text style={styles.productsTitle}>
+                Principais promoções {mercados[selectedPlace].market_name}
+              </Text>
+              <View style={styles.listProducts}>
+                <View style={styles.productItem}>
+                  <Image
+                    source={{
+                      uri: mercados[selectedPlace].market_picture_url,
+                    }}
+                    style={styles.productImg}
+                  />
+                  <Text style={styles.productPrice}>R$ 2,50</Text>
+                </View>
+                <View style={styles.productItem}>
+                  <Image
+                    source={{
+                      uri: mercados[selectedPlace].market_picture_url,
+                    }}
+                    style={styles.productImg}
+                  />
+                  <Text style={styles.productPrice}>R$ 2,50</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View>
+            <View style={styles.place}>
+              <View style={styles.marketContainer}>
+                <View>
+                  <Image style={styles.placeImg} />
+                  <Text>{dummyText}</Text>
+                </View>
+
+                <View>
+                  <Text style={styles.nome}>{dummyText}</Text>
+                  <Text style={styles.endereco}>{dummyText}</Text>
+                  <View style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.placeBtnText}>{dummyText}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.placeBtnText}>{dummyText}</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.placeBtn}>
+                      <Text style={styles.expandBtnText}>
+                        {productsVisible ? '▲' : '▼'}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            <View
+              style={[
+                productsVisible ? styles.productsContainer : styles.hidden,
+              ]}
+            >
+              <Text style={styles.productsTitle}>{dummyText}</Text>
+              <View style={styles.listProducts}>
+                <View style={styles.productItem}>
+                  <Image style={styles.productImg} />
+                  <Text style={styles.productPrice}>{dummyText}</Text>
+                </View>
+                <View style={styles.productItem}>
+                  <Image style={styles.productImg} />
+                  <Text style={styles.productPrice}>{dummyText}</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     </View>
   )
 }
