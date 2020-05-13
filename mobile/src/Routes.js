@@ -9,11 +9,8 @@ import MapScreen from './pages/map-screen'
 import SuggestScreen from './pages/suggest-screen'
 import ProductListScreen from './pages/product-list-screen'
 import MarketProducts from './pages/market-products'
-<<<<<<< HEAD
 import DirectionsScreen from './pages/directions-screen'
-=======
 import CameraScreen from './pages/camera-screen'
->>>>>>> bruno
 
 const AppStack = createStackNavigator()
 
@@ -81,7 +78,6 @@ export default function Routes() {
                     options={{
                         headerShown: false,
                         title: "Produtos do mercado"                        
-<<<<<<< HEAD
                     }} />
 
                 <AppStack.Screen 
@@ -100,7 +96,6 @@ export default function Routes() {
                             fontSize: 24,
                         },
                     }} />
-=======
                     }}
                 />
                 
@@ -112,7 +107,6 @@ export default function Routes() {
                         title: 'Câmera',
                     }}
                 />
->>>>>>> bruno
             </AppStack.Navigator>
         </NavigationContainer>
     )
