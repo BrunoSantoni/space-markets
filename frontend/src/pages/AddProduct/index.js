@@ -29,6 +29,7 @@ const AddProduct = () => {
     data.append("product_name", produto)
     data.append("product_description", descricao)
     data.append("product_price", preco)
+    data.append("product_user", false) //Produto não adicionado pelo user
     data.append("product_picture", file)
 
     try {

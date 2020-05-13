@@ -32,7 +32,12 @@ module.exports = {
 
   // FUNÇÃO PARA INSERIR PRODUTOS, PRECISA PASSAR O ID REAL COMO PARÂMETRO PARA O HEADERS
   async create(req, res) {
-    const { product_name, product_description, product_price } = req.body
+    const {
+      product_name,
+      product_description,
+      product_price,
+      product_user,
+    } = req.body
     const { public_id, url = '' } = req.file
     let flag = false
 
@@ -57,6 +62,7 @@ module.exports = {
         market_id: auth,
         product_picture_url: url,
         product_picture_key: public_id,
+        product_user,
       })
 
       /* const prod =

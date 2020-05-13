@@ -19,6 +19,12 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
 
+    buttons: {
+        flexDirection: 'row',
+        marginLeft: 5,
+        marginRight: 15,
+    },
+
     headerImg: {
         width: 60,
         height: 60,
@@ -31,10 +37,10 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
 
-    backBtn: {
+    suggestBtn: {
         backgroundColor: Color.secundary,
-        width: 80,
-        height: 25,
+        width: 150,
+        height: 40,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
@@ -43,7 +49,12 @@ export default StyleSheet.create({
         marginTop: 5
     },
 
-    backBtnText: {
+    icon: {
+        position: 'absolute',
+        marginLeft: 5,
+    },
+
+    suggestBtnText: {
         fontSize: 18
     },
 

@@ -26,6 +26,11 @@ const ProductSchema = new mongoose.Schema({
     type: String,
   },
 
+  product_user: {
+    // Esse campo define quando o produto adicionado é uma sugestão de usuário
+    type: Boolean,
+  },
+
   market_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Supermarket',
