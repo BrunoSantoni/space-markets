@@ -109,14 +109,14 @@ export default function DirectionsScreen({ route }) {
           <Image source={{ uri: marketPicture }} style={styles.marker} />
         </MapView.Marker>
 
-        {/* <MapViewDirections
+        <MapViewDirections
           origin={userLocation}
           destination={destination}
           apikey={GOOGLE_MAPS_APIKEY}
           strokeWidth={3}
           strokeColor="#63b1b9"
           onReady={onReady}
-        /> */}
+        />
       </MapView>
     </View>
   )
