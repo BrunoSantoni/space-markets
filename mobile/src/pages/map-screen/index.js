@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+
 import MapView from 'react-native-maps'
+// import MapViewDirections from 'react-native-maps-directions'
+// import GOOGLE_MAPS_APIKEY from ''
 
 import styles from './styles'
 import api from '../../services/api'
-
-const { width } = Dimensions.get('window')
 
 export default function MapScreen() {
   const mapRef = useRef(null)
@@ -28,6 +29,7 @@ export default function MapScreen() {
   const dummyText = '▬▬▬'
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
+  const { width } = Dimensions.get('window')
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -48,11 +50,7 @@ export default function MapScreen() {
 
   useEffect(() => {
     if (!loading) centerMapCamera()
-  }, [selectedPlace]);
-
-  function navigateToSuggest() {
-    navigation.navigate('Suggest')
-  }
+  }, [selectedPlace])
 
   function centerMapCamera() {
     const { market_latitude, market_longitude, markRef } = mercados[selectedPlace]
@@ -142,6 +140,14 @@ export default function MapScreen() {
             />
           </MapView.Marker>
         ))}
+
+        {/* <MapViewDirections
+          origin={origin}
+          destination={destination}
+          apikey={GOOGLE_MAPS_APIKEY}
+          strokeWidth={3}
+          strokeColor="hotpink"
+        /> */}
       </MapView>
 
       <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
