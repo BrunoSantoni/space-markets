@@ -14,6 +14,8 @@ import MapView from 'react-native-maps'
 import styles from './styles'
 import api from '../../services/api'
 
+import LoadingGif from '../../components/LoadingGif'
+
 export default function MapScreen() {
   const mapRef = useRef(null)
   const scrollRef = useRef(null)
@@ -107,7 +109,7 @@ export default function MapScreen() {
   }
 
   return loading ? (
-    <></>
+    <LoadingGif/>
   ) : (
     <View style={styles.container}>
       <MapView

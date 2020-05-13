@@ -5,7 +5,7 @@ import MapView from 'react-native-maps'
 import MapViewDirections from 'react-native-maps-directions'
 
 import styles from '../map-screen/styles'
-import LoadingGif from '../../../assets/img/loading2.gif'
+import LoadingGif from '../../components/LoadingGif'
 
 export default function DirectionsScreen({ route }) {
   const {
@@ -82,15 +82,7 @@ export default function DirectionsScreen({ route }) {
   }
 
   return loading ? (
-    <Image
-      source={LoadingGif}
-      style={{
-        width: '10%',
-        height: '10%',
-        alignSelf: 'center',
-      }}
-      resizeMode="contain"
-    />
+    <LoadingGif/>
   ) : (
     <View style={styles.container}>
       <MapView
