@@ -54,7 +54,7 @@ export default function DirectionsScreen({ route }) {
     setLoading(false)
   }, [])
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (!loading) centerMapCamera()
   }, [userLocation])
 
@@ -68,7 +68,7 @@ export default function DirectionsScreen({ route }) {
       },
       750
     )
-  } */
+  }
 
   const onReady = (result) => {
     mapRef.current.fitToCoordinates(result.coordinates, {
@@ -97,12 +97,6 @@ export default function DirectionsScreen({ route }) {
         ref={mapRef}
         showsUserLocation
         style={styles.mapView}
-        initialRegion={{
-          latitude: userLocation.latitude,
-          longitude: userLocation.longitude,
-          latitudeDelta: defaultLatDelta,
-          longitudeDelta: defaultLongDelta,
-        }}
       >
         <MapView.Marker
           title={marketName}
