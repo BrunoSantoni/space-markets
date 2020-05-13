@@ -78,7 +78,8 @@ export default function Routes() {
                     options={{
                         headerShown: false,
                         title: "Produtos do mercado"                        
-                    }} />
+                    }}
+                />
 
                 <AppStack.Screen 
                     name="Directions" 
@@ -95,7 +96,6 @@ export default function Routes() {
                             fontWeight: 'bold',
                             fontSize: 24,
                         },
-                    }} />
                     }}
                 />
                 

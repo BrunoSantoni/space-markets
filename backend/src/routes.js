@@ -14,6 +14,7 @@ const SupermarketSessionController = require('./controllers/SupermarketSessionCo
 const UserController = require('./controllers/UserController')
 const UserSessionController = require('./controllers/UserSessionController')
 const SuggestController = require('./controllers/SuggestController')
+const SearchProductController = require('./controllers/SearchProductController')
 
 // WEB
 routes.post('/login', SupermarketSessionController.create)
@@ -56,6 +57,8 @@ routes.post('/userlogin', UserSessionController.create)
 routes.get('/mercados', SupermarketController.index)
 
 routes.get('/buscaproduto', ProductController.show)
+
+routes.get('/promocoes', SearchProductController.show)
 
 routes.post(
   '/sugestao',
