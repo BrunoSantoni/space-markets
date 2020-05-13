@@ -10,8 +10,6 @@ import {
 import { useNavigation } from '@react-navigation/native'
 
 import MapView from 'react-native-maps'
-// import MapViewDirections from 'react-native-maps-directions'
-// import GOOGLE_MAPS_APIKEY from ''
 
 import styles from './styles'
 import api from '../../services/api'
@@ -32,16 +30,6 @@ export default function MapScreen() {
   const { width } = Dimensions.get('window')
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      () => {}, //sucesso
-      () => {}, //error
-      {
-        timeout: 2000,
-        enableHighAccuracy: true,
-        maximumAge: 1000,
-      }
-    )
-
     api.get('mercados').then((res) => {
       setMercados(res.data)
       setLoading(false)
@@ -81,6 +69,24 @@ export default function MapScreen() {
     })
   }
 
+  function navigateToDirections(
+    marketName,
+    marketPicture,
+    marketStreet,
+    marketNumber,
+    marketLatitude,
+    marketLongitude,
+  ) {
+    navigation.navigate('Directions', {
+      marketName: marketName,
+      marketPicture: marketPicture,
+      marketStreet: marketStreet,
+      marketNumber: marketNumber,
+      marketLatitude: marketLatitude,
+      marketLongitude: marketLongitude,
+    })
+  }
+
   function handleScroll(action) {
     const mLen = mercados.length - 1
 
@@ -97,7 +103,7 @@ export default function MapScreen() {
       next = selectedPlace + 1
     }
 
-    (action == 0) ? selectPlace(previous) : selectPlace(next)
+    action == 0 ? selectPlace(previous) : selectPlace(next)
   }
 
   return loading ? (
@@ -108,11 +114,8 @@ export default function MapScreen() {
         ref={mapRef}
         style={styles.mapView}
         rotateEnabled={false}
-        scrollEnabled={true}
-        zoomEnabled={true}
         showsPointsOfInterest={false}
         showsBuildings={false}
-        showsUserLocation={true}
         showsMyLocationButton={false}
         onMapReady={centerMapCamera}
         onPress={() => {
@@ -140,14 +143,6 @@ export default function MapScreen() {
             />
           </MapView.Marker>
         ))}
-
-        {/* <MapViewDirections
-          origin={origin}
-          destination={destination}
-          apikey={GOOGLE_MAPS_APIKEY}
-          strokeWidth={3}
-          strokeColor="hotpink"
-        /> */}
       </MapView>
 
       <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
@@ -242,7 +237,19 @@ export default function MapScreen() {
                     >
                       <Text style={styles.placeBtnText}>Ver produtos</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.placeBtn}>
+                    <TouchableOpacity
+                      style={styles.placeBtn}
+                      onPress={() =>
+                        navigateToDirections(
+                          mercados[selectedPlace].market_name,
+                          mercados[selectedPlace].market_picture_url,
+                          mercados[selectedPlace].market_street,
+                          mercados[selectedPlace].market_number,
+                          mercados[selectedPlace].market_latitude,
+                          mercados[selectedPlace].market_longitude,
+                        )
+                      }
+                    >
                       <Text style={styles.placeBtnText}>Rota até aqui</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
