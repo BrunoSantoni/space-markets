@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import styles from '../market-products/styles';
+import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
+
+import styles from './styles'
 
 import { useNavigation } from '@react-navigation/native'
 
