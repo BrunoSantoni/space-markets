@@ -14,6 +14,7 @@ import MapView from 'react-native-maps'
 import styles from './styles'
 import api from '../../services/api'
 
+import DummyCard from './components/DummyCard'
 import LoadingGif from '../../components/LoadingGif'
 
 export default function MapScreen() {
@@ -77,7 +78,7 @@ export default function MapScreen() {
     marketStreet,
     marketNumber,
     marketLatitude,
-    marketLongitude,
+    marketLongitude
   ) {
     navigation.navigate('Directions', {
       marketName: marketName,
@@ -158,52 +159,8 @@ export default function MapScreen() {
             if (action != 1) handleScroll(action)
           }}
         >
-          <View>
-            <View style={styles.place}>
-              <View style={styles.marketContainer}>
-                <View>
-                  <Image style={styles.placeImg} />
-                  <Text>{dummyText}</Text>
-                </View>
+          <DummyCard styles={styles} productsVisible={productsVisible} />
 
-                <View>
-                  <Text style={styles.nome}>{dummyText}</Text>
-                  <Text style={styles.endereco}>{dummyText}</Text>
-                  <View style={styles.btnContainer}>
-                    <TouchableOpacity style={styles.placeBtn}>
-                      <Text style={styles.placeBtnText}>{dummyText}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.placeBtn}>
-                      <Text style={styles.placeBtnText}>{dummyText}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.placeBtn}>
-                      <Text style={styles.expandBtnText}>
-                        {productsVisible ? '▲' : '▼'}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View
-              style={[
-                productsVisible ? styles.productsContainer : styles.hidden,
-              ]}
-            >
-              <Text style={styles.productsTitle}>{dummyText}</Text>
-              <View style={styles.listProducts}>
-                <View style={styles.productItem}>
-                  <Image style={styles.productImg} />
-                  <Text style={styles.productPrice}>{dummyText}</Text>
-                </View>
-                <View style={styles.productItem}>
-                  <Image style={styles.productImg} />
-                  <Text style={styles.productPrice}>{dummyText}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
           <View>
             <View style={styles.place}>
               <View style={styles.marketContainer}>
@@ -248,7 +205,7 @@ export default function MapScreen() {
                           mercados[selectedPlace].market_street,
                           mercados[selectedPlace].market_number,
                           mercados[selectedPlace].market_latitude,
-                          mercados[selectedPlace].market_longitude,
+                          mercados[selectedPlace].market_longitude
                         )
                       }
                     >
@@ -297,52 +254,8 @@ export default function MapScreen() {
               </View>
             </View>
           </View>
-          <View>
-            <View style={styles.place}>
-              <View style={styles.marketContainer}>
-                <View>
-                  <Image style={styles.placeImg} />
-                  <Text>{dummyText}</Text>
-                </View>
 
-                <View>
-                  <Text style={styles.nome}>{dummyText}</Text>
-                  <Text style={styles.endereco}>{dummyText}</Text>
-                  <View style={styles.btnContainer}>
-                    <TouchableOpacity style={styles.placeBtn}>
-                      <Text style={styles.placeBtnText}>{dummyText}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.placeBtn}>
-                      <Text style={styles.placeBtnText}>{dummyText}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.placeBtn}>
-                      <Text style={styles.expandBtnText}>
-                        {productsVisible ? '▲' : '▼'}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View
-              style={[
-                productsVisible ? styles.productsContainer : styles.hidden,
-              ]}
-            >
-              <Text style={styles.productsTitle}>{dummyText}</Text>
-              <View style={styles.listProducts}>
-                <View style={styles.productItem}>
-                  <Image style={styles.productImg} />
-                  <Text style={styles.productPrice}>{dummyText}</Text>
-                </View>
-                <View style={styles.productItem}>
-                  <Image style={styles.productImg} />
-                  <Text style={styles.productPrice}>{dummyText}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+          <DummyCard styles={styles} productsVisible={productsVisible} />
         </ScrollView>
       </View>
     </View>
