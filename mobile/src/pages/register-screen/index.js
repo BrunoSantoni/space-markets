@@ -58,7 +58,7 @@ export default function RegisterScreen() {
         } catch (E) {
           alert(E)
         }
-      };
+    }
 
     async function handleRegister() {
         if(senha === confirmSenha){
@@ -147,10 +147,11 @@ export default function RegisterScreen() {
 
                     <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 10}}>
                         {foto ? 
-                        <Image source={{ uri: foto.uri }} style={styles.img} onPress={handleImg}/> : 
-                        <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
-                            <Txt style={styles.textStyle}>Adicione uma foto de perfil bem daora!</Txt>
-                        </TouchButton>}
+                            <Image source={{ uri: foto.uri }} style={styles.img} onPress={handleImg}/> : 
+                            <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
+                                <Txt style={styles.textStyle}>Adicione uma foto de perfil bem daora!</Txt>
+                            </TouchButton>
+                        }
                         <TouchButton onPress={handleRegister} style={styles.registerInputButton}>
                             <Feather name='arrow-right' size={18} color='#FFF' />
                         </TouchButton>

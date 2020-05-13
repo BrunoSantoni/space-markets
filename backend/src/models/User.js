@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema({
   user_profile_picture_url: {
     type: String,
   },
+
+  user_profile_picture_key: {
+    type: String,
+  },
 })
 
 // UserSchema.pre('save', function() {

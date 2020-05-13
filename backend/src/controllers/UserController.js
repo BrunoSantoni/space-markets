@@ -21,16 +21,17 @@ module.exports = {
       user_password,
       user_picture,
     } = req.body
-    const url = await cloudinary.v2.uploader
+    const uploadedImage = await cloudinary.v2.uploader
       .upload(user_picture)
-      .then((response) => response.secure_url)
+      .then((response) => response)
 
     const user = await User.create({
       user_name,
       user_mail,
       user_cpf,
       user_password,
-      user_profile_picture_url: url,
+      user_profile_picture_url: uploadedImage.secure_url,
+      user_profile_picture_key: uploadedImage.public_id,
     })
 
     return res.json(user)

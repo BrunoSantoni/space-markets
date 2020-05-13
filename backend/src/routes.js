@@ -13,6 +13,7 @@ const SupermarketSessionController = require('./controllers/SupermarketSessionCo
 /* Rotas Mobile */
 const UserController = require('./controllers/UserController')
 const UserSessionController = require('./controllers/UserSessionController')
+const SuggestController = require('./controllers/SuggestController')
 
 // WEB
 routes.post('/login', SupermarketSessionController.create)
@@ -55,5 +56,11 @@ routes.post('/userlogin', UserSessionController.create)
 routes.get('/mercados', SupermarketController.index)
 
 routes.get('/buscaproduto', ProductController.show)
+
+routes.post(
+  '/sugestao',
+  multer(multerConfigProducts).single('suggest_picture'),
+  SuggestController.store,
+)
 
 module.exports = routes

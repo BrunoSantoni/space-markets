@@ -9,6 +9,7 @@ import MapScreen from './pages/map-screen'
 import SuggestScreen from './pages/suggest-screen'
 import ProductListScreen from './pages/product-list-screen'
 import MarketProducts from './pages/market-products'
+import CameraScreen from './pages/camera-screen'
 
 const AppStack = createStackNavigator()
 
@@ -47,16 +48,8 @@ export default function Routes() {
                     name="Suggest" 
                     component={SuggestScreen}
                     options={{
-                        title: "Sugerir",
-                        headerStyle: {
-                            backgroundColor: '#63b1b9',
-                            height: 150,
-                        },
-                        headerTintColor: '#fff',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            fontSize: 30,
-                        },
+                        headerShown: false,
+                        title: "Sugerir",                        
                     }} 
                 />
       
@@ -66,7 +59,8 @@ export default function Routes() {
                     options={{
                         headerShown: false,
                         title: "Lista de Produtos"                        
-                    }} />
+                    }}
+                />
 
                 <AppStack.Screen 
                     name="MarketProducts" 
@@ -74,7 +68,17 @@ export default function Routes() {
                     options={{
                         headerShown: false,
                         title: "Produtos do mercado"                        
-                    }} />
+                    }}
+                />
+                
+                <AppStack.Screen 
+                    name="CameraScreen"
+                    component={CameraScreen} 
+                    options={{
+                        headerShown: false,
+                        title: 'Câmera',
+                    }}
+                />
             </AppStack.Navigator>
         </NavigationContainer>
     )

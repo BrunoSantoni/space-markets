@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import styles from '../market-products/styles';
 
+import Icons from '@expo/vector-icons/FontAwesome'
+
 import { useNavigation } from '@react-navigation/native'
 
 import api from '../../services/api'
@@ -23,6 +25,12 @@ export default function MarketProducts({ route }) {
 
     function navigateToMap() {
         navigation.goBack()
+    }
+
+    function navigateToSuggest() {
+        navigation.navigate('Suggest', {
+            marketId: marketId
+        })
     }
 
     const productsList = products.map((product, index) => (
@@ -56,11 +64,12 @@ export default function MarketProducts({ route }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image source={{uri: marketPicture}} style={styles.headerImg} />
-                <View>
+                <Icons name="arrow-left" size={20} onPress={navigateToMap} style={styles.icon}/>
+                <Image source={{uri: marketPicture}} style={styles.headerImg} />                
+                <View>                    
                     <Text style={styles.headerName}>{marketName}</Text>
-                    <TouchableOpacity style={styles.backBtn}>
-                        <Text style={styles.backBtnText} onPress={navigateToMap}>Voltar</Text>
+                    <TouchableOpacity style={styles.suggestBtn}>
+                        <Text style={styles.suggestBtnText} onPress={navigateToSuggest}>Sugerir Produto</Text>
                     </TouchableOpacity>
                 </View>
             </View>

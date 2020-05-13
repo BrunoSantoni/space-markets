@@ -15,6 +15,7 @@
     "@use-expo/font": "^1.0.1",
     "axios": "^0.19.2",
     "expo": "~37.0.3",
+    "expo-camera": "~8.2.0",
     "expo-constants": "~9.0.0",
     "expo-image-picker": "~8.1.0",
     "expo-secure-store": "~8.1.0",
