@@ -46,10 +46,6 @@ export default function DummyCard(props) {
             <Image style={styles.productImg} />
             <Text style={styles.productPrice}>{dummyText}</Text>
           </View>
-          <View style={styles.productItem}>
-            <Image style={styles.productImg} />
-            <Text style={styles.productPrice}>{dummyText}</Text>
-          </View>
         </View>
       </View>
     </View>
