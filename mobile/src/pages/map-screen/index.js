@@ -16,18 +16,20 @@ import api from '../../services/api'
 
 import DummyCard from './components/DummyCard'
 import LoadingGif from '../../components/LoadingGif'
+import NoOffersIcon from '../../../assets/img/no-offers-icon.png'
 
 export default function MapScreen() {
   const mapRef = useRef(null)
   const scrollRef = useRef(null)
   const navigation = useNavigation()
   const [mercados, setMercados] = useState([])
+  const [specialOffers, setSpecialOffers] = useState([])
   const [loading, setLoading] = useState(true)
+  const [loadingOffers, setLoadingOffers] = useState(true)
   const [placesVisible, setPlacesVisible] = useState(true)
-  const [productsVisible, setProductsVisible] = useState(false)
+  const [productsVisible, setProductsVisible] = useState(true)
   const [selectedPlace, selectPlace] = useState(0)
 
-  const dummyText = '▬▬▬'
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
   const { width } = Dimensions.get('window')
@@ -40,8 +42,25 @@ export default function MapScreen() {
   }, [])
 
   useEffect(() => {
-    if (!loading) centerMapCamera()
+    if (!loading) {
+      centerMapCamera()
+    }
   }, [selectedPlace])
+
+  async function loadOffers() {
+    try {
+      await api.get('promocoes', {
+        headers: {
+            auth: mercados[selectedPlace]._id
+        }
+      }).then(res => {
+        setSpecialOffers(res.data)
+        if (res.data.length > 0) setLoadingOffers(false)
+      })
+    } catch(err) {
+      Alert.alert(err)
+    }
+  }
 
   function centerMapCamera() {
     const { market_latitude, market_longitude, markRef } = mercados[selectedPlace]
@@ -58,6 +77,8 @@ export default function MapScreen() {
 
     markRef.showCallout()
     scrollRef.current.scrollTo({ x: width, y: 0, animated: false })
+    setLoadingOffers(true)
+    loadOffers()
   }
 
   function toggleProductsVisibility() {
@@ -233,24 +254,28 @@ export default function MapScreen() {
                 Principais promoções {mercados[selectedPlace].market_name}
               </Text>
               <View style={styles.listProducts}>
-                <View style={styles.productItem}>
-                  <Image
-                    source={{
-                      uri: mercados[selectedPlace].market_picture_url,
-                    }}
-                    style={styles.productImg}
-                  />
-                  <Text style={styles.productPrice}>R$ 2,50</Text>
-                </View>
-                <View style={styles.productItem}>
-                  <Image
-                    source={{
-                      uri: mercados[selectedPlace].market_picture_url,
-                    }}
-                    style={styles.productImg}
-                  />
-                  <Text style={styles.productPrice}>R$ 2,50</Text>
-                </View>
+                {!loadingOffers ? specialOffers.map((offer, index) => (
+                  <View 
+                    style={styles.productItem}
+                    key={index}
+                  >
+                    <Image
+                      source={{
+                        uri: offer.product_picture_url
+                      }}
+                      style={styles.productImg}
+                    />
+                    <Text style={styles.productPrice}>R$ {offer.product_price}</Text>
+                  </View>
+                )) : (
+                  <View style={styles.productItem}>
+                    <Image
+                      source={NoOffersIcon}
+                      style={styles.productImg}
+                    />
+                    <Text style={styles.productPrice}>Sem ofertas</Text>
+                  </View>
+                )}
               </View>
             </View>
           </View>
