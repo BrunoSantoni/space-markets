@@ -1,10 +1,9 @@
 {
-  "name": "SuperMega",
-  "displayName": "SuperMega",
   "expo": {
-    "name": "SuperMega",
-    "slug": "supermega",
+    "name": "SpaceMarkets",
+    "slug": "spacemarkets",
     "version": "1.0.0",
+    "githubUrl": "https://github.com/BrunoSantoni/supermega",
     "orientation": "portrait",
     "primaryColor": "#63b1b9",
     "icon": "./assets/icon2.png",
