@@ -6,6 +6,7 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Modal,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -16,6 +17,7 @@ import api from '../../services/api'
 
 import DummyCard from './components/DummyCard'
 import LoadingGif from '../../components/LoadingGif'
+import SwipeTutorialGif from '../../../assets/img/swipe-tutorial.gif'
 import NoOffersIcon from '../../../assets/img/no-offers-icon.png'
 
 export default function MapScreen() {
@@ -29,6 +31,7 @@ export default function MapScreen() {
   const [placesVisible, setPlacesVisible] = useState(true)
   const [productsVisible, setProductsVisible] = useState(true)
   const [selectedPlace, selectPlace] = useState(0)
+  const [tutorialVisible, setTutorialVisible] = useState(true)
 
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
@@ -49,15 +52,17 @@ export default function MapScreen() {
 
   async function loadOffers() {
     try {
-      await api.get('promocoes', {
-        headers: {
-            auth: mercados[selectedPlace]._id
-        }
-      }).then(res => {
-        setSpecialOffers(res.data)
-        if (res.data.length > 0) setLoadingOffers(false)
-      })
-    } catch(err) {
+      await api
+        .get('promocoes', {
+          headers: {
+            auth: mercados[selectedPlace]._id,
+          },
+        })
+        .then((res) => {
+          setSpecialOffers(res.data)
+          if (res.data.length > 0) setLoadingOffers(false)
+        })
+    } catch (err) {
       Alert.alert(err)
     }
   }
@@ -131,7 +136,7 @@ export default function MapScreen() {
   }
 
   return loading ? (
-    <LoadingGif/>
+    <LoadingGif />
   ) : (
     <View style={styles.container}>
       <MapView
@@ -170,6 +175,7 @@ export default function MapScreen() {
       </MapView>
 
       <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
+        <Text style={styles.tipText}>{'<--------------- Deslize para trocar de mercado --------------->'}</Text>
         <ScrollView
           ref={scrollRef}
           horizontal
@@ -254,25 +260,23 @@ export default function MapScreen() {
                 Principais promoções {mercados[selectedPlace].market_name}
               </Text>
               <View style={styles.listProducts}>
-                {!loadingOffers ? specialOffers.map((offer, index) => (
-                  <View 
-                    style={styles.productItem}
-                    key={index}
-                  >
-                    <Image
-                      source={{
-                        uri: offer.product_picture_url
-                      }}
-                      style={styles.productImg}
-                    />
-                    <Text style={styles.productPrice}>R$ {offer.product_price}</Text>
-                  </View>
-                )) : (
+                {!loadingOffers ? (
+                  specialOffers.map((offer, index) => (
+                    <View style={styles.productItem} key={index}>
+                      <Image
+                        source={{
+                          uri: offer.product_picture_url,
+                        }}
+                        style={styles.productImg}
+                      />
+                      <Text style={styles.productPrice}>
+                        R$ {offer.product_price}
+                      </Text>
+                    </View>
+                  ))
+                ) : (
                   <View style={styles.productItem}>
-                    <Image
-                      source={NoOffersIcon}
-                      style={styles.productImg}
-                    />
+                    <Image source={NoOffersIcon} style={styles.productImg} />
                     <Text style={styles.productPrice}>Sem ofertas</Text>
                   </View>
                 )}
@@ -283,6 +287,25 @@ export default function MapScreen() {
           <DummyCard styles={styles} productsVisible={productsVisible} />
         </ScrollView>
       </View>
+
+      <Modal animationType="fade" transparent={true} visible={tutorialVisible}>
+        <View style={styles.tutorialView}>
+          <Image source={SwipeTutorialGif} style={styles.swipeTutorialGif} />
+
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Dica: Você pode fazer o gesto de deslizar para trocar de mercado!</Text>
+
+            <TouchableOpacity
+              style={styles.tutorialButton}
+              onPress={() => {
+                setTutorialVisible(!tutorialVisible)
+              }}
+            >
+              <Text style={styles.textStyle}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   )
 }
