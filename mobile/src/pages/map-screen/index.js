@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Modal,
+  Linking,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -98,22 +99,21 @@ export default function MapScreen() {
     })
   }
 
-  function navigateToDirections(
-    marketName,
-    marketPicture,
-    marketStreet,
-    marketNumber,
-    marketLatitude,
-    marketLongitude
-  ) {
-    navigation.navigate('Directions', {
-      marketName: marketName,
-      marketPicture: marketPicture,
-      marketStreet: marketStreet,
-      marketNumber: marketNumber,
-      marketLatitude: marketLatitude,
-      marketLongitude: marketLongitude,
-    })
+  function openExternalDirections() {
+    let url =
+      'https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=' +
+      mercados[selectedPlace].market_latitude +
+      ', ' +
+      mercados[selectedPlace].market_longitude
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (!supported) {
+          console.log('Não sei o que fazer com a URL: ' + url)
+        } else {
+          return Linking.openURL(url)
+        }
+      })
+      .catch((err) => console.error('Um erro ocorreu', err))
   }
 
   function handleScroll(action) {
@@ -175,7 +175,9 @@ export default function MapScreen() {
       </MapView>
 
       <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
-        <Text style={styles.tipText}>{'<--------------- Deslize para trocar de mercado --------------->'}</Text>
+        <Text style={styles.tipText}>
+          {'<--------------- Deslize para trocar de mercado --------------->'}
+        </Text>
         <ScrollView
           ref={scrollRef}
           horizontal
@@ -225,16 +227,7 @@ export default function MapScreen() {
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={styles.placeBtn}
-                      onPress={() =>
-                        navigateToDirections(
-                          mercados[selectedPlace].market_name,
-                          mercados[selectedPlace].market_picture_url,
-                          mercados[selectedPlace].market_street,
-                          mercados[selectedPlace].market_number,
-                          mercados[selectedPlace].market_latitude,
-                          mercados[selectedPlace].market_longitude
-                        )
-                      }
+                      onPress={openExternalDirections}
                     >
                       <Text style={styles.placeBtnText}>Rota até aqui</Text>
                     </TouchableOpacity>
@@ -293,7 +286,9 @@ export default function MapScreen() {
           <Image source={SwipeTutorialGif} style={styles.swipeTutorialGif} />
 
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Dica: Você pode fazer o gesto de deslizar para trocar de mercado!</Text>
+            <Text style={styles.modalText}>
+              Dica: Você pode fazer o gesto de deslizar para trocar de mercado!
+            </Text>
 
             <TouchableOpacity
               style={styles.tutorialButton}
