@@ -7,6 +7,8 @@ import MapViewDirections from 'react-native-maps-directions'
 import styles from '../map-screen/styles'
 import LoadingGif from '../../components/LoadingGif'
 
+import * as Location from 'expo-location'
+
 export default function DirectionsScreen({ route }) {
   const {
     marketName,
@@ -38,11 +40,13 @@ export default function DirectionsScreen({ route }) {
   const { width, height } = Dimensions.get('window')
 
   useEffect(() => {
+    Location.requestPermissionsAsync()
     navigator.geolocation.watchPosition(
       position => {
         const lat = parseFloat(position.coords.latitude)
         const long = parseFloat(position.coords.longitude)
         setUserLocation({ latitude: lat, longitude: long })
+        setLoading(false)
       },
       error => console.log('ouch'),
       {
@@ -51,7 +55,6 @@ export default function DirectionsScreen({ route }) {
         maximumAge: 1000,
       }
     )
-    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -89,6 +92,12 @@ export default function DirectionsScreen({ route }) {
         ref={mapRef}
         showsUserLocation
         style={styles.mapView}
+        initialRegion={{
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude,
+          latitudeDelta: defaultLatDelta,
+          longitudeDelta: defaultLongDelta,
+        }}
       >
         <MapView.Marker
           title={marketName}
