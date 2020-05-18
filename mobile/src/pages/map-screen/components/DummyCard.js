@@ -14,7 +14,7 @@ export default function DummyCard(props) {
         <View style={styles.marketContainer}>
           <View>
             <Image style={styles.placeImg} />
-            <Text>{dummyText}</Text>
+            <Text style={styles.distanceText}>{dummyText}</Text>
           </View>
 
           <View>
