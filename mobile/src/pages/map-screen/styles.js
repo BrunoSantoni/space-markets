@@ -70,6 +70,12 @@ export default StyleSheet.create({
     padding: 15,
   },
 
+  distanceText: {
+    fontSize: 11,
+    fontWeight: 'bold',
+    marginTop: 5,
+  },
+
   nome: {
     fontWeight: 'bold',
     fontSize: 18,
