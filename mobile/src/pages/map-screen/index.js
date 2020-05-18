@@ -12,6 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 
 import MapView from 'react-native-maps'
+import * as Location from 'expo-location'
 
 import styles from './styles'
 import api from '../../services/api'
@@ -26,29 +27,47 @@ export default function MapScreen() {
   const scrollRef = useRef(null)
   const navigation = useNavigation()
   const [mercados, setMercados] = useState([])
+  const [distance, setDistance] = useState(0)
   const [specialOffers, setSpecialOffers] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [loadingMarkets, setLoadingMarkets] = useState(true)
+  const [loadingDistance, setLoadingDistance] = useState(true)
   const [loadingOffers, setLoadingOffers] = useState(true)
   const [placesVisible, setPlacesVisible] = useState(true)
   const [productsVisible, setProductsVisible] = useState(true)
   const [selectedPlace, selectPlace] = useState(0)
   const [tutorialVisible, setTutorialVisible] = useState(true)
+  const [userLocation, setUserLocation] = useState({
+    latitude: null,
+    longitude: null
+  })
 
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
   const { width } = Dimensions.get('window')
 
   useEffect(() => {
+    Location.requestPermissionsAsync()
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const lat = parseFloat(position.coords.latitude)
+        const long = parseFloat(position.coords.longitude)
+        setUserLocation({ latitude: lat, longitude: long })
+      },
+      error => console.log('getCurrentPosition failed'),
+      {
+        timeout: 2000,
+        enableHighAccuracy: true,
+        maximumAge: 1000,
+      }
+    )
     api.get('mercados').then((res) => {
       setMercados(res.data)
-      setLoading(false)
+      setLoadingMarkets(false)
     })
   }, [])
 
   useEffect(() => {
-    if (!loading) {
-      centerMapCamera()
-    }
+    if (!loadingMarkets) refreshPlace()
   }, [selectedPlace])
 
   async function loadOffers() {
@@ -68,7 +87,55 @@ export default function MapScreen() {
     }
   }
 
-  function centerMapCamera() {
+  function calcDistanceBetween_MATH() {
+    let lat1 = userLocation.latitude
+    let lat2 = mercados[selectedPlace].market_latitude
+    let lon1 = userLocation.longitude
+    let lon2 = mercados[selectedPlace].market_longitude
+    let radlat1 = Math.PI * lat1/180
+    let radlat2 = Math.PI * lat2/180
+    let theta = lon1-lon2
+    let radtheta = Math.PI * theta/180
+    let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    dist = Math.acos(dist)
+    dist = dist * 180/Math.PI
+    dist = dist * 60 * 1.1515
+    dist = dist * 1.609344
+    setDistance(dist)
+    setLoadingDistance(false)
+  }
+
+  async function calcDistanceBetween_GOOGLE() {
+    try {
+      const response = await fetch(
+        'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric' + 
+          '&key=' +
+          GOOGLE_MAPS_APIKEY +
+          '&origins=' +
+          userLocation.latitude +
+          ',' +
+          userLocation.longitude +
+          '&destinations=' +
+          mercados[selectedPlace].market_latitude +
+          ',' +
+          mercados[selectedPlace].market_longitude,
+        {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      const json = await response.json();
+      setDistance(json.rows[0].elements[0].distance.value / 1000)
+      setLoadingDistance(false)
+    } catch (error) {
+    console.error(error)
+    }
+  }
+
+  function refreshPlace() {
     const { market_latitude, market_longitude, markRef } = mercados[selectedPlace]
 
     mapRef.current.animateToRegion(
@@ -83,6 +150,9 @@ export default function MapScreen() {
 
     markRef.showCallout()
     scrollRef.current.scrollTo({ x: width, y: 0, animated: false })
+    setLoadingDistance(true)
+    //calcDistanceBetween_GOOGLE() // recebe a DISTÂNCIA DA ROTA da API Google Distance Matrix
+    calcDistanceBetween_MATH() // calcula a DISTÂNCIA EM LINHA RETA
     setLoadingOffers(true)
     loadOffers()
   }
@@ -135,7 +205,7 @@ export default function MapScreen() {
     action == 0 ? selectPlace(previous) : selectPlace(next)
   }
 
-  return loading ? (
+  return loadingMarkets ? (
     <LoadingGif />
   ) : (
     <View style={styles.container}>
@@ -146,7 +216,7 @@ export default function MapScreen() {
         showsPointsOfInterest={false}
         showsBuildings={false}
         showsMyLocationButton={false}
-        onMapReady={centerMapCamera}
+        onMapReady={refreshPlace}
         onPress={() => {
           if (placesVisible) setPlacesVisible(false)
         }}
@@ -200,7 +270,10 @@ export default function MapScreen() {
                     }}
                     style={styles.placeImg}
                   />
-                  <Text>2,5 km</Text>
+                  {!loadingDistance ?
+                    <Text style={styles.distanceText}>{distance.toFixed(2) + ' km'}</Text>
+                  : <Text style={styles.distanceText}>▬▬▬</Text>
+                  }     
                 </View>
 
                 <View>
