@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 
 import styles from './styles'
 
@@ -47,7 +47,7 @@ export default function MarketProducts({ route }) {
           Sugerir um produto
         </Text>
       </TouchableOpacity>
-      <View style={styles.productContainer}>
+      <ScrollView style={styles.productContainer}>
         {products.map((product) => (
           <View style={styles.product} key={product._id}>
             <Image
@@ -67,7 +67,7 @@ export default function MarketProducts({ route }) {
             </View>
           </View>
         ))}
-      </View>
+      </ScrollView>
     </View>
   )
 }
