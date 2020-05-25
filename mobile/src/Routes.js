@@ -58,8 +58,8 @@ export default function Routes() {
                     name="Suggest" 
                     component={SuggestScreen}
                     options={{
-                        headerShown: false,
-                        title: "Sugerir",                        
+                        headerShown: true,
+                        title: " ",                        
                     }} 
                 />
       
@@ -68,7 +68,7 @@ export default function Routes() {
                     component={ProductListScreen}
                     options={{
                         headerShown: false,
-                        title: "Lista de Produtos"                        
+                        title: "Pesquisar produtos"
                     }}
                 />
 
@@ -77,7 +77,7 @@ export default function Routes() {
                     component={MarketProducts}
                     options={{
                         headerShown: false,
-                        title: "Produtos do mercado"                        
+                        title: "Produtos do mercado"
                     }}
                 />
 

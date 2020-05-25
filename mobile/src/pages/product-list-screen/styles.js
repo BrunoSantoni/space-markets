@@ -1,79 +1,74 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import Color from '../../constants/colors'
-import Constants from 'expo-constants'
+
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    maxWidth: 400,
-    paddingTop: Constants.statusBarHeight + 5
+    alignItems: 'center',
   },
 
   header: {
-    backgroundColor: Color.secundary,
-    marginTop: 10,
-    height: 60,
-    flexDirection: 'row', //Um embaixo do outro
-    alignContent: 'space-between',
-    alignItems: 'center'
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   searchInput: {
-    width: '80%',
-    fontSize: 16,
-    marginLeft: 10,
+    width: width / 1.5,
+    fontSize: 14,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 20,
     marginRight: 10,
     paddingHorizontal: 10,
-    height: 35
   },
 
-  icon: {
-    marginLeft: 10
-  },
-
-  productList: {
+  productsContainer: {
+    width: width - 15,
     flexDirection: 'row',
-    paddingHorizontal: 15,
-    marginTop: 10,
-    marginBottom: 20,
-    width: 300
-  },
-
-  productImage: {
-    width: 85,
-    height: 85,
-    right: 10,
-    borderColor: '#000',
-    borderWidth: 1,
-    resizeMode: 'cover'
-  },
-
-  even: {
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginVertical: 10,
+    borderRadius: 10,
     backgroundColor: '#D3D3D3',
   },
-  
-  location: {
-    flexDirection: 'row',
-    position: 'absolute',
-    marginTop: 96,
-    marginLeft: 12
+
+  productMarketName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  productProfile: {
+    flexDirection: 'column',
+    marginRight: 20,
   },
 
   productInfo: {
-    bottom: 5,
-    textAlign: 'center'
+    flex: 3,
   },
 
-  textProduct: {
-    textTransform: 'capitalize',
-    fontSize: 25,
+  distance: {
+    flexDirection: 'row',
   },
 
-  textProductPrice: {
-    fontSize: 30,
-    fontStyle: 'italic',
-    textAlign: 'right',
-    color: 'green'
-  }
+  productImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: '#000',
+  },
+
+  marketProfile: {
+    flexDirection: 'row',
+  },
+
+  marketImg: {
+    width: 40,
+    height: 40,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: '#000',
+  },
 })
