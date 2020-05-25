@@ -74,7 +74,12 @@ export default function ProductListScreen() {
           value={search}
           onChangeText={(event) => setSearch(event)}
         />
-        <Icons name="search" size={20} color="gray" onPress={handleSearch} />
+        <TouchableOpacity
+          style={styles.searchButton}
+          onPress={handleSearch}
+        >
+          <Icons name="search" size={20} color="black" />
+        </TouchableOpacity>
       </View>
     ),
   })

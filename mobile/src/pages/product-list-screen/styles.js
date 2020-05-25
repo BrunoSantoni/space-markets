@@ -23,6 +23,15 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
   },
 
+  searchButton: {
+    backgroundColor: '#D3D3D3',
+    borderRadius: 15,
+    width: "11%",
+    height: "100%",
+    justifyContent: 'center',
+    paddingHorizontal: "2%",
+  },
+
   productsContainer: {
     width: width - 15,
     flexDirection: 'row',
