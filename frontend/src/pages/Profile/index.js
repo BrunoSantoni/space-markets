@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FaTrashAlt, FaPen, FaSave } from 'react-icons/fa'
 import emptyImage from '../../assets/empty-image.png'
 
@@ -29,7 +30,7 @@ export default function Profile() {
     }).then(res => {
       setProducts(res.data)
     })
-  }, [showDiv])
+  }, [id, showDiv])
 
   async function handleDelete(prod_id) {
     try {
@@ -69,11 +70,13 @@ export default function Profile() {
     }   
     
     try {
-      await api.put(`produtos/${prod_id}`, data, {
+      const response = await api.put(`produtos/${prod_id}`, data, {
         headers: {
           auth: id,
         }
       })
+
+      console.log(response.data.message)
 
       alert('Produto alterado com sucesso!')
       handleChange()
@@ -95,10 +98,10 @@ export default function Profile() {
 
         <p><strong>VALOR:</strong>R$ {product.product_price}</p>
 
-        <button onClick={() => handleChange(product._id)} type="button" id="edit-button">
+        <button onClick={() => handleChange(product._id)} type="button" className="edit-button">
             <FaPen size={22} color="#FFF" />
         </button>
-        <button onClick={() => handleDelete(product._id)} type="button" id="delete-button">
+        <button onClick={() => handleDelete(product._id)} type="button" className="delete-button">
             <FaTrashAlt size={22} color="#FFF" />
         </button>
       </div>
@@ -114,12 +117,13 @@ export default function Profile() {
           
             {!productsList.length ? 
             <div className="div-empty">
-              <h1>Cadastre seus produtos!</h1>
+              <h1>Cadastre seu primeiro produto!</h1>
               <img src={emptyImage}/>
               <h2> Parece que você ainda não possui nenhum produto cadastrado :( </h2>
             </div> :
             <>
-              <h1>Produtos cadastrados</h1>
+              <Link className="button" to='/perfil'>Produtos cadastrados</Link>
+              <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
               <ul> {productsList} </ul>
             </>
             }
@@ -133,37 +137,38 @@ export default function Profile() {
       <div className="profile-container">
         <Header />
         <div className="product-container">
-        <h1>Produtos cadastrados</h1>
-        <ul>
-          {products.map(product => ((
-            <li key={product._id}>
-              <section>
-                <img src={product.product_picture_url} alt="Foto do produto" />
-              </section>
-              <div>
-                <p><strong>PRODUTO:</strong>{productId === product._id ?
-                <input type="text" defaultValue={product.product_name}
-                onChange={e => setProduto(e.target.value)}/> : product.product_name}</p>
-                
+          <Link className="button" to='/perfil'>Produtos cadastrados</Link>
+          <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
+          <ul>
+            {products.map(product => ((
+              <li key={product._id}>
+                <section>
+                  <img src={product.product_picture_url} alt="Foto do produto" />
+                </section>
+                <div>
+                  <p><strong>PRODUTO:</strong>{productId === product._id ?
+                  <input type="text" defaultValue={product.product_name}
+                  onChange={e => setProduto(e.target.value)}/> : product.product_name}</p>
+                  
 
-                <p><strong>DESCRIÇÃO:</strong>{productId === product._id ?
-                <input type="text" defaultValue={product.product_description}
-                onChange={e => setDescricao(e.target.value)}/> : product.product_description}</p>
-                
+                  <p><strong>DESCRIÇÃO:</strong>{productId === product._id ?
+                  <input type="text" defaultValue={product.product_description}
+                  onChange={e => setDescricao(e.target.value)}/> : product.product_description}</p>
+                  
 
-                <p><strong>VALOR:</strong>{productId === product._id ?
-                <input type="text" defaultValue={product.product_price}
-                onChange={e => setPreco(e.target.value)}/> : <>R$ {product.product_price}</>}</p>
-              </div>
-              {productId === product._id ?
-              <button onClick={() => 
-              handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
-              type="button" id="confirm-button">
-                <FaSave size={20} color="#FFF" />
-              </button> : null}
-            </li>
-          )))}
-        </ul>
+                  <p><strong>VALOR:</strong>{productId === product._id ?
+                  <input type="text" defaultValue={product.product_price}
+                  onChange={e => setPreco(e.target.value)}/> : <>R$ {product.product_price}</>}</p>
+                </div>
+                {productId === product._id ?
+                <button onClick={() => 
+                handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
+                type="button" id="confirm-button">
+                  <FaSave size={20} color="#FFF" />
+                </button> : null}
+              </li>
+            )))}
+          </ul>
         </div>
       </div> 
       </>

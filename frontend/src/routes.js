@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Profile from './pages/Profile'
 import AddProduct from './pages/AddProduct'
 import EditProduct from './pages/EditProfile'
+import Suggest from './pages/Suggest'
 
 const Routes = () => {
   return(
@@ -16,6 +17,7 @@ const Routes = () => {
         <Route path="/perfil" component={Profile} />
         <Route path="/produtos/novo" component={AddProduct} />
         <Route path="/edit" component={EditProduct} />
+        <Route path="/avaliar" component={Suggest} />
       </Switch>
     </BrowserRouter>
   )

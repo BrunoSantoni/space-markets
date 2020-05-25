@@ -130,8 +130,66 @@ const productValidatorCreate = Joi.object().keys({
     .error(new Error('O campo product_user deve ser preenchido')),
 })
 
+const suggestProductValidatorCreate = Joi.object().keys({
+  suggest_id: Joi.string()
+    .required()
+    .error(new Error('O ID da sugestão é necessário')),
+
+  product_name: Joi.string()
+    .required()
+    .max(20)
+    .error(new Error('Produto com nome inválido, negue a sugestão!')),
+
+  product_description: Joi.string()
+    .required()
+    .max(30)
+    .error(new Error('Descrição inválida, negue a sugestão!')),
+
+  product_price: Joi.string()
+    .required()
+    .error(new Error('Preço inválido, negue a sugestão!')),
+
+  product_picture_url: Joi.string()
+    .required()
+    .error(new Error('É necessário ter uma foto')),
+
+  product_picture_key: Joi.string()
+    .required()
+    .error(new Error('É necessário ter uma chave para a foto')),
+
+  product_user: Joi.boolean()
+    .required()
+    .error(new Error('O campo product_user deve ser preenchido')),
+})
+
+const productValidatorUpdate = Joi.object().keys({
+  product_name: Joi.string()
+    .required()
+    .max(20)
+    .error(
+      new Error(
+        'Nome do produto não pode estar em branco ou ter mais de 20 caracteres',
+      ),
+    ),
+
+  product_description: Joi.string()
+    .required()
+    .max(30)
+    .error(
+      new Error(
+        'Descrição não pode estar em branco ou ter mais de 30 caracteres',
+      ),
+    ),
+
+  product_price: Joi.string()
+    .required()
+    .error(new Error('Preço não deve ser superior a R$2.000,00')),
+})
+
 module.exports = {
   supermarketValidatorCreate,
   supermarketValidatorUpdate,
+  suggestProductValidatorCreate,
   productValidatorCreate,
+  productValidatorUpdate,
 }

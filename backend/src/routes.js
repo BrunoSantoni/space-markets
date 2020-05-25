@@ -5,6 +5,7 @@ const multerConfigProducts = require('./config/multerProduct')
 const multerConfigUser = require('./config/multerUser')
 
 /* Rotas Web */
+const AcceptSuggestController = require('./controllers/AcceptSuggestController')
 const ImageController = require('./controllers/ImageController')
 const ProductController = require('./controllers/ProductController')
 const SupermarketController = require('./controllers/SupermarketController')
@@ -44,6 +45,10 @@ routes.post(
 routes.put('/produtos/:id', ProductController.update)
 routes.delete('/produtos/:id', ProductController.delete)
 
+routes.post('/produtosugestao', AcceptSuggestController.create)
+
+routes.delete('/sugestao/:id', SuggestController.delete)
+
 // MOBILE
 routes.get('/usercadastro', UserController.show)
 routes.post(
@@ -59,6 +64,8 @@ routes.get('/mercados', SupermarketController.index)
 routes.get('/buscaproduto', ProductController.show)
 
 routes.get('/promocoes', SearchProductController.show)
+
+routes.get('/sugestao', SuggestController.index)
 
 routes.post(
   '/sugestao',

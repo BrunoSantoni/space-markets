@@ -28,11 +28,11 @@ const AddProduct = () => {
 
     const data = new FormData()
 
-    data.append("product_name", produto)
-    data.append("product_description", descricao)
-    data.append("product_price", preco)
-    data.append("product_user", productUser) //Produto não adicionado pelo user
-    data.append("product_picture", file)
+    data.append('product_name', produto)
+    data.append('product_description', descricao)
+    data.append('product_price', preco)
+    data.append('product_user', productUser) //Produto não adicionado pelo user
+    data.append('product_picture', file)
 
     try {
       const response = await api.post('produtos', data, {
@@ -45,14 +45,13 @@ const AddProduct = () => {
         alert('Produto adicionado com sucesso!')
         history.push('/perfil')
       } else {
-        console.log(response)
         alert(response.data.message)
       }
       
 
       
     } catch(err) {
-      alert('Erro ao cadastrar produto', err)
+      alert('Erro ao cadastrar produto\n', err)
     }
   }
   return(

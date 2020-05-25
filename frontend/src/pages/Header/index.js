@@ -1,32 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FaPowerOff, FaUserEdit, FaImage } from 'react-icons/fa'
+import { FaPowerOff, FaUserEdit } from 'react-icons/fa'
+
+import ProfilePicture from '../ProfilePicture'
 
 import './styles.css'
 
-import api from '../../services/api'
-
 export default function Header() {
-  const [picture, setPicture] = useState('')
-  const [pictureKey, setPictureKey] = useState('')
-  let newPicture = false
-
   const marketName = localStorage.getItem('market_name')
-  const marketId = localStorage.getItem('id')
 
   const history = useHistory()
-
-  /* Busca a imagem de perfil do mercado */
-  useEffect(() => {
-    api.get('perfil', {
-      headers: {
-        auth: marketId
-      }
-    }).then(res => {
-      setPicture(res.data[0].market_picture_url)
-      setPictureKey(res.data[0].market_picture_key)
-    })
-  }, [marketId, newPicture])
 
   function handleLogout() {
     localStorage.clear()
@@ -38,43 +21,10 @@ export default function Header() {
     history.push('/edit')
   }
 
-  function handleImgEdit(e) {
-    e.preventDefault()
-    document.getElementById('market_new_picture').click()
-  }
-
-  const uploadImage = async () => {
-    const file = document.getElementById('market_new_picture').files[0]
-    const data = new FormData()
-
-    data.append("market_new_picture", file, file.name)
-
-    try {
-      const response = await api.put(`perfil/${marketId}`, data, {
-        headers: {
-          auth: marketId,
-        }
-      })
-
-      alert('Foto de perfil alterada com sucesso\nAgora todos podem ver seu novo logotipo!')
-
-      setPictureKey(response.data.market_picture_key)
-      newPicture = true         
-    } catch(err) {
-      alert(err)
-    }   
-  }
-
   return(
     <header>
       <div className="container">
-        <img src={picture} alt="Foto de perfil" />
-        <div className="edit">
-        <input id="market_new_picture" name="market_new_picture" type="file" onInput={uploadImage} hidden/>
-          <button onClick={handleImgEdit} type="button" id="btn-edit-pic">
-            <FaImage size={25} color="#FFF" />
-          </button>
-        </div>
+        <ProfilePicture />
       </div>      
       <span>Bem-vindo, {marketName}!</span>
 

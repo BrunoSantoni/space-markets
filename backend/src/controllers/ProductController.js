@@ -40,7 +40,8 @@ module.exports = {
       product_price,
       product_user,
     } = req.body
-    const { public_id, url = '' } = req.file
+
+    const { public_id = '', url = '' } = req.file
     let flag = false
 
     const { auth } = req.headers
@@ -85,7 +86,7 @@ module.exports = {
 
     const message = Joi.validate(
       req.body,
-      validator.productValidatorCreate,
+      validator.productValidatorUpdate,
       (err, resp) => {
         if (err) {
           flag = true
