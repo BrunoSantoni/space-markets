@@ -105,16 +105,29 @@ const supermarketValidatorUpdate = Joi.object().keys({
 const productValidatorCreate = Joi.object().keys({
   product_name: Joi.string()
     .required()
-    .error(new Error('Nome do produto não pode estar em branco')),
+    .max(20)
+    .error(
+      new Error(
+        'Nome do produto não pode estar em branco ou ter mais de 20 caracteres',
+      ),
+    ),
 
   product_description: Joi.string()
     .required()
-    .error(new Error('Descrição não pode estar em branco')),
+    .max(30)
+    .error(
+      new Error(
+        'Descrição não pode estar em branco ou ter mais de 30 caracteres',
+      ),
+    ),
 
   product_price: Joi.string()
     .required()
-    .max(2000)
     .error(new Error('Preço não deve ser superior a R$2.000,00')),
+
+  product_user: Joi.boolean()
+    .required()
+    .error(new Error('O campo product_user deve ser preenchido')),
 })
 
 module.exports = {

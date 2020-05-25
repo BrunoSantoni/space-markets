@@ -85,37 +85,39 @@ export default function SuggestScreen({ route }) {
 
     return(
         <View style={styles.container}>
-            <Text>Deixe a sugestão de um produto que você não encontrou!</Text>
-            <TxtInput
-                value={product} 
-                onChangeText={product => setProduct(product)} 
-                placeholder="Nome do produto"
-                style={styles.formInput}
-            />
-            <TxtInput
-                value={description} 
-                onChangeText={description => setDescription(description)} 
-                placeholder="Descrição"
-                multiline={true}
-                style={styles.descriptionInput}
-            />
-            <TxtInput
-                value={price} 
-                onChangeText={price => setPrice(price)} 
-                placeholder="Preço"
-                style={styles.formInput}
-            />
-            <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 10}}>
-                {picture ? 
-                    <Image source={{ uri: picture.uri }} style={styles.img} onPress={handleImg}/> : 
-                    <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
-                        <Txt style={{color: '#fff'}}>Envie uma foto do produto</Txt>
-                    </TouchButton>
-                }
+            <View style={styles.lineStyle}>    
+                <Text style={styles.titleText}>Sugerir Produto</Text>            
+                <TxtInput
+                    value={product} 
+                    onChangeText={product => setProduct(product)} 
+                    placeholder="Nome do produto"
+                    style={styles.formInput}
+                />
+                <TxtInput
+                    value={description} 
+                    onChangeText={description => setDescription(description)} 
+                    placeholder="Descrição"
+                    multiline={true}
+                    style={styles.descriptionInput}
+                />
+                <TxtInput
+                    value={price} 
+                    onChangeText={price => setPrice(price)} 
+                    placeholder="Preço"
+                    style={styles.formInput}
+                />
+                <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 10}}>
+                    {picture ? 
+                        <Image source={{ uri: picture.uri }} style={styles.img} onPress={handleImg}/> : 
+                        <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
+                            <Txt style={{color: '#fff'}}>Envie uma foto do produto</Txt>
+                        </TouchButton>
+                    }
+                </View>
+                <TouchableOpacity style={styles.btnEnviar} onPress={handleSuggest}>
+                    <Text style={styles.btnEnviarText}>Enviar sugestão</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.btnEnviar} onPress={handleSuggest}>
-                <Text style={styles.btnEnviarText}>Enviar sugestão</Text>
-            </TouchableOpacity>
         </View>
     )
 }

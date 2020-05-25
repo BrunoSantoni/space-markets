@@ -14,7 +14,9 @@ const AddProduct = () => {
   const[produto, setProduto] = useState('')
   const[descricao, setDescricao] = useState('')
   const[preco, setPreco] = useState('')
+  const productUser = false;
   const id = localStorage.getItem('id')
+  console.log(id)
 
   const history = useHistory()
 
@@ -29,19 +31,26 @@ const AddProduct = () => {
     data.append("product_name", produto)
     data.append("product_description", descricao)
     data.append("product_price", preco)
-    data.append("product_user", false) //Produto não adicionado pelo user
+    data.append("product_user", productUser) //Produto não adicionado pelo user
     data.append("product_picture", file)
 
     try {
-      await api.post('produtos', data, {
+      const response = await api.post('produtos', data, {
         headers: {
           auth: id,
         }
       })
 
-      alert('Produto adicionado com sucesso!')
+      if(response.data.message === undefined) {
+        alert('Produto adicionado com sucesso!')
+        history.push('/perfil')
+      } else {
+        console.log(response)
+        alert(response.data.message)
+      }
+      
 
-      history.push('/perfil')
+      
     } catch(err) {
       alert('Erro ao cadastrar produto', err)
     }
@@ -56,7 +65,7 @@ const AddProduct = () => {
               <p>Insira um novo produto para que todos possam ver que você possui a melhor oferta!</p>
               <Link className="back-link" to="/perfil">
                   <FaArrowLeft size={16} color="#63b1b9"/>
-                  Voltar para o perfil
+                  Voltar para a dashboard
               </Link>
           </section>
 

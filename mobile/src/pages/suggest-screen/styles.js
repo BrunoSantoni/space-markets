@@ -5,9 +5,17 @@ import Color from '../../constants/colors'
 
 export default StyleSheet.create({
     container: {
-        marginTop: '10%',
         justifyContent: 'center',
+        
+        flex: 1
+    },
+
+    lineStyle: {
+        borderStyle: 'solid',
         alignItems: 'center',
+        borderWidth: 2,
+        borderRadius: 8,
+        marginHorizontal: 20
     },
 
     formInput: {
@@ -59,5 +67,17 @@ export default StyleSheet.create({
         height: 100,
         borderRadius: 8,
         marginTop: 10
+    },
+
+    titleText: {
+        marginVertical: 10,
+        marginHorizontal: 5,
+        padding: 5,
+        fontSize: 23,
+        textAlign: 'center',
+        borderStyle: 'solid',
+        borderBottomWidth: 3,
+        borderRadius: 8,
+        borderColor: '#63b1b9'
     },
 });

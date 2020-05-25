@@ -23,6 +23,8 @@ module.exports = {
         path: 'market_id',
         market_name: 1,
         market_picture_url: 1,
+        market_latitude: 1,
+        market_longitude: 1,
       })
       .exec((err, product) => {
         if (err) return res.json(err)
@@ -69,6 +71,7 @@ module.exports = {
        await Product.find().populate('market_id', 'market_name').select('product_name') */
       return res.json(prod)
     }
+    await cloudinary.v2.uploader.destroy(public_id)
     return res.json({ message })
   },
 

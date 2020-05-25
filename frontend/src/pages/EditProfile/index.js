@@ -122,7 +122,7 @@ export default function EditProfile(){
             <p>Mudou de endereço? Tem um e-mail novo? <br/>Divida essa novidade com todos.</p>
             <Link className="back-link" to="/perfil">
               <FaArrowLeft size={15} color="#63b1b9" />
-              Retornar para o seu perfil
+              Retornar para a sua dashboard
             </Link>
             <img src={editImg} alt="Astronauta"/>
           </section>
