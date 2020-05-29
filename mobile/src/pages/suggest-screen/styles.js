@@ -43,7 +43,8 @@ export default StyleSheet.create({
     selectImg: {
         backgroundColor: Color.secundary,
         width: 175,
-        height: 50,
+        height: null,
+        paddingVertical: 8
     },
 
     btnEnviar: {
