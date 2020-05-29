@@ -23,7 +23,7 @@ export default function Suggest() {
     }).then(res => {
       setSuggestions(res.data)
     })
-  }, id)
+  }, [id])
 
   async function handleAccept(suggestId, name, description, price, url, key, suggestUser) {
     const data = {
