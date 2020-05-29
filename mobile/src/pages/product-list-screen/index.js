@@ -4,7 +4,6 @@ import {
   Text,
   View,
   TextInput,
-  Alert,
   FlatList,
   TouchableOpacity,
 } from 'react-native'
@@ -47,22 +46,18 @@ export default function ProductListScreen() {
     )
   }, [])
 
-  async function handleSearch() {
-    try {
-      await api
-        .get('buscaproduto', {
-          headers: {
-            search: search,
-          },
-        })
-        .then((res) => {
-          calcDistancesBetween_MATH(res.data)
-          setProducts(res.data)
-        })
-    } catch (err) {
-      Alert.alert(err)
-    }
-  }
+  useEffect(() => {
+    api
+      .get('buscaproduto', {
+        headers: {
+          search: search,
+        },
+      })
+      .then((res) => {
+        calcDistancesBetween_MATH(res.data)
+        setProducts(res.data)
+      })
+  }, [search])
 
   navigation.setOptions({
     headerShown: true,
@@ -74,10 +69,7 @@ export default function ProductListScreen() {
           value={search}
           onChangeText={(event) => setSearch(event)}
         />
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={handleSearch}
-        >
+        <TouchableOpacity style={styles.searchButton} onPress={setSearch(search)}>
           <Icons name="search" size={20} color="black" />
         </TouchableOpacity>
       </View>
