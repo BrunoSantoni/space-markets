@@ -71,7 +71,7 @@ export default StyleSheet.create({
   },
 
   distanceText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: 'bold',
     marginTop: 5,
   },

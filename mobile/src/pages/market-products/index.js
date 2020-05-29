@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView, Linking } from 'react-native'
 
 import styles from './styles'
 
@@ -9,7 +9,7 @@ import api from '../../services/api'
 
 export default function MarketProducts({ route }) {
   const navigation = useNavigation()
-  const { marketId, marketName, marketPicture } = route.params
+  const { marketId, marketName, marketPicture, marketLatitude, marketLongitude } = route.params
   const [products, setProducts] = useState([])
 
   useEffect(() => {
@@ -34,6 +34,23 @@ export default function MarketProducts({ route }) {
     })
   }, [products])
 
+  function openExternalDirections() {
+    let url =
+      'https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=' +
+      marketLatitude +
+      ', ' +
+      marketLongitude
+    Linking.canOpenURL(url)
+      .then((supported) => {
+        if (!supported) {
+          console.log('Não sei o que fazer com a URL: ' + url)
+        } else {
+          return Linking.openURL(url)
+        }
+      })
+      .catch((err) => console.error('Um erro ocorreu', err))
+  }
+
   function navigateToSuggest() {
     navigation.navigate('Suggest', {
       marketId: marketId,
@@ -42,11 +59,18 @@ export default function MarketProducts({ route }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.suggestBtn}>
-        <Text style={styles.suggestBtnText} onPress={navigateToSuggest}>
-          Sugerir um produto
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity style={styles.buttons}>
+          <Text style={styles.buttonsText} onPress={navigateToSuggest}>
+            Sugerir um produto
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttons}>
+          <Text style={styles.buttonsText} onPress={openExternalDirections}>
+            Rota até aqui
+          </Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView style={styles.productContainer}>
         {products.map((product) => (
           <View style={styles.product} key={product._id}>

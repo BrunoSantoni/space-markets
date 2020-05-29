@@ -101,6 +101,9 @@ export default function MapScreen() {
     dist = dist * 180/Math.PI
     dist = dist * 60 * 1.1515
     dist = dist * 1.609344
+    if (dist < 10) dist = dist.toFixed(2)
+    else if (dist < 100) dist = dist.toFixed(1)
+    else if (dist < 1000) dist = dist.toFixed(0)
     setDistance(dist)
     setLoadingDistance(false)
   }
@@ -161,11 +164,19 @@ export default function MapScreen() {
     productsVisible ? setProductsVisible(false) : setProductsVisible(true)
   }
 
-  function navigateToMarketProducts(marketId, marketName, marketPicture) {
+  function navigateToMarketProducts(
+    marketId,
+    marketName,
+    marketPicture,
+    marketLatitude,
+    marketLongitude
+  ) {
     navigation.navigate('MarketProducts', {
       marketId: marketId,
       marketName: marketName,
       marketPicture: marketPicture,
+      marketLatitude: marketLatitude,
+      marketLongitude: marketLongitude
     })
   }
 
@@ -271,7 +282,7 @@ export default function MapScreen() {
                     style={styles.placeImg}
                   />
                   {!loadingDistance ?
-                    <Text style={styles.distanceText}>{distance.toFixed(2) + ' km'}</Text>
+                    <Text style={styles.distanceText}>{distance + ' km'}</Text>
                   : <Text style={styles.distanceText}>▬▬▬</Text>
                   }     
                 </View>
@@ -292,7 +303,9 @@ export default function MapScreen() {
                         navigateToMarketProducts(
                           mercados[selectedPlace]._id,
                           mercados[selectedPlace].market_name,
-                          mercados[selectedPlace].market_picture_url
+                          mercados[selectedPlace].market_picture_url,
+                          mercados[selectedPlace].market_latitude,
+                          mercados[selectedPlace].market_longitude
                         )
                       }
                     >

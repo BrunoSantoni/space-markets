@@ -22,18 +22,23 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  suggestBtn: {
+  buttonsContainer: {
+    flexDirection: "row"
+  },
+
+  buttons: {
     backgroundColor: '#63b1b9',
-    width: width / 2,
+    width: width / 2.25,
     height: 40,
     marginVertical: 20,
+    marginHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8
   },
 
-  suggestBtnText: {
-    fontSize: 18,
+  buttonsText: {
+    fontSize: 16,
     color: '#fff'
   },
 
