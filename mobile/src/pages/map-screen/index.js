@@ -104,6 +104,7 @@ export default function MapScreen() {
     if (dist < 10) dist = dist.toFixed(2)
     else if (dist < 100) dist = dist.toFixed(1)
     else if (dist < 1000) dist = dist.toFixed(0)
+    else dist = 0
     setDistance(dist)
     setLoadingDistance(false)
   }

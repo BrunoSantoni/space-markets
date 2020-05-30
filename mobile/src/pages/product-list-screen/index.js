@@ -104,6 +104,7 @@ export default function ProductListScreen() {
       if (dist < 10) loadedDistances.push(dist.toFixed(2))
       else if (dist < 100) loadedDistances.push(dist.toFixed(1))
       else if (dist < 1000) loadedDistances.push(dist.toFixed(0))
+      else loadedDistances.push(0)
     }
     setDistances(loadedDistances)
     setLoadingDistances(false)
