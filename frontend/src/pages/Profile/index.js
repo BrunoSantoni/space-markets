@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaTrashAlt, FaPen, FaSave } from 'react-icons/fa'
 import emptyImage from '../../assets/empty-image.png'
+import swal from 'sweetalert'
 
 import './styles.css'
 
@@ -33,16 +34,39 @@ export default function Profile() {
   }, [id, showDiv])
 
   async function handleDelete(prod_id) {
-    try {
-      await api.delete(`produtos/${prod_id}`, {
-        headers: {
-          auth: id
-        }
-      })
-      setProducts(products.filter(product => product._id !== prod_id))
-    } catch(err) {
-      alert(err)
-    }    
+    let confirmDelete = false
+
+    await swal({
+      title: 'Tem certeza?',
+      text: 'Uma vez deletado, você não poderá recuperar o produto!',
+      icon: 'warning',
+      buttons: ['Cancelar', 'Excluir'],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        confirmDelete = true     
+      } else {
+        swal('O produto não foi deletado!')
+      }
+    })
+
+    if(confirmDelete) {
+      try {
+        await api.delete(`produtos/${prod_id}`, {
+          headers: {
+            auth: id
+          }
+        })
+        setProducts(products.filter(product => product._id !== prod_id))
+
+        swal('O produto foi deletado com sucesso', {
+          icon: 'success',
+        })
+      } catch(err) {
+        swal('Seu produto não foi deletado!', err, 'error')
+      }
+    }
   }
 
   /* Troca o condicional component, muda o id do produto para ser alterado e reseta alguns states */
@@ -75,8 +99,6 @@ export default function Profile() {
           auth: id,
         }
       })
-
-      console.log(response.data.message)
 
       alert('Produto alterado com sucesso!')
       handleChange()

@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&display=swap');
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
 
 * {
     margin: 0;
@@ -9,13 +10,13 @@
 }
 
 body {
-    font: 400 14px 'Open Sans', sans-serif;
+    font: 400 15px Roboto, sans-serif;
     background: #EBEDF3;
     -webkit-font-smoothing: antialiased;
 }
 
 input, button, textarea {
-    font: 400 18px 'Open Sans', sans-serif;
+    font: 400 18px Ubuntu, sans-serif;
 }
 
 input::-webkit-input-placeholder {

@@ -97,6 +97,7 @@ export default function Suggest() {
           <Header />
           <div className="product-container">
             <Link className="button" to='/perfil'>Produtos cadastrados</Link>
+            <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
             {!suggestions.length ? 
             <div className="div-empty">
               
@@ -105,6 +106,7 @@ export default function Suggest() {
               <h2> Parece que ainda não há sugestões :( </h2>
             </div> :
             <>
+              <Link className="button" to='/perfil'>Produtos cadastrados</Link>
               <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
               <ul>{suggestionsList}</ul>
             </>

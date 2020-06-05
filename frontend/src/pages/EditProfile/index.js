@@ -4,6 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa'
 import { BingProvider } from 'leaflet-geosearch'
 import { TextField } from '@material-ui/core'
 import NumberFormat from 'react-number-format'
+import swal from 'sweetalert'
 
 import api from '../../services/api'
 import cepPromise from 'cep-promise'
@@ -103,13 +104,17 @@ export default function EditProfile(){
       })
 
       if(response.data.message === undefined) {
-        alert('Informações alteradas com sucesso!')
+        await swal({
+          title: 'Sucesso',
+          text: 'Suas informações foram alteradas com sucesso',
+          icon: 'success',
+          button: 'Confirmar'})
         history.push('/perfil')
       } else {
-        alert(response.data.message)
+        await swal('Algo deu errado :(', response.data.message, 'error')
       }
     } catch(err) {
-      alert('Erro ao alterar informações', err)
+      await swal('Algo deu errado :(', err, 'error')
     }    
   }
 

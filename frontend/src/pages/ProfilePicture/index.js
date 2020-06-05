@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import swal from 'sweetalert'
 
 import { FaImage } from 'react-icons/fa'
 
@@ -39,11 +40,15 @@ export default function ProfilePicture(){
         }
       })
 
-      alert('Foto de perfil alterada com sucesso\nAgora todos podem ver seu novo logotipo!')
+      await swal({
+        title: 'Foto de perfil alterada com sucesso',
+        text: 'Agora todos podem ver seu novo logotipo!',
+        icon: 'success',
+        button: 'Confirmar'})
 
       setImgHash(Date.now())  
     } catch(err) {
-      alert(err)
+      await swal('Algo deu errado :(', err, 'error')
     }   
   }
 

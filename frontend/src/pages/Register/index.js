@@ -4,6 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
 import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
 import { TextField } from '@material-ui/core'
 import NumberFormat from 'react-number-format'
+import swal from 'sweetalert'
 
 import { validateUser, validateMail,
   validatePassword, validateCnpj, validateCep } from '../../helpers/Validators'
@@ -95,14 +96,17 @@ class Register extends Component {
         const response = await api.post('cadastro', data)
 
         if(response.data._id === undefined) {
-          alert(response.data.message)
+          await swal('Algo deu errado :(', response.data.message, 'error')
         } else {
-          alert('Cadastro realizado com sucesso. Seja muito bem-vindo!')
-
+          await swal({
+            title: 'Cadastro realizado com sucesso',
+            text: 'Seja muito bem-vindo e boas vendas!',
+            icon: 'success',
+            button: 'Confirmar'})
           history.push('/') 
         }             
       } catch(err) {
-        alert(err)
+        await swal('Algo deu errado :(', err, 'error')
       }   
   }
 

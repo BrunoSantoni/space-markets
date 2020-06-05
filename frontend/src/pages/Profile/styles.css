@@ -145,10 +145,7 @@
   margin-left: 150px;
 
   border: solid 2px;
-  border-bottom: none;
-  border-radius: 0;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 8px;
   border-color: #63b1b9;
 }
 

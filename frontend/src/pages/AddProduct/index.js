@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { InputAdornment, TextField } from '@material-ui/core'
 import NumberFormat from 'react-number-format'
+import swal from 'sweetalert'
 
 import api from '../../services/api'
 
@@ -16,7 +17,6 @@ const AddProduct = () => {
   const[preco, setPreco] = useState('')
   const productUser = false;
   const id = localStorage.getItem('id')
-  console.log(id)
 
   const history = useHistory()
 
@@ -42,10 +42,14 @@ const AddProduct = () => {
       })
 
       if(response.data.message === undefined) {
-        alert('Produto adicionado com sucesso!')
+        await swal({
+          title: 'Sucesso',
+          text: 'Seu produto foi adicionado!',
+          icon: 'success',
+          button: 'Confirmar'})
         history.push('/perfil')
       } else {
-        alert(response.data.message)
+        await swal('Algo deu errado :(', response.data.message, 'error')
       }
       
 
