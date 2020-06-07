@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const SupermarketSchema = new mongoose.Schema({
   market_name: {
@@ -71,10 +72,8 @@ const SupermarketSchema = new mongoose.Schema({
   },
 })
 
-// SupermarketSchema.pre('save', function() {
-//   if(!this.market_picture_url) {
-//     this.market_picture_url = `${process.env.APP_URL}/files/${this.market_picture_key}`
-//   }
-// })
+SupermarketSchema.pre('save', async function () {
+  this.market_password = await bcrypt.hash(this.market_password, 6)
+})
 
 module.exports = mongoose.model('Supermarket', SupermarketSchema)

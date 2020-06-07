@@ -58,24 +58,26 @@ module.exports = {
     )
 
     if (!flag) {
-      const market = await Supermarket.create({
-        market_name,
-        market_mail,
-        market_password,
-        market_cnpj,
-        market_cep,
-        market_street,
-        market_number,
-        market_neighborhood,
-        market_city,
-        market_uf,
-        market_latitude,
-        market_longitude,
-        market_picture_url: url,
-        market_picture_key: public_id,
-      })
+      const { market_name: name, market_mail: mail } = await Supermarket.create(
+        {
+          market_name,
+          market_mail,
+          market_password,
+          market_cnpj,
+          market_cep,
+          market_street,
+          market_number,
+          market_neighborhood,
+          market_city,
+          market_uf,
+          market_latitude,
+          market_longitude,
+          market_picture_url: url,
+          market_picture_key: public_id,
+        },
+      )
 
-      return res.json(market)
+      return res.json({ name, mail })
     }
     return res.json({ message })
   },
