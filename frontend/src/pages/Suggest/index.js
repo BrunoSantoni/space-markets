@@ -23,7 +23,7 @@ export default function Suggest() {
     }).then(res => {
       setSuggestions(res.data)
     })
-  }, [id])
+  }, [])
 
   async function handleAccept(suggestId, name, description, price, url, key, suggestUser) {
     const data = {
@@ -106,8 +106,6 @@ export default function Suggest() {
               <h2> Parece que ainda não há sugestões :( </h2>
             </div> :
             <>
-              <Link className="button" to='/perfil'>Produtos cadastrados</Link>
-              <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
               <ul>{suggestionsList}</ul>
             </>
             }

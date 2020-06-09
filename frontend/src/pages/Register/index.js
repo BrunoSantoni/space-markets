@@ -95,7 +95,7 @@ class Register extends Component {
       try {
         const response = await api.post('cadastro', data)
 
-        if(response.data._id === undefined) {
+        if(response.data.name === undefined) {
           await swal('Algo deu errado :(', response.data.message, 'error')
         } else {
           await swal({

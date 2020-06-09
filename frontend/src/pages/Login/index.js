@@ -26,7 +26,7 @@ export default function Login() {
 
       history.push('/perfil')
     } catch(err) {
-      alert('ID ou senha incorretos!')
+      alert(err)
     }
   }
 
