@@ -1,18 +1,18 @@
-Web/Mobile project using ReactJS, React Native and NodeJS being developed for the final term of the university.
+## About
+
+Space Markets is a Web/Mobile project using ReactJS, React Native and NodeJS being developed for the final term of the university.
+
+The idea is the development of website and a mobile application named Space Markets, which improves time savings to the customer when searching for supermarket offers, in addition to offering a web environment for markets to register their products.
 
 
-# Scripts
+## Scripts
 
-## In the backend folder, you run:
-### yarn dev
+After you clone the project, you have to install all the dependencies, to do this, you run: **yarn**
 
+In the backend folder, you run: **yarn dev**<br>
 The app will run in the development mode.<br>
 Open http://localhost:3333 to view it in the browser.<br><br>
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.<br>
 
-## In the frontend / mobile folder, you run:
-### yarn start
+In the frontend / mobile folder, you run: **yarn start**<br>
 The app will run in the development mode.<br>
 Open http://localhost:3000 to view it in the browser.
-
