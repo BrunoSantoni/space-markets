@@ -2,7 +2,7 @@
 
 Space Markets is a Web/Mobile project using ReactJS, React Native and NodeJS being developed for the final term of the university.
 
-The idea is the development of website and a mobile application named Space Markets, which improves time savings to the customer when searching for supermarket offers, in addition to offering a web environment for markets to register their products.
+The idea is the development of a mobile application named Space Markets, which improves time savings to the customer when searching for supermarket offers, in addition to offering a web environment for markets to register their products.
 
 
 ## Scripts
