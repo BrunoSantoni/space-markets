@@ -6,7 +6,7 @@ import '../Profile/styles.css'
 
 import emptyImage from '../../assets/empty-image.png'
 
-import Header from '../Header'
+import Header from '../../components/Header'
 
 import api from '../../services/api'
 
@@ -70,7 +70,7 @@ export default function Suggest() {
   const suggestionsList = suggestions.map(suggestion => ((
     <li key={suggestion._id}>
       <section>
-        <img src={suggestion.suggest_picture_url} alt="Foto do produto" />
+        <img src={suggestion.suggest_picture_url} alt={suggestion.suggest_name} />
       </section>
       <div>
         <p><strong>PRODUTO:</strong>{suggestion.suggest_name}</p>
@@ -102,7 +102,7 @@ export default function Suggest() {
             <div className="div-empty">
               
               <h1>Ainda não há produtos para avaliar!</h1>
-              <img src={emptyImage}/>
+              <img src={emptyImage} alt="Não há produtos cadastrados"/>
               <h2> Parece que ainda não há sugestões :( </h2>
             </div> :
             <>

@@ -12,7 +12,6 @@ module.exports = {
     }
 
     const passwordMatch = await bcrypt.compare(password, market.market_password)
-    console.log(passwordMatch)
 
     if (!passwordMatch) {
       return res.status(401).json({ error: 'E-mail ou senha incorretos' })

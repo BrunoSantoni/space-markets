@@ -36,15 +36,15 @@ module.exports = {
         market_picture_key: public_id,
       },
       (err, data) => {
-        if (err) return res.json(err)
+        if (err) return res.status(400).json(err)
         flag = true
-        return res.json(data)
       },
     )
 
     if (flag) {
       await cloudinary.v2.uploader.destroy(market.market_picture_key, (err) => {
-        if (err) res.json(err)
+        if (err) return res.status(400).json(err)
+        return res.status(204).send()
       })
     }
   },

@@ -8,7 +8,7 @@ import './styles.css'
 
 import api from '../../services/api'
 
-import Header from '../Header'
+import Header from '../../components/Header'
 
 export default function Profile() {
 
@@ -94,7 +94,7 @@ export default function Profile() {
     }   
     
     try {
-      const response = await api.put(`produtos/${prod_id}`, data, {
+      await api.put(`produtos/${prod_id}`, data, {
         headers: {
           auth: id,
         }
@@ -140,7 +140,7 @@ export default function Profile() {
             {!productsList.length ? 
             <div className="div-empty">
               <h1>Cadastre seu primeiro produto!</h1>
-              <img src={emptyImage}/>
+              <img src={emptyImage} alt="Nenhum produto cadastrado"/>
               <h2> Parece que você ainda não possui nenhum produto cadastrado :( </h2>
             </div> :
             <>

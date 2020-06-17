@@ -8,7 +8,9 @@ module.exports = {
 
     const suggestions = await Suggest.find({ market_id: auth })
 
-    return res.json(suggestions)
+    if(!suggestions) return res.json('Ainda não há produtos cadastrados')
+
+    return res.json(suggestions)  
   },
 
   async store(req, res) {
