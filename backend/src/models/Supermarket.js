@@ -76,4 +76,12 @@ SupermarketSchema.pre('save', async function () {
   this.market_password = await bcrypt.hash(this.market_password, 6)
 })
 
+SupermarketSchema.pre('updateOne', async function() {
+  const data = this.getUpdate()
+  if(!data) next()
+
+  data.market_password = await bcrypt.hash(data.market_password, 6)
+  this.update({}, data).exec() 
+});
+
 module.exports = mongoose.model('Supermarket', SupermarketSchema)

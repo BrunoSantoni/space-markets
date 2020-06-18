@@ -127,12 +127,9 @@ module.exports = {
           market_latitude,
           market_longitude,
         },
-        (err) => {
-          if (err) return res.json(err)
-        },
       )
 
-      return res.status(204).send()
+      return res.status(204).json({ success: 'Informações alteradas com sucesso' })
     }
     return res.json({ message })
   },

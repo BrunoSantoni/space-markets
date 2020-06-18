@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FaArrowRight } from 'react-icons/fa'
 
 import api from '../../services/api'
 
-import './styles.css'
+import { Container, Form } from './styles'
 
 import loginImg from '../../assets/login-image.png'
 import logo from '../../assets/logo.png'
@@ -32,21 +32,19 @@ export default function Login() {
 
 
   return(
-    <Fragment>
-      <div className="login-container">
-        <section className="form">
+    <>
+      <Container>
+        <section>
           <img src= {logo} alt="Supermega"/>
-          <form onSubmit={handleLogin}>
-
+          <Form onSubmit={handleLogin}>
             <h1>Seja bem-vindo!</h1>
             <p>Um <strong>espaço</strong> para compartilhar seu mercado!</p>
 
-            <input type = "text"
-              placeholder = "Informe o e-mail do mercado" 
-              value = {mail}
-              onChange = {e => setMail(e.target.value)}
-            />              
-
+            <input type="text"
+              placeholder="Informe o e-mail do mercado" 
+              value={mail}
+              onChange={e => setMail(e.target.value)}
+            />           
             
             <input type="password"
               placeholder="Informe a senha do mercado" 
@@ -62,11 +60,11 @@ export default function Login() {
                 Não possui cadastro? Cadastre-se já!
               </p>  
             </Link>
-          </form>
+          </Form>
         </section>
 
         <img src={loginImg} alt="Supermega" className="login-image"/>
-      </div>
-    </Fragment>
+      </Container>
+    </>
   )
 }

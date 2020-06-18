@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom' //Lib que redireciona e adiciona links
 import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
 import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
@@ -14,7 +14,7 @@ import cepPromise from 'cep-promise'
 
 import registerImg from '../../assets/register-image.png'
 
-import './styles.css'
+import { Container, Content, Form } from './styles'
 
 class Register extends Component {
   constructor() {
@@ -38,15 +38,11 @@ class Register extends Component {
       bairro: '',
       cidade: '',
       estado: '',
-
-      mostrarSenha: false
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
-    this.handleClickShowPassword = this.handleClickShowPassword.bind(this)
-    this.handleMouseDownPassword = this.handleMouseDownPassword.bind(this)    
   }
 
   async handleRegister(e) {
@@ -128,21 +124,12 @@ class Register extends Component {
       })
     })
   }
-
-  handleClickShowPassword() {
-    this.setState({
-      mostrarSenha: !this.mostrarSenha})
-  }
-
-  handleMouseDownPassword(e) {
-    e.preventDefault()
-  }
   
   render(){
     return(
-      <Fragment>  
-        <div className="register-container">
-          <div className="content">
+      <>  
+        <Container>
+          <Content>
             <section>
               <h1>Cadastre-se!</h1>
               <p>Faça seu cadastro e compartilhe os preços <br/>do seu mercado para toda a população.</p>
@@ -153,112 +140,112 @@ class Register extends Component {
               <img src={registerImg} alt=""/>
             </section>
 
-            <form method="post" encType="multipart/form-data" onSubmit={this.handleRegister}>
-            <div>
-              <TextField name="marca"
-              label="Nome do mercado"
-              required={true}
-              error= {this.state.marcaError !== ''}
-              value={this.state.marca}
-              onChange={this.handleChange}
-              onBlur={() => this.setState({
-                marcaError: validateUser(this.state.marca)})}
-              helperText={this.state.marcaError === '' ? '' : this.state.marcaError}/>
-
-              <TextField type="email" name="email"
-              label="E-mail"
-              required={true}
-              error= {this.state.emailError !== ""}
-              value={this.state.email}
-              onChange={this.handleChange}
-              onBlur={() => this.setState({
-                emailError: validateMail(this.state.email)
-              })}
-              helperText={this.state.emailError === '' ? '' : this.state.emailError}/>
-
-              <TextField type="password" name="senha"
-              label="Senha"
-              required={true}
-              error= {this.state.senhaError !== ""}
-              value={this.state.senha}
-              onChange={this.handleChange}
-              onBlur={() => this.setState({
-                senhaError: validatePassword(this.state.senha)
-              })}
-              helperText={this.state.senhaError === '' ? '' : this.state.senhaError}/>
-
-              <NumberFormat type="text" name="cnpj"
-              label="CNPJ"
-              required={true}
-              error= {this.state.cnpjError !== ""}
-              value={this.state.cnpj}
-              onChange={ e => this.setState({ cnpj: e.target.value })}
-              onBlur={() => this.setState({
-                cnpjError: validateCnpj(this.state.cnpj)
-              })}
-              helperText={this.state.cnpjError === '' ? '' : this.state.cnpjError}
-              customInput={TextField}
-              format="##.###.###/####-##"/>
-              
-              <div className="address-content">
-                <NumberFormat type="text" name="cep"
-                label="CEP"
+            <Form method="post" encType="multipart/form-data" onSubmit={this.handleRegister}>
+              <div>
+                <TextField name="marca"
+                label="Nome do mercado"
                 required={true}
-                error= {this.state.cepError !== ""}
-                value={this.state.cep}
-                onChange={ e => this.setState({ cep: e.target.value })}
+                error= {this.state.marcaError !== ''}
+                value={this.state.marca}
+                onChange={this.handleChange}
                 onBlur={() => this.setState({
-                  cepError: validateCep(this.state.cep)
-                })}
-                helperText={this.state.cepError === '' ? '' : this.state.cepError}
-                onKeyUp={e => this.handleKeyUp(e.target.value)}
-                customInput={TextField}
-                format="#####-###"/>
-              </div>
-              </div>
-              <div>
-              <div>
-                <div className="address-content">
-                  <TextField type="text" name="rua"
-                  label="Rua"
-                  required={true}
-                  value={this.state.rua}
-                  onChange={this.handleChange} disabled/>
+                  marcaError: validateUser(this.state.marca)})}
+                helperText={this.state.marcaError === '' ? '' : this.state.marcaError}/>
 
-                  <TextField type="text" className="input-address" name="numero"
-                  label="Nº"
-                  required={true}
-                  value={this.state.numero}
-                  onChange={this.handleChange} />
-                </div>
-                <TextField type="text" name="bairro"
-                label="Bairro"
+                <TextField type="email" name="email"
+                label="E-mail"
                 required={true}
-                value={this.state.bairro}
-                onChange={this.handleChange} disabled/>
+                error= {this.state.emailError !== ""}
+                value={this.state.email}
+                onChange={this.handleChange}
+                onBlur={() => this.setState({
+                  emailError: validateMail(this.state.email)
+                })}
+                helperText={this.state.emailError === '' ? '' : this.state.emailError}/>
 
+                <TextField type="password" name="senha"
+                label="Senha"
+                required={true}
+                error= {this.state.senhaError !== ""}
+                value={this.state.senha}
+                onChange={this.handleChange}
+                onBlur={() => this.setState({
+                  senhaError: validatePassword(this.state.senha)
+                })}
+                helperText={this.state.senhaError === '' ? '' : this.state.senhaError}/>
+
+                <NumberFormat type="text" name="cnpj"
+                label="CNPJ"
+                required={true}
+                error= {this.state.cnpjError !== ""}
+                value={this.state.cnpj}
+                onChange={ e => this.setState({ cnpj: e.target.value })}
+                onBlur={() => this.setState({
+                  cnpjError: validateCnpj(this.state.cnpj)
+                })}
+                helperText={this.state.cnpjError === '' ? '' : this.state.cnpjError}
+                customInput={TextField}
+                format="##.###.###/####-##"/>
+                
                 <div className="address-content">
-                  <TextField type="text" name="cidade"
-                  label="Cidade"
+                  <NumberFormat type="text" name="cep"
+                  label="CEP"
                   required={true}
-                  value={this.state.cidade}
-                  onChange={this.handleChange} disabled/>
-
-                  <TextField type="text" className="input-address" name="estado"
-                  label="UF"
-                  required={true}
-                  value={this.state.estado}
-                  onChange={this.handleChange} disabled/>
+                  error= {this.state.cepError !== ""}
+                  value={this.state.cep}
+                  onChange={ e => this.setState({ cep: e.target.value })}
+                  onBlur={() => this.setState({
+                    cepError: validateCep(this.state.cep)
+                  })}
+                  helperText={this.state.cepError === '' ? '' : this.state.cepError}
+                  onKeyUp={e => this.handleKeyUp(e.target.value)}
+                  customInput={TextField}
+                  format="#####-###"/>
                 </div>
+              </div>
+              <div>
+                <div>
+                  <div className="address-content">
+                    <TextField type="text" name="rua"
+                    label="Rua"
+                    required={true}
+                    value={this.state.rua}
+                    onChange={this.handleChange} disabled/>
 
-                <input type="file" name="market_picture" id="market_picture" required/>
+                    <TextField type="text" className="input-address-number-and-uf" name="numero"
+                    label="Nº"
+                    required={true}
+                    value={this.state.numero}
+                    onChange={this.handleChange} />
+                  </div>
+                  <TextField type="text" name="bairro"
+                  label="Bairro"
+                  required={true}
+                  value={this.state.bairro}
+                  onChange={this.handleChange} disabled/>
+
+                  <div className="address-content">
+                    <TextField type="text" name="cidade"
+                    label="Cidade"
+                    required={true}
+                    value={this.state.cidade}
+                    onChange={this.handleChange} disabled/>
+
+                    <TextField type="text" className="input-address-number-and-uf" name="estado"
+                    label="UF"
+                    required={true}
+                    value={this.state.estado}
+                    onChange={this.handleChange} disabled/>
+                  </div>
+
+                  <input type="file" name="market_picture" id="market_picture" required/>
+                </div>
+                <button type="submit" className="button">Cadastrar</button>
               </div>
-              <button type="submit" className="button">Cadastrar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </Fragment>
+            </Form>
+          </Content>
+        </Container>
+      </>
     )
   }
 }

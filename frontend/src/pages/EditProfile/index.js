@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { FaArrowLeft } from 'react-icons/fa'
 import { BingProvider } from 'leaflet-geosearch'
@@ -11,7 +11,7 @@ import cepPromise from 'cep-promise'
 
 import editImg from '../../assets/edit-image.png'
 
-import './styles.css'
+import { Container, Content, Form } from './styles'
 
 export default function EditProfile(){
 
@@ -73,7 +73,7 @@ export default function EditProfile(){
     const market_latitude = latLng[0].y
     const market_longitude = latLng[0].x
 
-    //As 3 variáveis abaixo receberão de uma que possui valor.
+    //As variáveis abaixo receberão de uma que possui valor.
     const market_mail = email === '' ? marketInfo.market_mail : email
     const market_password = senha === '' ? marketInfo.market_password : senha
     const market_cep = cep === '' ? marketInfo.market_cep : cep
@@ -119,9 +119,9 @@ export default function EditProfile(){
   }
 
   return (
-    <Fragment>
-      <div className="edit-container">
-        <div className="content">
+    <>
+      <Container>
+        <Content>
           <section>
             <h1>Altere seus dados!</h1>
             <p>Mudou de endereço? Tem um e-mail novo? <br/>Divida essa novidade com todos.</p>
@@ -132,60 +132,59 @@ export default function EditProfile(){
             <img src={editImg} alt="Astronauta"/>
           </section>
 
-          <form method="post">
-          <div>
-
-            <TextField type="email" name="email"
-            label="E-mail"
-            value={email}
-            onChange={e => setEmail(e.target.value)}/>
-
-            <TextField type="password" name="senha"
-            label="Senha"
-            onChange={e => setSenha(e.target.value)}/>
-            
-            <div className="address-content">
-              <NumberFormat type="text" name="cep"
-              label="CEP" 
-              value={cep}
-              onChange={e => setCep(e.target.value)}
-              onKeyUp={e => handleKeyUp(e.target.value)}
-              customInput={TextField}
-              format="#####-###"
-              />
-            </div>
-            </div>
+          <Form method="post">
             <div>
-            <div>
+              <TextField type="email" name="email"
+              label="E-mail"
+              value={email}
+              onChange={e => setEmail(e.target.value)}/>
+
+              <TextField type="password" name="senha"
+              label="Senha"
+              onChange={e => setSenha(e.target.value)}/>
+              
               <div className="address-content">
-                <TextField type="text" label="Rua" name="rua"
-                value={rua}
-                onChange={e => setRua(e.target.value)} disabled/>
-
-                <TextField type="text" label="Nº" className="input-address" name="numero"
-                value={numero}
-                onChange={e => setNumero(e.target.value)} />
-              </div>
-              <TextField type="text" label="Bairro" name="bairro"
-              value={bairro}
-              onChange={e => setBairro(e.target.value)} disabled/>
-
-              <div className="address-content">
-                <TextField type="text" label="Cidade" name="cidade"
-                value={cidade}
-                onChange={e => setCidade(e.target.value)} disabled/>
-
-                <TextField type="text" label="UF" className="input-address" name="estado"
-                value={estado}
-                onChange={e => setEstado(e.target.value)} disabled/>
+                <NumberFormat type="text" name="cep"
+                label="CEP" 
+                value={cep}
+                onChange={e => setCep(e.target.value)}
+                onKeyUp={e => handleKeyUp(e.target.value)}
+                customInput={TextField}
+                format="#####-###"
+                />
               </div>
             </div>
+            <div>
+              <div>
+                <div className="address-content">
+                  <TextField type="text" label="Rua" name="rua"
+                  value={rua}
+                  onChange={e => setRua(e.target.value)} disabled/>
+
+                  <TextField type="text" label="Nº" className="input-address" name="numero"
+                  value={numero}
+                  onChange={e => setNumero(e.target.value)} />
+                </div>
+                <TextField type="text" label="Bairro" name="bairro"
+                value={bairro}
+                onChange={e => setBairro(e.target.value)} disabled/>
+
+                <div className="address-content">
+                  <TextField type="text" label="Cidade" name="cidade"
+                  value={cidade}
+                  onChange={e => setCidade(e.target.value)} disabled/>
+
+                  <TextField type="text" label="UF" className="input-address" name="estado"
+                  value={estado}
+                  onChange={e => setEstado(e.target.value)} disabled/>
+                </div>
+              </div>
             </div>
-          </form>
+          </Form>
           <button type="submit" className="button" onClick={handleUpdate}>Atualizar</button>
-        </div>
-      </div>
-    </Fragment>
+        </Content>
+      </Container>
+    </>
   )
 }
 

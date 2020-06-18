@@ -4,7 +4,7 @@ import { FaTrashAlt, FaPen, FaSave } from 'react-icons/fa'
 import emptyImage from '../../assets/empty-image.png'
 import swal from 'sweetalert'
 
-import './styles.css'
+import { Container, Content, ProductList } from './styles'
 
 import api from '../../services/api'
 
@@ -133,9 +133,9 @@ export default function Profile() {
   if(!showDiv) {
     return(
       <>
-        <div className="profile-container">  
+        <Container>  
           <Header />
-          <div className="product-container">
+          <Content>
           
             {!productsList.length ? 
             <div className="div-empty">
@@ -146,53 +146,53 @@ export default function Profile() {
             <>
               <Link className="button" to='/perfil'>Produtos cadastrados</Link>
               <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
-              <ul> {productsList} </ul>
+              <ProductList> {productsList} </ProductList>
             </>
             }
-          </div>
-        </div>      
+          </Content>
+        </Container>      
       </>
     )
   } else {
     return(
       <>
-      <div className="profile-container">
-        <Header />
-        <div className="product-container">
-          <Link className="button" to='/perfil'>Produtos cadastrados</Link>
-          <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
-          <ul>
-            {products.map(product => ((
-              <li key={product._id}>
-                <section>
-                  <img src={product.product_picture_url} alt="Foto do produto" />
-                </section>
-                <div>
-                  <p><strong>PRODUTO:</strong>{productId === product._id ?
-                  <input type="text" defaultValue={product.product_name}
-                  onChange={e => setProduto(e.target.value)}/> : product.product_name}</p>
-                  
+        <Container>
+          <Header />
+          <Content>
+            <Link className="button" to='/perfil'>Produtos cadastrados</Link>
+            <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
+            <ProductList>
+              {products.map(product => ((
+                <li key={product._id}>
+                  <section>
+                    <img src={product.product_picture_url} alt="Foto do produto" />
+                  </section>
+                  <div>
+                    <p><strong>PRODUTO:</strong>{productId === product._id ?
+                    <input type="text" defaultValue={product.product_name}
+                    onChange={e => setProduto(e.target.value)}/> : product.product_name}</p>
+                    
 
-                  <p><strong>DESCRIÇÃO:</strong>{productId === product._id ?
-                  <input type="text" defaultValue={product.product_description}
-                  onChange={e => setDescricao(e.target.value)}/> : product.product_description}</p>
-                  
+                    <p><strong>DESCRIÇÃO:</strong>{productId === product._id ?
+                    <input type="text" defaultValue={product.product_description}
+                    onChange={e => setDescricao(e.target.value)}/> : product.product_description}</p>
+                    
 
-                  <p><strong>VALOR:</strong>{productId === product._id ?
-                  <input type="text" defaultValue={product.product_price}
-                  onChange={e => setPreco(e.target.value)}/> : <>R$ {product.product_price}</>}</p>
-                </div>
-                {productId === product._id ?
-                <button onClick={() => 
-                handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
-                type="button" id="confirm-button">
-                  <FaSave size={20} color="#FFF" />
-                </button> : null}
-              </li>
-            )))}
-          </ul>
-        </div>
-      </div> 
+                    <p><strong>VALOR:</strong>{productId === product._id ?
+                    <input type="text" defaultValue={product.product_price}
+                    onChange={e => setPreco(e.target.value)}/> : <>R$ {product.product_price}</>}</p>
+                  </div>
+                  {productId === product._id ?
+                  <button onClick={() => 
+                  handleUpdate(product._id, product.product_name, product.product_description, product.product_price)}
+                  type="button">
+                    <FaSave size={20} color="#FFF" />
+                  </button> : null}
+                </li>
+              )))}
+            </ProductList>
+          </Content>
+        </Container> 
       </>
     )
   }

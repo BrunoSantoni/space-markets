@@ -36,14 +36,14 @@ module.exports = {
         market_picture_key: public_id,
       },
       (err, data) => {
-        if (err) return res.status(400).json(err)
+        if (err) return res.status(400).json({ message: 'Não foi possível alterar a sua foto de perfil' })
         flag = true
       },
     )
 
     if (flag) {
       await cloudinary.v2.uploader.destroy(market.market_picture_key, (err) => {
-        if (err) return res.status(400).json(err)
+        if (err) return res.status(400).json({ message: 'A imagem não foi deletada no Cloudinary' })
         return res.status(204).send()
       })
     }

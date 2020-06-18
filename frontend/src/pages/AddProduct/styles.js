@@ -1,4 +1,6 @@
-.add-product-container {
+import styled from 'styled-components'
+
+export const Container = styled.div`
   width: 100%;
   max-width: 1120px;  /* Largura máxima */
   height: 100vh; /* Faz com que ocupe a página toda */
@@ -8,9 +10,9 @@
   display: flex; /* FlexBox, por padrão a flexbox alinha os itens um ao lado do outro */
   align-items: center; /* Alinha os itens verticalmente ao centro */
   justify-content: center; /* Alinha os itens horizontalmente ao centro */
-}
+`
 
-.add-product-container .content {
+export const Content = styled.div`
   position: relative;
   width: 100%;
   padding: 96px;
@@ -23,35 +25,30 @@
   justify-content: space-between;
   /* Isso jogará a section para a esquerda, o formulário para a direita e colocará um espaço entre eles */
   align-items: center;
-}
 
-.add-product-container .content section {
-  width: 100%;
-  max-width: 380px;
-}
+  section {
+    width: 100%;
+    max-width: 380px;
 
-.add-product-container .content section h1 {
-  font-size: 28px;
-  margin-bottom: .5rem;
-}
+    img {
+      position: absolute;
+      top: 20px;
+    }
 
-.add-product-container .content section p {
-  font-size: 18px;
-  color: #737380;
-  line-height: 32px;
-}
+    h1 {
+      font-size: 28px;
+      margin-bottom: .5rem;
+    }
 
-.add-product-container .content section img {
-  position: absolute;
-  top: 20px;
-}
+    p {
+      font-size: 18px;
+      color: #737380;
+      line-height: 32px;
+    }
+  }
 
-.add-product-container .content form {
-  width: 100%;
-  max-width: 450px;
-}
-
-.add-product-container .content form textarea {
-  background: transparent;
-  margin: 0 16;
-}
+  form {
+    width: 100%;
+    max-width: 450px;
+  }
+`

@@ -63,9 +63,7 @@ const supermarketValidatorUpdate = Joi.object().keys({
     .error(new Error('E-mail deve ser válido')),
 
   market_password: Joi.string()
-    .min(6)
-    .max(20)
-    .error(new Error('Senha deve conter entre 6 e 20 caracteres')),
+    .error(new Error('Senha inválida :(')),
 
   market_cep: Joi.string()
     .required()

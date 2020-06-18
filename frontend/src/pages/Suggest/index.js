@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FaCheck, FaTimes } from 'react-icons/fa'
 
-import '../Profile/styles.css'
+import { Container, Content, ProductList } from '../Profile/styles'
 
 import emptyImage from '../../assets/empty-image.png'
 
@@ -93,24 +93,22 @@ export default function Suggest() {
 
   return(
     <>
-        <div className="profile-container">  
+        <Container>  
           <Header />
-          <div className="product-container">
+          <Content>
             <Link className="button" to='/perfil'>Produtos cadastrados</Link>
             <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
             {!suggestions.length ? 
             <div className="div-empty">
-              
-              <h1>Ainda não há produtos para avaliar!</h1>
               <img src={emptyImage} alt="Não há produtos cadastrados"/>
               <h2> Parece que ainda não há sugestões :( </h2>
             </div> :
             <>
-              <ul>{suggestionsList}</ul>
+              <ProductList>{suggestionsList}</ProductList>
             </>
             }
-          </div>
-        </div>      
+          </Content>
+        </Container>      
       </>
   )
 }

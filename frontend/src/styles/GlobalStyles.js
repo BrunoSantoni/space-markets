@@ -1,34 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&display=swap');
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
-@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
+import { createGlobalStyle } from 'styled-components'
 
-* {
+export default createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&display=swap');
+  @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@700&display=swap');
+
+  * {
     margin: 0;
     padding: 0;
     outline: 0;
     box-sizing: border-box;
-}
+  }
 
-body {
+  body {
     font: 400 15px Roboto, sans-serif;
     background: #EBEDF3;
     -webkit-font-smoothing: antialiased;
-}
+  }
 
-input, button, textarea {
+  input, button, textarea {
     font: 400 18px Ubuntu, sans-serif;
-}
+  }
 
-input::-webkit-input-placeholder {
+  input::-webkit-input-placeholder {
     font-weight: 100;
     font-size: 15px;
-}
+  }
 
-button {
+  button {
     cursor: pointer;
-}
+  }
 
-form input {
+  form input {
     width: 100%;
     height: 50px;
     color: #333;
@@ -36,9 +39,9 @@ form input {
     border-bottom: 1px solid black;
     padding: 0 12px;
     background: transparent;
-}
+  }
 
-form textarea {
+  form textarea {
     width: 100%;
     min-height: 140px;
     color: #333;
@@ -48,9 +51,9 @@ form textarea {
     line-height: 24px;
     margin-top: 12px;
     resize: vertical;
-}
+  }
 
-.button {
+  .button {
     width: 100%;
     height: 60px;
     background: #63b1b9;
@@ -66,13 +69,13 @@ form textarea {
     font-size: 20px;
     line-height: 50px;
     transition: filter 0.2s; /* Tempo para escurecer a tela*/
-}
+  }
 
-.button:hover { /* Hover é o efeito de quando passamos o mouse por cima */
+  .button:hover { /* Hover é o efeito de quando passamos o mouse por cima */
     filter: brightness(90%); /* Efeito que diminuirá o brilho em 10% */
-}
+  }
 
-.back-link {
+  .back-link {
     display: flex;
     align-items: center; /* Fez isso para o texto e o ícone ficarem alinhados */
     margin-top: 40px;
@@ -80,23 +83,23 @@ form textarea {
     font-size: 18px;
     text-decoration: none; /* Tira o sublinhado do link */
     font-weight: 500;
-}
+  }
 
-.back-link svg { /* Colocando margem no ícone */
+  .back-link svg { /* Colocando margem no ícone */
     margin-right: 8px;
-}
+  }
 
-.back-link:hover {
+  .back-link:hover {
     text-decoration: underline;
-}
+  }
 
-input[type="file"] {
+  input[type="file"] {
     border: 0;
     font-size: .8rem;
     padding: 16px 8px;
-}
+  }
 
-input[type="file"]::-webkit-file-upload-button {
+  input[type="file"]::-webkit-file-upload-button {
     border: 0;
     outline: none;
     font-size: 12px;
@@ -106,9 +109,10 @@ input[type="file"]::-webkit-file-upload-button {
     background: #FFF;
     cursor: pointer;
     transition: all .4s ease-out;
-}
+  }
 
-input[type="file"]::-webkit-file-upload-button:hover {
+  input[type="file"]::-webkit-file-upload-button:hover {
     color: #FFF;
     background-color: #000;
-}
+  }
+`
