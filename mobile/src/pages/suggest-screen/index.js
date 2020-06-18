@@ -1,123 +1,165 @@
 import React, { useState, useEffect } from 'react'
 import {
-    Alert,
-    Text,
-    View,
-    Image,
-    TextInput,
-    TouchableOpacity,
+  Alert,
+  Text,
+  View,
+  Image,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native'
-
-import TxtInput from '../../components/TxtInput'
-import Txt from '../../components/Txt'
-import TouchButton from '../../components/TouchButton'
-
-import { useNavigation } from '@react-navigation/native'
-
 import * as ImagePicker from 'expo-image-picker'
+import { useNavigation } from '@react-navigation/native'
 import Constants from 'expo-constants'
+import { FontAwesome5 } from '@expo/vector-icons'
+
+import Color from '../../constants/colors'
+import success from '../../../assets/animations/success.json'
+import error from '../../../assets/animations/error.json'
+import background from '../../../assets/img/background.jpg'
+import styles from './styles'
 
 import api from '../../services/api'
 
-import styles from './styles'
-
-
 export default function SuggestScreen({ route }) {
-    const { marketId } = route.params
-    const [product, setProduct] = useState('')
-    const [description, setDescription] = useState('')
-    const [price, setPrice] = useState('')
-    const [picture, setPicture] = useState(null)
+  const navigation = useNavigation()
+  const { marketId, marketName } = route.params
+  const [product, setProduct] = useState('')
+  const [description, setDescription] = useState('')
+  const [price, setPrice] = useState('')
+  const [picture, setPicture] = useState(null)
 
-    const navigator = useNavigation()
-
-    const getPermissionAsync = async () => {
-        if (Constants.platform.ios) {
-          const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-          if (status !== 'granted') {
-            alert('Desculpe, você precisa permitir o acesso para continuar!')
-          }
-        }
+  const getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+      if (status !== 'granted') {
+        alert('Desculpe, você precisa permitir o acesso para continuar!')
+      }
     }
+  }
 
-    useEffect(() => {
-        getPermissionAsync()
-    }, [])
+  useEffect(() => {
+    getPermissionAsync()
+    navigation.setOptions({
+      headerTitle: () => (
+        <Text style={styles.headerName}>Sugerir: {marketName}</Text>
+      ),
+    })
+  }, [])
 
-    const handleImg = async () => {
-        try {
-          let res = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-            base64: true
-          })
-          if (!res.cancelled) {
-            setPicture(res)
-          }
-        } catch (err) {
-          alert(err)
-        }
+  const handleImg = async () => {
+    try {
+      let res = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+        base64: true,
+      })
+      if (!res.cancelled) {
+        setPicture(res)
+      }
+    } catch (err) {
+      alert(err)
     }
+  }
 
-    const handleSuggest = async () => {
-        const data = new FormData()
+  const handleSuggest = async () => {
+    const data = new FormData()
 
-        data.append('suggest_name', product)
-        data.append('suggest_description', description)
-        data.append('suggest_price', price)
-        data.append('suggest_picture', `data:image/jpeg;base64,${picture.base64}`)
+    data.append('suggest_name', product)
+    data.append('suggest_description', description)
+    data.append('suggest_price', price)
+    data.append('suggest_picture', `data:image/jpeg;base64,${picture.base64}`)
 
-        try {
-            await api.post('sugestao', data, {
-                headers: {
-                    auth: marketId
-                }
-            })
+    try {
+      await api.post('sugestao', data, {
+        headers: {
+          auth: marketId,
+        },
+      })
 
-            Alert.alert('Seu produto foi salvo e será enviado para análise! Obrigado por contribuir :)')
-            setTimeout(() => navigator.goBack() , 1000)
-        } catch(err) {
-            Alert.alert(err)
-        }
+      Alert.alert(
+        'Seu produto foi salvo e será enviado para análise! Obrigado por contribuir :)'
+      )
+      setTimeout(() => navigation.goBack(), 1000)
+    } catch (err) {
+      Alert.alert(err)
     }
+  }
 
-    return(
-        <View style={styles.container}>
-            <View style={styles.lineStyle}>    
-                <Text style={styles.titleText}>Sugerir Produto</Text>            
-                <TxtInput
-                    value={product} 
-                    onChangeText={product => setProduct(product)} 
-                    placeholder="Nome do produto"
-                    style={styles.formInput}
-                />
-                <TxtInput
-                    value={description} 
-                    onChangeText={description => setDescription(description)} 
-                    placeholder="Descrição"
-                    multiline={true}
-                    style={styles.descriptionInput}
-                />
-                <TxtInput
-                    value={price} 
-                    onChangeText={price => setPrice(price)} 
-                    placeholder="Preço"
-                    style={styles.formInput}
-                />
-                <View style={{flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between', marginTop: 10}}>
-                    {picture ? 
-                        <Image source={{ uri: picture.uri }} style={styles.img} onPress={handleImg}/> : 
-                        <TouchButton title="Selecione uma imagem" onPress={handleImg} style={styles.selectImg}>
-                            <Txt style={{color: '#fff'}}>Envie uma foto do produto</Txt>
-                        </TouchButton>
-                    }
-                </View>
-                <TouchableOpacity style={styles.btnEnviar} onPress={handleSuggest}>
-                    <Text style={styles.btnEnviarText}>Enviar sugestão</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
+  return (
+    <View style={styles.container}>
+      <ImageBackground source={background} style={styles.background} />
+      <Text style={styles.tip}>
+        Suas sugestões de produtos que forem aprovadas lhe garantirão
+        benefícios! *(EM BREVE)
+      </Text>
+      {picture ? (
+        <Image
+          source={{ uri: picture.uri }}
+          style={styles.pic}
+          onPress={handleImg}
+        />
+      ) : (
+        <TouchableOpacity
+          title="Selecione uma imagem"
+          onPress={handleImg}
+          style={styles.selectPic}
+        >
+          <FontAwesome5 name={'shopping-basket'} size={40} color={'#171D24'} />
+          <Text style={styles.textStyle}>Foto do produto</Text>
+        </TouchableOpacity>
+      )}
+      <View style={styles.inputSection}>
+        <FontAwesome5
+          name="shopping-basket"
+          size={20}
+          color="#FFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          value={product}
+          onChangeText={(product) => setProduct(product)}
+          placeholder="Produto"
+          placeholderTextColor="#A9A9A9"
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.inputSection}>
+        <FontAwesome5
+          name="tag"
+          size={20}
+          color="#FFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          value={description}
+          onChangeText={(description) => setDescription(description)}
+          placeholder="Descrição do produto"
+          placeholderTextColor="#A9A9A9"
+          multiline={true}
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.inputSection}>
+        <FontAwesome5
+          name="credit-card"
+          size={20}
+          color="#FFF"
+          style={styles.inputIcon}
+        />
+        <TextInput
+          value={price}
+          onChangeText={(price) => setPrice(price)}
+          placeholder="Preço"
+          style={styles.input}
+        />
+      </View>
+
+      <TouchableOpacity onPress={handleSuggest} style={styles.confirmButton}>
+          <FontAwesome5 name="arrow-right" size={18} color="#FFF" />
+        </TouchableOpacity>
+    </View>
+  )
 }

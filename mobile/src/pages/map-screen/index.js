@@ -10,19 +10,24 @@ import {
   Linking,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-
 import MapView from 'react-native-maps'
 import * as Location from 'expo-location'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { useColorScheme } from 'react-native-appearance'
 
-import styles from './styles'
-import api from '../../services/api'
-
+import Color from '../../constants/colors'
 import DummyCard from './components/DummyCard'
-import LoadingGif from '../../components/LoadingGif'
+import LoadingGif from './components/LoadingGif'
 import SwipeTutorialGif from '../../../assets/img/swipe-tutorial.gif'
 import NoOffersIcon from '../../../assets/img/no-offers-icon.png'
+import RetroMap from './themes/RetroMap.json'
+import DarkMap from './themes/DarkMap.json'
+import styles from './styles'
+
+import api from '../../services/api'
 
 export default function MapScreen() {
+  let colorScheme = useColorScheme()
   const mapRef = useRef(null)
   const scrollRef = useRef(null)
   const navigation = useNavigation()
@@ -38,22 +43,35 @@ export default function MapScreen() {
   const [tutorialVisible, setTutorialVisible] = useState(true)
   const [userLocation, setUserLocation] = useState({
     latitude: null,
-    longitude: null
+    longitude: null,
   })
 
   const defaultLatDelta = 0.0142
   const defaultLongDelta = 0.0131
   const { width } = Dimensions.get('window')
 
+  navigation.setOptions({
+    headerRight: () => (
+      <TouchableOpacity onPress={refreshPlace}>
+        <FontAwesome5
+          name="bullseye"
+          size={20}
+          color={Color.specialColor}
+          style={{ marginHorizontal: 10 }}
+        />
+      </TouchableOpacity>
+    ),
+  })
+
   useEffect(() => {
     Location.requestPermissionsAsync()
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         const lat = parseFloat(position.coords.latitude)
         const long = parseFloat(position.coords.longitude)
         setUserLocation({ latitude: lat, longitude: long })
       },
-      error => console.log('getCurrentPosition failed'),
+      (error) => console.log('getCurrentPosition failed'),
       {
         timeout: 2000,
         enableHighAccuracy: true,
@@ -92,13 +110,15 @@ export default function MapScreen() {
     let lat2 = mercados[selectedPlace].market_latitude
     let lon1 = userLocation.longitude
     let lon2 = mercados[selectedPlace].market_longitude
-    let radlat1 = Math.PI * lat1/180
-    let radlat2 = Math.PI * lat2/180
-    let theta = lon1-lon2
-    let radtheta = Math.PI * theta/180
-    let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    let radlat1 = (Math.PI * lat1) / 180
+    let radlat2 = (Math.PI * lat2) / 180
+    let theta = lon1 - lon2
+    let radtheta = (Math.PI * theta) / 180
+    let dist =
+      Math.sin(radlat1) * Math.sin(radlat2) +
+      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta)
     dist = Math.acos(dist)
-    dist = dist * 180/Math.PI
+    dist = (dist * 180) / Math.PI
     dist = dist * 60 * 1.1515
     dist = dist * 1.609344
     if (dist < 10) dist = dist.toFixed(2)
@@ -112,7 +132,7 @@ export default function MapScreen() {
   async function calcDistanceBetween_GOOGLE() {
     try {
       const response = await fetch(
-        'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric' + 
+        'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric' +
           '&key=' +
           GOOGLE_MAPS_APIKEY +
           '&origins=' +
@@ -131,16 +151,18 @@ export default function MapScreen() {
           },
         }
       )
-      const json = await response.json();
+      const json = await response.json()
       setDistance(json.rows[0].elements[0].distance.value / 1000)
       setLoadingDistance(false)
     } catch (error) {
-    console.error(error)
+      console.error(error)
     }
   }
 
   function refreshPlace() {
-    const { market_latitude, market_longitude, markRef } = mercados[selectedPlace]
+    const { market_latitude, market_longitude, markRef } = mercados[
+      selectedPlace
+    ]
 
     mapRef.current.animateToRegion(
       {
@@ -177,7 +199,7 @@ export default function MapScreen() {
       marketName: marketName,
       marketPicture: marketPicture,
       marketLatitude: marketLatitude,
-      marketLongitude: marketLongitude
+      marketLongitude: marketLongitude,
     })
   }
 
@@ -229,6 +251,7 @@ export default function MapScreen() {
         showsBuildings={false}
         showsMyLocationButton={false}
         onMapReady={refreshPlace}
+        customMapStyle={colorScheme === 'dark' ? DarkMap : undefined}
         onPress={() => {
           if (placesVisible) setPlacesVisible(false)
         }}
@@ -257,7 +280,20 @@ export default function MapScreen() {
       </MapView>
 
       <View style={[placesVisible ? styles.placesContainer : styles.hidden]}>
-        <Text style={styles.tipText}>
+        <Text
+          style={[
+            styles.tipText,
+            colorScheme === 'dark'
+              ? {
+                  backgroundColor: Color.darkBg,
+                  color: Color.darkModeSecondaryText,
+                }
+              : {
+                  backgroundColor: Color.lightBg,
+                  color: Color.lightModeSecondaryText,
+                },
+          ]}
+        >
           {'<--------------- Deslize para trocar de mercado --------------->'}
         </Text>
         <ScrollView
@@ -270,26 +306,59 @@ export default function MapScreen() {
             if (action != 1) handleScroll(action)
           }}
         >
-          <DummyCard styles={styles} productsVisible={productsVisible} />
+          <DummyCard styles={styles} productsVisible={productsVisible} colorScheme={colorScheme} />
 
           <View>
-            <View style={styles.place}>
+            <View
+              style={[
+                styles.place,
+                colorScheme === 'dark'
+                  ? { backgroundColor: Color.darkBg }
+                  : { backgroundColor: Color.lightBg },
+              ]}
+            >
               <View style={styles.marketContainer}>
-                <View>
+                <View style={styles.cardProfile}>
                   <Image
                     source={{
                       uri: mercados[selectedPlace].market_picture_url,
                     }}
                     style={styles.placeImg}
                   />
-                  {!loadingDistance ?
-                    <Text style={styles.distanceText}>{distance + ' km'}</Text>
-                  : <Text style={styles.distanceText}>▬▬▬</Text>
-                  }     
+                  {!loadingDistance ? (
+                    <Text
+                      style={[
+                        styles.distanceText,
+                        colorScheme === 'dark'
+                          ? { color: Color.darkModeSecondaryText }
+                          : { color: Color.lightModeSecondaryText },
+                      ]}
+                    >
+                      {distance + ' km'}
+                    </Text>
+                  ) : (
+                    <Text
+                      style={[
+                        styles.distanceText,
+                        colorScheme === 'dark'
+                          ? { color: Color.darkModeSecondaryText }
+                          : { color: Color.lightModeSecondaryText },
+                      ]}
+                    >
+                      ▬▬▬
+                    </Text>
+                  )}
                 </View>
 
-                <View>
-                  <Text style={styles.nome}>
+                <View style={styles.cardDetails}>
+                  <Text
+                    style={[
+                      styles.nome,
+                      colorScheme === 'dark'
+                        ? { color: Color.darkModeText }
+                        : { color: Color.lightModeText },
+                    ]}
+                  >
                     {mercados[selectedPlace].market_name}
                   </Text>
                   <Text style={styles.endereco}>
@@ -299,7 +368,12 @@ export default function MapScreen() {
                   </Text>
                   <View style={styles.btnContainer}>
                     <TouchableOpacity
-                      style={styles.placeBtn}
+                      style={[
+                        styles.placeBtn,
+                        colorScheme === 'dark'
+                          ? { backgroundColor: Color.darkPrimaryAction }
+                          : { backgroundColor: Color.lightPrimaryAction },
+                      ]}
                       onPress={() =>
                         navigateToMarketProducts(
                           mercados[selectedPlace]._id,
@@ -310,19 +384,52 @@ export default function MapScreen() {
                         )
                       }
                     >
-                      <Text style={styles.placeBtnText}>Ver produtos</Text>
+                      <Text
+                        style={[
+                          styles.placeBtnText,
+                          colorScheme === 'dark'
+                            ? { color: Color.darkModeText }
+                            : { color: Color.lightModeText },
+                        ]}
+                      >
+                        Ver produtos
+                      </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      style={styles.placeBtn}
+                      style={[
+                        styles.placeBtn,
+                        colorScheme === 'dark'
+                          ? { backgroundColor: Color.darkSecondaryAction }
+                          : { backgroundColor: Color.lightSecondaryAction },
+                      ]}
                       onPress={openExternalDirections}
                     >
-                      <Text style={styles.placeBtnText}>Rota até aqui</Text>
+                      <Text
+                        style={[
+                          styles.placeBtnText,
+                          colorScheme === 'dark'
+                            ? { color: Color.darkModeText }
+                            : { color: Color.lightModeText },
+                        ]}
+                      >
+                        Rota até aqui
+                      </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                      style={styles.placeBtn}
+                      style={[
+                        styles.placeBtn,
+                        { backgroundColor: Color.specialColor },
+                      ]}
                       onPress={toggleProductsVisibility}
                     >
-                      <Text style={styles.expandBtnText}>
+                      <Text
+                        style={[
+                          styles.placeBtnText,
+                          colorScheme === 'dark'
+                            ? { color: Color.darkModeText }
+                            : { color: Color.lightModeText },
+                        ]}
+                      >
                         {productsVisible ? '▲' : '▼'}
                       </Text>
                     </TouchableOpacity>
@@ -333,10 +440,24 @@ export default function MapScreen() {
 
             <View
               style={[
-                productsVisible ? styles.productsContainer : styles.hidden,
+                productsVisible
+                  ? [
+                      styles.productsContainer,
+                      colorScheme === 'dark'
+                        ? { backgroundColor: Color.darkBg }
+                        : { backgroundColor: Color.lightBg },
+                    ]
+                  : styles.hidden,
               ]}
             >
-              <Text style={styles.productsTitle}>
+              <Text
+                style={[
+                  styles.productsTitle,
+                  colorScheme === 'dark'
+                    ? { color: Color.darkModeText }
+                    : { color: Color.lightModeText },
+                ]}
+              >
                 Principais promoções {mercados[selectedPlace].market_name}
               </Text>
               <View style={styles.listProducts}>
@@ -349,7 +470,14 @@ export default function MapScreen() {
                         }}
                         style={styles.productImg}
                       />
-                      <Text style={styles.productPrice}>
+                      <Text
+                        style={[
+                          styles.productPrice,
+                          colorScheme === 'dark'
+                            ? { color: Color.darkModeText }
+                            : { color: Color.lightModeText },
+                        ]}
+                      >
                         R$ {offer.product_price}
                       </Text>
                     </View>
@@ -357,14 +485,23 @@ export default function MapScreen() {
                 ) : (
                   <View style={styles.productItem}>
                     <Image source={NoOffersIcon} style={styles.productImg} />
-                    <Text style={styles.productPrice}>Sem ofertas</Text>
+                    <Text
+                      style={[
+                        styles.productPrice,
+                        colorScheme === 'dark'
+                          ? { color: Color.darkModeText }
+                          : { color: Color.lightModeText },
+                      ]}
+                    >
+                      Sem ofertas
+                    </Text>
                   </View>
                 )}
               </View>
             </View>
           </View>
 
-          <DummyCard styles={styles} productsVisible={productsVisible} />
+          <DummyCard styles={styles} productsVisible={productsVisible} colorScheme={colorScheme} />
         </ScrollView>
       </View>
 

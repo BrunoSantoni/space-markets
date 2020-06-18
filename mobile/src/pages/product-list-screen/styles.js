@@ -8,28 +8,21 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  header: {
+  inputSection: {
+    width: width / 1.5,
     flexDirection: 'row',
     alignItems: 'center',
   },
 
-  searchInput: {
-    width: width / 1.5,
-    fontSize: 14,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 20,
-    marginRight: 10,
-    paddingHorizontal: 10,
+  inputIcon: {
+    padding: 5,
   },
 
-  searchButton: {
-    backgroundColor: '#D3D3D3',
-    borderRadius: 15,
-    width: "11%",
-    height: "100%",
-    justifyContent: 'center',
-    paddingHorizontal: "2%",
+  input: {
+    width: '90%',
+    paddingTop: 5,
+    paddingRight: 5,
+    paddingBottom: 5,
   },
 
   productsContainer: {
@@ -40,12 +33,6 @@ export default StyleSheet.create({
     paddingVertical: 10,
     marginVertical: 10,
     borderRadius: 10,
-    backgroundColor: '#D3D3D3',
-  },
-
-  productMarketName: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
 
   productProfile: {
@@ -76,7 +63,7 @@ export default StyleSheet.create({
   marketImg: {
     width: 40,
     height: 40,
-    borderRadius: 30,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: '#000',
   },

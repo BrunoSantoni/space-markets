@@ -1,7 +1,10 @@
 import React from 'react'
+import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { useColorScheme } from 'react-native-appearance'
 
+import Color from './constants/colors'
 import LoginScreen from './pages/login-screen'
 import RegisterScreen from './pages/register-screen'
 import HomeScreen from './pages/home-screen'
@@ -9,105 +12,153 @@ import MapScreen from './pages/map-screen'
 import SuggestScreen from './pages/suggest-screen'
 import ProductListScreen from './pages/product-list-screen'
 import MarketProducts from './pages/market-products'
-import DirectionsScreen from './pages/directions-screen'
 import CameraScreen from './pages/camera-screen'
 
 const AppStack = createStackNavigator()
 
 export default function Routes() {
-    return (
-        <NavigationContainer>
-            <AppStack.Navigator>
-                <AppStack.Screen 
-                    name="Login" 
-                    component={LoginScreen} 
-                    options={{headerShown: false}}
-                />
+  let colorScheme = useColorScheme()
 
-                <AppStack.Screen 
-                    name="Register" 
-                    component={RegisterScreen} 
-                    options={{headerShown: false}}
-                />
-                
-                <AppStack.Screen 
-                    name="Home" 
-                    component={HomeScreen} 
-                    options={{headerShown: false}}
-                />
-                
-                <AppStack.Screen 
-                    name="Map"
-                    component={MapScreen} 
-                    options={{
-                        headerShown: true,
-                        title: 'Mapa',
-                        headerStyle: {
-                            backgroundColor: '#fff',
-                            height: 80,
-                        },
-                        headerTintColor: '#63b1b9',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            fontSize: 24,
-                        },
-                    }}
-                />
+  const { darkBg, lightBg, specialColor } = Color
 
-                <AppStack.Screen 
-                    name="Suggest" 
-                    component={SuggestScreen}
-                    options={{
-                        headerShown: true,
-                        title: " ",                        
-                    }} 
-                />
-      
-                <AppStack.Screen 
-                    name="ProductList" 
-                    component={ProductListScreen}
-                    options={{
-                        headerShown: false,
-                        title: "Pesquisar produtos"
-                    }}
-                />
+  const headerStyle = [
+    { height: 80 },
+    colorScheme === 'dark'
+      ? { backgroundColor: darkBg }
+      : { backgroundColor: lightBg },
+  ]
 
-                <AppStack.Screen 
-                    name="MarketProducts" 
-                    component={MarketProducts}
-                    options={{
-                        headerShown: false,
-                        title: "Produtos do mercado"
-                    }}
-                />
+  return (
+    <>
+      <StatusBar
+        barStyle={colorScheme === 'dark' ? 'light-content' : 'dark-content'}
+        backgroundColor={'#00000000'}
+        hidden={false}
+        translucent={true}
+      />
+      <NavigationContainer>
+        <AppStack.Navigator>
+          <AppStack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{
+              headerShown: false,
+              title: 'Autenticação',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
 
-                <AppStack.Screen 
-                    name="Directions" 
-                    component={DirectionsScreen}
-                    options={{
-                        headerShown: true,
-                        title: 'Rota',
-                        headerStyle: {
-                            backgroundColor: '#fff',
-                            height: 80,
-                        },
-                        headerTintColor: '#63b1b9',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                            fontSize: 24,
-                        },
-                    }}
-                />
-                
-                <AppStack.Screen 
-                    name="CameraScreen"
-                    component={CameraScreen} 
-                    options={{
-                        headerShown: false,
-                        title: 'Câmera',
-                    }}
-                />
-            </AppStack.Navigator>
-        </NavigationContainer>
-    )
+          <AppStack.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              headerShown: true,
+              title: 'Cadastro',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+
+          <AppStack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              headerShown: false,
+              title: 'Bem-vindo',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+
+          <AppStack.Screen
+            name="Map"
+            component={MapScreen}
+            options={{
+              headerShown: true,
+              title: 'Mapa',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+
+          <AppStack.Screen
+            name="Suggest"
+            component={SuggestScreen}
+            options={{
+              headerShown: true,
+              title: ' ',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+
+          <AppStack.Screen
+            name="ProductList"
+            component={ProductListScreen}
+            options={{
+              headerShown: false,
+              title: 'Pesquisar produtos',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+
+          <AppStack.Screen
+            name="MarketProducts"
+            component={MarketProducts}
+            options={{
+              headerShown: false,
+              title: 'Produtos do mercado',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+
+          <AppStack.Screen
+            name="CameraScreen"
+            component={CameraScreen}
+            options={{
+              headerShown: false,
+              title: 'Câmera',
+              headerStyle: headerStyle,
+              headerTintColor: specialColor,
+              headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 24,
+              },
+            }}
+          />
+        </AppStack.Navigator>
+      </NavigationContainer>
+    </>
+  )
 }

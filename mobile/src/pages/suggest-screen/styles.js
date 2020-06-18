@@ -2,83 +2,84 @@ import { StyleSheet } from 'react-native'
 
 import Color from '../../constants/colors'
 
-
 export default StyleSheet.create({
-    container: {
-        justifyContent: 'center',
-        
-        flex: 1
-    },
+  background: {
+    position: 'absolute',
+    flex: 1,
+    resizeMode: 'center',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 
-    lineStyle: {
-        borderStyle: 'solid',
-        alignItems: 'center',
-        borderWidth: 2,
-        borderRadius: 8,
-        marginHorizontal: 20
-    },
+  headerName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: Color.specialColor,
+  },
 
-    formInput: {
-        height: 45,
-        width: 250,
-        fontSize: 15,
-        borderColor: Color.secundary,
-        borderWidth: 2,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-        color: '#63b1b9',
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
 
-    descriptionInput: {
-        height: 60,
-        width: 250,
-        fontSize: 15,
-        borderColor: Color.secundary,
-        borderWidth: 2,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-        color: '#63b1b9',
-    },
+  tip: {
+    backgroundColor: 'white',
+    borderWidth: 2,
+    borderRadius: 8,
+    borderColor: 'black',
+    width: '80%',
+    padding: 10,
+    marginTop: 5,
+  },
 
-    selectImg: {
-        backgroundColor: Color.secundary,
-        width: 175,
-        height: null,
-        paddingVertical: 8
-    },
+  pic: {
+    borderRadius: 8,
+    width: 100,
+    height: 100,
+    marginTop: 15,
+  },
 
-    btnEnviar: {
-        width: '100%', 
-        maxWidth: 250,
-        height: 50,
-        marginTop: 20,
-        marginBottom: 30,
-        backgroundColor:'#63b1b9',
-        justifyContent: 'center',
-    },
+  selectPic: {
+    backgroundColor: '#A9A9A9',
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-    btnEnviarText: {
-        color: 'white',
-        fontSize: 24,
-        alignSelf: 'center',
-    },
+  inputSection: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 15,
+    borderColor: '#FFF',
+    marginVertical: 10,
+    backgroundColor: Color.darkBg,
+  },
 
-    img: {
-        width: 100,
-        height: 100,
-        borderRadius: 8,
-        marginTop: 10
-    },
+  inputIcon: {
+    padding: 10,
+  },
 
-    titleText: {
-        marginVertical: 10,
-        marginHorizontal: 5,
-        padding: 5,
-        fontSize: 23,
-        textAlign: 'center',
-        borderStyle: 'solid',
-        borderBottomWidth: 3,
-        borderRadius: 8,
-        borderColor: '#63b1b9'
-    },
-});
+  input: {
+    width: '90%',
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    color: 'white',
+  },
+
+  confirmButton: {
+    backgroundColor: Color.darkBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+})

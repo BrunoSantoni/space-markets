@@ -1,12 +1,13 @@
 {
   "expo": {
-    "name": "SpaceMarkets",
+    "name": "Space Markets",
     "slug": "spacemarkets",
     "version": "1.0.0",
     "githubUrl": "https://github.com/BrunoSantoni/supermega",
     "orientation": "portrait",
-    "primaryColor": "#63b1b9",
-    "icon": "./assets/icon2.png",
+    "primaryColor": "#63B1B9",
+    "icon": "./assets/img/app-icon.png",
+    "userInterfaceStyle": "automatic",
     "platforms": [
       "ios",
       "android",
@@ -16,31 +17,36 @@
       "**/*"
     ],
     "android": {
+      "package": "com.spacemarkets.spacemarketsapp",
+      "versionCode": 1,
+      "userInterfaceStyle": "automatic",
       "permissions": [
-        "ACCESS_FINE_LOCATION"
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
       ]
     },
     "androidNavigationBar": {
       "visible": "sticky-immersive",
       "barStyle": "light-content",
-      "backgroundColor": "#63b1b9"
+      "backgroundColor": "#63B1B9"
     },
     "androidStatusBar": {
-      "barStyle": "dark-content",
       "backgroundColor": "#00000000",
       "hidden": false,
       "translucent": true
     },
     "splash": {
-      "backgroundColor": "#63b1b9",
-      "image": "./assets/splash2.png",
+      "backgroundColor": "#63B1B9",
+      "image": "./assets/img/app-splash-icon.png",
       "resizeMode": "contain"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "userInterfaceStyle": "automatic"
     }
   }
 }

@@ -1,65 +1,40 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import Color from '../../constants/colors'
 import Font from '../../constants/font'
 
+const { width } = Dimensions.get('window')
+
 export default StyleSheet.create({
-    img: {
-        width: 100,
-        maxWidth: '95%',
-        height: 100,
-        borderRadius: 150,
-        marginBottom: 40,
-        position: 'absolute',
-        top: 40,
-        right: 30
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
 
-    stewardContainer:{
-        width: '100%',
-        alignItems: 'center',
-        marginBottom: 40,
-        marginTop: 120
-    },
+  titleContainer: {
+    width: width,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
 
-    optionContainer:{
-        width: '100%',
-    },
+  logo: {
+    width: 200,
+    height: 100,
+  },
 
-    firstOption: {
-        backgroundColor: Color.secundary,
-        height: 50,
-        width: '100%',
-        borderRadius: 0
-    },
+  pic: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
 
-    secondOption:{
-        backgroundColor: Color.primary,
-        height: 50,
-        width: '100%',
-        borderRadius: 0,
-        marginTop: 15,
-        marginBottom: 5
-    },
-
-    inputContainer: {
-        width: '100%',
-        height: '30%',
-        justifyContent: 'center',
-        padding: 20,
-        backgroundColor: Color.secundary
-    },
-
-    inputContainer2: {
-        width: '100%',
-        height: '30%',
-        justifyContent: 'center',
-        padding: 20,
-        backgroundColor: Color.primary
-    },
-
-    optionText: {
-        fontSize: 18,
-        color: '#fff',
-        fontFamily: Font.regular
-    }
+  button: {
+    width: width / 1.5,
+    height: 50,
+    borderRadius: 3,
+    backgroundColor: 'grey',
+    justifyContent: 'center',
+  },
+  
 })

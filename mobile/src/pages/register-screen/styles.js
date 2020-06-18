@@ -1,53 +1,71 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import Color from '../../constants/colors'
 
+const { width } = Dimensions.get('window')
+
 export default StyleSheet.create({
-    img: {
-        width: 100,
-        height: 100,
-        borderRadius: 8,
-        marginTop: 10
-    },
+  background: {
+    position: 'absolute',
+    flex: 1,
+    resizeMode: 'center',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 
-    selectImg: {
-        backgroundColor: Color.secundary,
-        width: 175,
-        height: 50,
-    },
+  container: {
+      flex: 1,
+      alignItems: 'center'
+  },
 
-    registerContainer: {
-        width: '100%',
-    },
+  pic: {
+    borderRadius: 8,
+    width: 100,
+    height: 100,
+    marginTop: 15,
+  },
 
-    registerInput: {
-        height: 48,
-        fontSize: 15,
-        borderColor: Color.secundary,
-        borderWidth: 2,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-        color: '#000',
-    },
+  selectPic: {
+    backgroundColor: '#A9A9A9',
+    width: 100,
+    height: 100,
+    borderRadius: 10,
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-    registerInputButton: {
-        backgroundColor: Color.secundary,
-        width: 100,
-        height: 50,
-    },
+  inputSection: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 15,
+    borderColor: '#FFF',
+    marginVertical: 10,
+    backgroundColor: Color.darkBg,
+  },
 
-    textStyle: {
-        color: 'white',
-        fontSize: 15,
-    },
+  inputIcon: {
+    padding: 10,
+  },
 
-    titleScreen: {
-        color: '#000',
-        fontSize: 30,
-        marginBottom: 10
-    },  
+  input: {
+    width: '90%',
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    color: 'white',
+  },
 
-    label: {
-        color: '#A9A9A9',
-        top: 5,
-    }
+  confirmButton: {
+    backgroundColor: Color.darkBg,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+
 })

@@ -32,22 +32,7 @@ export default StyleSheet.create({
     width: width - 155,
   },
 
-  expandBtn: {
-    width: 40,
-    alignItems: 'center',
-    height: 22,
-    backgroundColor: '#63b1b9',
-    borderRadius: 8,
-    marginTop: 5,
-  },
-
-  expandBtnText: {
-    color: 'white',
-    fontSize: 14,
-  },
-
   productsContainer: {
-    backgroundColor: '#F6F6F6',
     alignItems: 'center',
     width: width,
     paddingVertical: 10,
@@ -66,19 +51,15 @@ export default StyleSheet.create({
 
   place: {
     width: width,
-    backgroundColor: '#FFF',
     padding: 15,
   },
 
-  distanceText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    marginTop: 5,
+  cardProfile: {
+    flex: 1,
   },
 
-  nome: {
-    fontWeight: 'bold',
-    fontSize: 18,
+  cardDetails: {
+    flex: 4,
   },
 
   endereco: {
@@ -102,15 +83,14 @@ export default StyleSheet.create({
     height: 35,
     marginTop: 10,
     marginRight: 5,
-    backgroundColor: '#63b1b9',
+    backgroundColor: 'grey',
     justifyContent: 'center',
     borderRadius: 8,
     paddingHorizontal: '8%',
   },
 
   placeBtnText: {
-    color: 'white',
-    fontSize: 13,
+    fontSize: 12,
     alignSelf: 'center',
   },
 
@@ -180,17 +160,25 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  
+
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
   },
 
-  tipText: {
-    width: width,
-    backgroundColor: '#fff',
-    textAlign: 'center',
-    color: '#999',
+  distanceText: {
     fontSize: 12,
-  }
+    marginTop: 5,
+  },
+
+  nome: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+
+  tipText: {
+    fontSize: 12,
+    width: width,
+    textAlign: 'center',
+  },
 })

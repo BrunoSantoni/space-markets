@@ -7,18 +7,18 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native'
-
 import * as Location from 'expo-location'
-
 import { useNavigation } from '@react-navigation/native'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { useColorScheme } from 'react-native-appearance'
 
-import Icons from '@expo/vector-icons/FontAwesome'
-
+import Color from '../../constants/colors'
 import styles from './styles'
 
 import api from '../../services/api'
 
 export default function ProductListScreen() {
+  let colorScheme = useColorScheme()
   const navigation = useNavigation()
   const [search, setSearch] = useState('')
   const [products, setProducts] = useState([])
@@ -66,19 +66,28 @@ export default function ProductListScreen() {
   navigation.setOptions({
     headerShown: true,
     headerTitle: () => (
-      <View style={styles.header}>
-        <TextInput
-          placeholder="Pesquisar produtos"
-          style={styles.searchInput}
-          value={search}
-          onChangeText={(event) => setSearch(event)}
+      <View style={styles.inputSection}>
+        <FontAwesome5
+          name="search"
+          size={20}
+          color={
+            colorScheme === 'dark' ? Color.darkModeText : Color.lightModeText
+          }
+          style={styles.inputIcon}
         />
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={setSearch(search)}
-        >
-          <Icons name="search" size={20} color="black" />
-        </TouchableOpacity>
+        <TextInput
+          value={search}
+          autoFocus={true}
+          onChangeText={(texto) => setSearch(texto)}
+          placeholder="Pesquisar produtos"
+          placeholderTextColor="#A9A9A9"
+          style={[
+            styles.input,
+            colorScheme === 'dark'
+              ? { color: Color.darkModeSecondaryText }
+              : { color: Color.lightModeSecondaryText },
+          ]}
+        />
       </View>
     ),
   })
@@ -122,12 +131,19 @@ export default function ProductListScreen() {
       marketName: marketName,
       marketPicture: marketPicture,
       marketLatitude: marketLatitude,
-      marketLongitude: marketLongitude
+      marketLongitude: marketLongitude,
     })
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark'
+          ? { backgroundColor: Color.darkBg }
+          : { backgroundColor: Color.lightBg },
+      ]}
+    >
       {products.length > 0 ? (
         <FlatList
           data={products}
@@ -144,39 +160,88 @@ export default function ProductListScreen() {
                 )
               }
             >
-              <View style={styles.productsContainer}>
+              <View
+                style={[
+                  styles.productsContainer,
+                  colorScheme === 'dark'
+                    ? { backgroundColor: Color.darkCard }
+                    : { backgroundColor: Color.lightCard },
+                ]}
+              >
                 <View style={styles.productProfile}>
                   <Image
                     source={{ uri: product.product_picture_url }}
                     style={styles.productImage}
                   />
                   <View style={styles.distance}>
-                    <Icons
-                      name="map-marker"
-                      size={25}
+                    <FontAwesome5
+                      name="location-arrow"
+                      size={15}
                       color="red"
                       style={[{ marginRight: 5 }]}
                     />
                     {loadingDistances ? (
-                      <Text> km</Text>
+                      <Text
+                        style={[
+                          colorScheme === 'dark'
+                            ? { color: Color.darkModeText }
+                            : { color: Color.lightModeText },
+                        ]}
+                      >
+                        {' '}
+                        km
+                      </Text>
                     ) : (
-                      <Text>{distances[index]} km</Text>
+                      <Text
+                        style={[
+                          colorScheme === 'dark'
+                            ? { color: Color.darkModeText }
+                            : { color: Color.lightModeText },
+                        ]}
+                      >
+                        {distances[index]} km
+                      </Text>
                     )}
                   </View>
                 </View>
                 <View style={styles.productInfo}>
-                  <Text style={styles.productMarketName}>
+                  <Text
+                    style={[
+                      { fontSize: 20, fontWeight: 'bold' },
+                      colorScheme === 'dark'
+                        ? { color: Color.darkModeText }
+                        : { color: Color.lightModeText },
+                    ]}
+                  >
                     {product.product_name}
                   </Text>
-                  <Text>{product.product_description}</Text>
-                  <Text>R$ {product.product_price}</Text>
+                  <Text
+                    style={[
+                      { fontSize: 12 },
+                      colorScheme === 'dark'
+                        ? { color: Color.darkModeSecondaryText }
+                        : { color: Color.lightModeSecondaryText },
+                    ]}
+                  >
+                    {product.product_description}
+                  </Text>
+                  <Text
+                    style={[
+                      { fontSize: 16 },
+                      colorScheme === 'dark'
+                        ? { color: Color.darkModeSecondaryText }
+                        : { color: Color.lightModeSecondaryText },
+                    ]}
+                  >
+                    R$ {product.product_price}
+                  </Text>
                 </View>
                 <View style={styles.marketProfile}>
                   <Image
                     source={{ uri: product.market_id.market_picture_url }}
                     style={styles.marketImg}
                   />
-                  <Icons
+                  <FontAwesome5
                     name="angle-right"
                     size={25}
                     color="darkgray"

@@ -1,61 +1,83 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 import Color from '../../constants/colors'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
+
+const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
-    Container: {
-        width: '100%',
-        maxWidth: 400,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 350,
-        borderRadius: 5,
-        borderWidth: 2,
-        borderColor: Color.secundary,
-        backgroundColor: Color.secundary,
-        marginTop: 36
-    },
+  background: {
+    flex: 1,
+    position: 'absolute',
+    resizeMode: 'center',
+  },
 
-    loginInput: {
-        height: 48,
-        fontSize: 15,
-        borderColor: '#FFF',
-        borderWidth: 2,
-        backgroundColor: Colors.secundary,
-        paddingHorizontal: 10,
-        borderRadius: 5,
-        color: '#FFF',
-    },
+  logo: {
+    height: 100,
+    width: 300,
+  },
 
-    buttonIniciar: {
-        width: '100%', 
-        maxWidth: 300,
-        height: 50,
-        backgroundColor: '#63b1b9',
-        marginTop: 25
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
-    buttonText: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        marginRight: 10
-    },  
+  loginContainer: {
+    width: width - 50,
+    alignItems: 'center',
+    marginVertical: 5,
+    paddingVertical: 5,
+    //borderRadius: 12,
+    //borderColor: Color.darkSecondaryAction,
+    //backgroundColor: Color.darkSecondaryAction,
+  },
 
-    registerLink: {
-        color: '#FFF',
-        marginRight: 15,
-        textDecorationLine: 'underline'
-    },
+  inputSection: {
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderRadius: 15,
+    borderColor: '#FFF',
+    marginVertical: 10,
+    backgroundColor: Color.darkBg,
+  },
 
-    registerLinkContainer: {
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-    },
+  inputIcon: {
+    padding: 10,
+  },
 
-    inputGroup: {
-        width: '85%',
-    }
+  input: {
+    width: '90%',
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    color: 'white',
+  },
+
+  button: {
+    width: '95%',
+    height: 45,
+    borderRadius: 8,
+    backgroundColor: Color.specialColor,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+
+  buttonText: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#FFF',
+  },
+
+  registerSection: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+
+  registerLink: {
+    color: '#FFF',
+    marginHorizontal: '5%',
+    textDecorationLine: 'underline',
+  },
 })

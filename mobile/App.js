@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { View } from 'react-native'
 import * as Font from 'expo-font' 
 import { AppLoading } from 'expo'
+import { AppearanceProvider } from 'react-native-appearance'
 import Routes from './src/Routes'
 
 const getFonts = () => Font.loadAsync({
@@ -17,9 +18,11 @@ export default function App() {
 
   if(fontsLoaded){
     return (
-      <View style={{flex: 1}}>
-        <Routes />
-      </View>
+      <AppearanceProvider>
+        <View style={{flex: 1}}>
+          <Routes />
+        </View>
+      </AppearanceProvider>
     )
   }else{
     return(

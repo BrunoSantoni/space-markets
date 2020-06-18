@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
+import Color from '../../constants/colors'
+
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
@@ -11,7 +13,7 @@ export default StyleSheet.create({
   headerImg: {
     width: 40,
     height: 40,
-    borderRadius: 30,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: '#000',
     marginRight: 25,
@@ -20,26 +22,22 @@ export default StyleSheet.create({
   headerName: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: Color.specialColor,
   },
 
   buttonsContainer: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
 
   buttons: {
-    backgroundColor: '#63b1b9',
+    backgroundColor: 'grey',
     width: width / 2.25,
     height: 40,
     marginVertical: 20,
     marginHorizontal: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 8
-  },
-
-  buttonsText: {
-    fontSize: 16,
-    color: '#fff'
+    borderRadius: 8,
   },
 
   productContainer: {
@@ -53,7 +51,6 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 10,
     borderRadius: 10,
-    backgroundColor: '#D3D3D3'
   },
 
   productImg: {
@@ -63,23 +60,5 @@ export default StyleSheet.create({
     marginRight: 20,
     borderWidth: 1,
     borderColor: '#000',
-  },
-
-  productName: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  priceAndName: {
-    flexDirection: 'row',
-  },
-
-  textPriceAndName: {
-    fontSize: 16,
-    color: '#3A3A3A',
-  },
-
-  productDescription: {
-    color: '#3A3A3A',
   },
 })
