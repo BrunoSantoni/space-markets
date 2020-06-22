@@ -3,7 +3,7 @@
     "name": "Space Markets",
     "slug": "spacemarkets",
     "version": "1.0.0",
-    "githubUrl": "https://github.com/BrunoSantoni/supermega",
+    "githubUrl": "https://github.com/BrunoSantoni/space-markets",
     "orientation": "portrait",
     "primaryColor": "#63B1B9",
     "icon": "./assets/img/app-icon.png",
@@ -17,7 +17,7 @@
       "**/*"
     ],
     "android": {
-      "package": "com.spacemarkets.spacemarketsapp",
+      "package": "com.spacemarkets",
       "versionCode": 1,
       "userInterfaceStyle": "automatic",
       "permissions": [
