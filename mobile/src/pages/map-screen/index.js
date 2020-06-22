@@ -240,9 +240,25 @@ export default function MapScreen() {
   }
 
   return loadingMarkets ? (
-    <LoadingGif />
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark'
+          ? { backgroundColor: Color.darkBg }
+          : { backgroundColor: Color.lightBg },
+      ]}
+    >
+      <LoadingGif />
+    </View>
   ) : (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        colorScheme === 'dark'
+          ? { backgroundColor: Color.darkBg }
+          : { backgroundColor: Color.lightBg },
+      ]}
+    >
       <MapView
         ref={mapRef}
         style={styles.mapView}
@@ -306,7 +322,11 @@ export default function MapScreen() {
             if (action != 1) handleScroll(action)
           }}
         >
-          <DummyCard styles={styles} productsVisible={productsVisible} colorScheme={colorScheme} />
+          <DummyCard
+            styles={styles}
+            productsVisible={productsVisible}
+            colorScheme={colorScheme}
+          />
 
           <View>
             <View
@@ -384,16 +404,7 @@ export default function MapScreen() {
                         )
                       }
                     >
-                      <Text
-                        style={[
-                          styles.placeBtnText,
-                          colorScheme === 'dark'
-                            ? { color: Color.darkModeText }
-                            : { color: Color.lightModeText },
-                        ]}
-                      >
-                        Ver produtos
-                      </Text>
+                      <Text style={styles.placeBtnText}>Ver produtos</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[
@@ -404,16 +415,7 @@ export default function MapScreen() {
                       ]}
                       onPress={openExternalDirections}
                     >
-                      <Text
-                        style={[
-                          styles.placeBtnText,
-                          colorScheme === 'dark'
-                            ? { color: Color.darkModeText }
-                            : { color: Color.lightModeText },
-                        ]}
-                      >
-                        Rota até aqui
-                      </Text>
+                      <Text style={styles.placeBtnText}>Rota até aqui</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                       style={[
@@ -422,14 +424,7 @@ export default function MapScreen() {
                       ]}
                       onPress={toggleProductsVisibility}
                     >
-                      <Text
-                        style={[
-                          styles.placeBtnText,
-                          colorScheme === 'dark'
-                            ? { color: Color.darkModeText }
-                            : { color: Color.lightModeText },
-                        ]}
-                      >
+                      <Text style={styles.placeBtnText}>
                         {productsVisible ? '▲' : '▼'}
                       </Text>
                     </TouchableOpacity>
@@ -501,7 +496,11 @@ export default function MapScreen() {
             </View>
           </View>
 
-          <DummyCard styles={styles} productsVisible={productsVisible} colorScheme={colorScheme} />
+          <DummyCard
+            styles={styles}
+            productsVisible={productsVisible}
+            colorScheme={colorScheme}
+          />
         </ScrollView>
       </View>
 
@@ -509,18 +508,32 @@ export default function MapScreen() {
         <View style={styles.tutorialView}>
           <Image source={SwipeTutorialGif} style={styles.swipeTutorialGif} />
 
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
+          <View
+            style={[
+              styles.modalView,
+              colorScheme === 'dark'
+                ? { backgroundColor: Color.darkBg }
+                : { backgroundColor: Color.lightBg },
+            ]}
+          >
+            <Text
+              style={[
+                styles.modalText,
+                colorScheme === 'dark'
+                  ? { color: Color.darkModeText }
+                  : { color: Color.lightModeText },
+              ]}
+            >
               Dica: Você pode fazer o gesto de deslizar para trocar de mercado!
             </Text>
 
             <TouchableOpacity
-              style={styles.tutorialButton}
+              style={styles.placeBtn}
               onPress={() => {
                 setTutorialVisible(!tutorialVisible)
               }}
             >
-              <Text style={styles.textStyle}>Ok</Text>
+              <Text style={styles.modalButtonText}>Ok</Text>
             </TouchableOpacity>
           </View>
         </View>
