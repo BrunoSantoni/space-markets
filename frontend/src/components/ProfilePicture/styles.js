@@ -4,12 +4,15 @@ export const Container = styled.div`
   position: relative;
   width: 108px;
   height: 108px;
-  border-radius: 100%;
+  border-radius: 8px;
   overflow: hidden;
+  object-fit: cover;
 
   img {
     max-width: 100%;
-    width: 100%;
+    width: auto;
+    height: auto;
+    
   }
 `
 

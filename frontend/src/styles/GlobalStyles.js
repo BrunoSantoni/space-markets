@@ -93,26 +93,36 @@ export default createGlobalStyle`
     text-decoration: underline;
   }
 
+  /* Escondendo o input */
   input[type="file"] {
-    border: 0;
-    font-size: .8rem;
-    padding: 16px 8px;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    transition: background-color 0.2s;
   }
 
-  input[type="file"]::-webkit-file-upload-button {
-    border: 0;
-    outline: none;
-    font-size: 12px;
-    padding: .5rem;
-    border: 1px solid #000;
-    color: #000;
-    background: #FFF;
+  input[type="file"]:focus + .lbl-file,
+  input[type="file"] + .lbl-file:hover {
+    background-color: #dcdce6;
+  }
+
+  .lbl-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 18px;
+    transition: background-color 0.2s;
+
+    svg {
+      margin-bottom: 8px;
+    }
+    
     cursor: pointer;
-    transition: all .4s ease-out;
-  }
-
-  input[type="file"]::-webkit-file-upload-button:hover {
-    color: #FFF;
-    background-color: #000;
   }
 `

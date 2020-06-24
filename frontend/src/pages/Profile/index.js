@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { FaTrashAlt, FaPen, FaSave } from 'react-icons/fa'
+import { FaTrashAlt, FaPen, FaSave, FaRegArrowAltCircleDown, FaRegArrowAltCircleUp } from 'react-icons/fa'
 import emptyImage from '../../assets/empty-image.png'
 import swal from 'sweetalert'
 
@@ -9,6 +8,7 @@ import { Container, Content, ProductList } from './styles'
 import api from '../../services/api'
 
 import Header from '../../components/Header'
+import Suggestions from '../../components/Suggestions'
 
 export default function Profile() {
 
@@ -19,6 +19,8 @@ export default function Profile() {
   const [products, setProducts] = useState([])
   const [productId, setProductId] = useState('')
   const [showDiv, setShowDiv] = useState(false)
+
+  const [isHidden, setIsHidden] = useState(false)
 
   const id = localStorage.getItem('id')
 
@@ -108,6 +110,10 @@ export default function Profile() {
     }    
   }
 
+  function handleArrowClick() {
+    setIsHidden(!isHidden)
+  }
+
   const productsList = products.map(product => ((
     <li key={product._id}>
       <section>
@@ -135,19 +141,21 @@ export default function Profile() {
       <>
         <Container>  
           <Header />
-          <Content>
+          <Suggestions />
+          <section>
+            <h1>Produtos cadastrados ({products.length})</h1>
+            
+            {isHidden ? <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} /> :
+            <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} />}
+          </section>
+          <Content isHidden={isHidden}>
           
             {!productsList.length ? 
             <div className="div-empty">
               <h1>Cadastre seu primeiro produto!</h1>
               <img src={emptyImage} alt="Nenhum produto cadastrado"/>
               <h2> Parece que você ainda não possui nenhum produto cadastrado :( </h2>
-            </div> :
-            <>
-              <Link className="button" to='/perfil'>Produtos cadastrados</Link>
-              <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
-              <ProductList> {productsList} </ProductList>
-            </>
+            </div> : <ProductList> {productsList} </ProductList>
             }
           </Content>
         </Container>      
@@ -158,9 +166,14 @@ export default function Profile() {
       <>
         <Container>
           <Header />
-          <Content>
-            <Link className="button" to='/perfil'>Produtos cadastrados</Link>
-            <Link className="button" to='/avaliar'>Sugestões recebidas</Link>
+          <Suggestions />
+          <section>
+            <h1>Produtos cadastrados ({products.length})</h1>
+            
+            {isHidden ? <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} /> :
+            <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} />}
+          </section>
+          <Content isHidden={isHidden}>
             <ProductList>
               {products.map(product => ((
                 <li key={product._id}>

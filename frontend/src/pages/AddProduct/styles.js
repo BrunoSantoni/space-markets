@@ -50,5 +50,9 @@ export const Content = styled.div`
   form {
     width: 100%;
     max-width: 450px;
+
+    .lbl-file {
+      margin-top: 8px;
+    }
   }
 `

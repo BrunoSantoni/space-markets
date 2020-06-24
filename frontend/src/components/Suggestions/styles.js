@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 export const Container = styled.div`
   width: 100%;
   max-width: 1180px;
-  padding: 0 30px;
   margin: 32px auto; /* Alinhou */
 
   section {
@@ -17,14 +16,16 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div`
-  transition-duration: all 5000ms ease-out;
   background: #FFF;
-  padding: 2rem;
   margin-top: 2rem;
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+  overflow: hidden;
+  overflow-x:scroll;
+
   transition: max-height 1s;
-  max-height: ${props => (props.isHidden && '0px')};
+  max-height: ${props => (props.isHidden ? '0px' : '225px')};
 
   .div-empty {
     display: flex;
@@ -41,7 +42,7 @@ export const Content = styled.div`
 
     img {
       margin: 10px 0;
-      width: 350px;
+      width: 125px;
     }
   }
 
@@ -64,29 +65,38 @@ export const Content = styled.div`
   .button:first-child {
     margin-right: 10px;
   }
-  display: ${props => (props.isHidden ? 'none' : 'block')};
 `
 
 export const ProductList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  /* informa que a ul terá duas colunas */
-  grid-gap: 24px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
   list-style: none;
+  height: 225px;
+  
 
   li {
     position: relative;
+    width: 516px;
+    height: 198px;
     background: #FFF;
-    padding: 24px;    
+    padding: 24px;
     border-radius: 8px;
     text-align: center;
     display: flex;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all .15s ease-in-out;
 
+    margin-left: 24px;
+    margin-top: 8px;
+
     &:hover {
       transform: scale(1.005);
       box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+
+    &:last-child {
+      margin-right: 24px;
     }
 
     section {

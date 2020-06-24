@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { FaArrowLeft } from 'react-icons/fa'
+import { FaArrowLeft, FaUpload } from 'react-icons/fa'
 import { InputAdornment, TextField } from '@material-ui/core'
 import NumberFormat from 'react-number-format'
 import swal from 'sweetalert'
@@ -11,12 +11,17 @@ import { Container, Content } from './styles'
 
 import logo from '../../assets/logo.png'
 
-const AddProduct = () => {
+export default function AddProduct() {
   const[produto, setProduto] = useState('')
   const[descricao, setDescricao] = useState('')
   const[preco, setPreco] = useState('')
-  const productUser = false;
+
+  const textFileRef = useRef(null)
+
+  const productUser = false
   const id = localStorage.getItem('id')
+
+  
 
   const history = useHistory()
 
@@ -55,6 +60,19 @@ const AddProduct = () => {
       alert('Erro ao cadastrar produto\n', err)
     }
   }
+
+  function handleFileChange(e) {
+    const fileName = e.target.value
+      
+    //O value vai retornar o caminho completo, isso vai fazer ficar apenas o nome
+    //do arquivo
+    const formatedFileName = fileName.split('\\').pop()
+  
+    if(fileName) {
+      textFileRef.current.innerText = formatedFileName
+    }
+  }
+
   return(
     <Container>
       <Content>
@@ -106,12 +124,20 @@ const AddProduct = () => {
           decimalSeparator= ','
           />
 
-          <input type="file" name="product_picture" id="product_picture" required/>
+          <input
+            type="file"
+            name="product_picture"
+            id="product_picture"
+            onChange={handleFileChange}
+            required
+          />
+          <label htmlFor="product_picture" className="lbl-file">
+            <FaUpload size={16} />
+            <span ref={textFileRef}>Selecione uma imagem</span>
+          </label>
           <button className="button" type="submit">Cadastrar</button>
         </form>
       </Content>
     </Container>
   )
 }
-
-export default AddProduct

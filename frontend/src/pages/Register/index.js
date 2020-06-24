@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom' //Lib que redireciona e adiciona links
-import { FaArrowLeft } from 'react-icons/fa' //Lib dos ícones
+import { FaArrowLeft, FaUpload } from 'react-icons/fa' //Lib dos ícones
 import { BingProvider } from 'leaflet-geosearch' //Lib que pega latitude e longitude do Bing.
 import { TextField } from '@material-ui/core'
 import NumberFormat from 'react-number-format'
@@ -40,8 +40,11 @@ class Register extends Component {
       estado: '',
     }
 
+    this.textFileRef = React.createRef();
+
     this.handleChange = this.handleChange.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
+    this.handleFileChange = this.handleFileChange.bind(this)
     this.handleKeyUp = this.handleKeyUp.bind(this)
   }
 
@@ -111,6 +114,18 @@ class Register extends Component {
     this.setState({
       [target.name]: target.value
     })
+  }
+
+  handleFileChange(e) {
+    const fileName = e.target.value
+    
+    //O value vai retornar o caminho completo, isso vai fazer ficar apenas o nome
+    //do arquivo
+    const formatedFileName = fileName.split('\\').pop()
+
+    if(fileName) {
+      this.textFileRef.current.innerText = formatedFileName
+    }
   }
 
   //Função que recebe o CEP e armazena o endereço nos states correspondentes.
@@ -238,7 +253,17 @@ class Register extends Component {
                     onChange={this.handleChange} disabled/>
                   </div>
 
-                  <input type="file" name="market_picture" id="market_picture" required/>
+                  <input
+                    type="file"
+                    name="market_picture"
+                    id="market_picture"
+                    onChange={this.handleFileChange}
+                    required
+                  />
+                  <label htmlFor="market_picture" className="lbl-file">
+                    <FaUpload size={16} />
+                    <span ref={this.textFileRef}>Selecione uma imagem</span>
+                  </label>
                 </div>
                 <button type="submit" className="button">Cadastrar</button>
               </div>
