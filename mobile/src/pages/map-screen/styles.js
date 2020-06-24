@@ -1,5 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 
+import Color from '../../constants/colors'
+
 const { width } = Dimensions.get('window')
 
 export default StyleSheet.create({
@@ -92,6 +94,7 @@ export default StyleSheet.create({
   placeBtnText: {
     fontSize: 12,
     alignSelf: 'center',
+    color: 'white',
   },
 
   productsTitle: {
@@ -141,21 +144,13 @@ export default StyleSheet.create({
 
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
     alignItems: 'center',
     elevation: 5,
   },
 
-  tutorialButton: {
-    backgroundColor: '#2196F3',
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-
-  textStyle: {
+  modalButtonText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',

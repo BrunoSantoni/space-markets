@@ -97,14 +97,7 @@ export default function HomeScreen(props) {
         ]}
         onPress={navigateToProductList}
       >
-        <Text
-          style={[
-            { fontSize: 16, textAlign: 'center' },
-            colorScheme === 'dark'
-              ? { color: Color.darkModeText }
-              : { color: Color.lightModeText },
-          ]}
-        >
+        <Text style={{ fontSize: 16, textAlign: 'center', color: 'white' }}>
           Buscar produtos
         </Text>
       </TouchableOpacity>
@@ -117,14 +110,7 @@ export default function HomeScreen(props) {
         ]}
         onPress={navigateToMap}
       >
-        <Text
-          style={[
-            { fontSize: 16, textAlign: 'center' },
-            colorScheme === 'dark'
-              ? { color: Color.darkModeText }
-              : { color: Color.lightModeText },
-          ]}
-        >
+        <Text style={{ fontSize: 16, textAlign: 'center', color: 'white' }}>
           Encontrar mercados
         </Text>
       </TouchableOpacity>

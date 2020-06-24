@@ -93,14 +93,7 @@ export default function MarketProducts({ route }) {
           ]}
           onPress={navigateToSuggest}
         >
-          <Text
-            style={[
-              { fontSize: 16 },
-              colorScheme === 'dark'
-                ? { color: Color.darkModeText }
-                : { color: Color.lightModeText },
-            ]}
-          >
+          <Text style={{ fontSize: 16, color: 'white' }}>
             Sugerir um produto
           </Text>
         </TouchableOpacity>
@@ -113,16 +106,7 @@ export default function MarketProducts({ route }) {
           ]}
           onPress={openExternalDirections}
         >
-          <Text
-            style={[
-              { fontSize: 16 },
-              colorScheme === 'dark'
-                ? { color: Color.darkModeText }
-                : { color: Color.lightModeText },
-            ]}
-          >
-            Rota até aqui
-          </Text>
+          <Text style={{ fontSize: 16, color: 'white' }}>Rota até aqui</Text>
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.productContainer}>
