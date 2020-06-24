@@ -129,7 +129,9 @@ module.exports = {
         },
       )
 
-      return res.status(204).json({ success: 'Informações alteradas com sucesso' })
+      return res
+        .status(204)
+        .json({ success: 'Informações alteradas com sucesso' })
     }
     return res.json({ message })
   },

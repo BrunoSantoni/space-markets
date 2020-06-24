@@ -11,6 +11,7 @@ const id = localStorage.getItem('id')
 
 export default function Suggest() {
   const [suggestions, setSuggestions] = useState([])
+  const [updateSuggestions, setUpdateSuggestions] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
 
   useEffect(() => {
@@ -21,7 +22,7 @@ export default function Suggest() {
     }).then(res => {
       setSuggestions(res.data)
     })
-  }, [])
+  }, [updateSuggestions])
 
   async function handleAccept(suggestId, name, description, price, url, key, suggestUser) {
     const data = {
@@ -47,6 +48,8 @@ export default function Suggest() {
         alert(response.data.message)
         setSuggestions(suggestions.filter(suggestion => suggestion._id !== suggestId))
       }
+
+      setUpdateSuggestions(!updateSuggestions)
     } catch(err) {
       alert('Erro\n' + err)
     }

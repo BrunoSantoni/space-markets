@@ -29,21 +29,29 @@ module.exports = {
 
     const market = await Supermarket.findById(auth)
 
-    await Supermarket.updateOne(
-      { _id: auth },
-      {
-        market_picture_url: url,
-        market_picture_key: public_id,
-      },
-      (err, data) => {
-        if (err) return res.status(400).json({ message: 'Não foi possível alterar a sua foto de perfil' })
-        flag = true
-      },
-    )
+    try {
+      await Supermarket.updateOne(
+        { _id: auth },
+        {
+          market_picture_url: url,
+          market_picture_key: public_id,
+        },
+      )
+      flag = true
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: 'Não foi possível alterar a sua foto de perfil' })
+    }
 
     if (flag) {
+      console.log(market.market_picture_key)
       await cloudinary.v2.uploader.destroy(market.market_picture_key, (err) => {
-        if (err) return res.status(400).json({ message: 'A imagem não foi deletada no Cloudinary' })
+        if (err) {
+          return res
+            .status(400)
+            .json({ message: 'A imagem não foi deletada no Cloudinary' })
+        }
         return res.status(204).send()
       })
     }

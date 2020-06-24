@@ -30,7 +30,7 @@ export const Content = styled.div`
   overflow-x:scroll;
 
   transition: max-height 1s;
-  max-height: ${props => (props.isHidden ? '0px' : '225px')};
+  max-height: ${props => (props.isHidden ? '0px' : '250px')};
 
   .div-empty {
     display: flex;
@@ -77,7 +77,7 @@ export const ProductList = styled.ul`
   flex-direction: row;
   align-items: center;
   list-style: none;
-  height: 225px;
+  height: 250px;
   
 
   li {
@@ -93,7 +93,6 @@ export const ProductList = styled.ul`
     transition: all .15s ease-in-out;
 
     margin-left: 24px;
-    margin-top: 8px;
 
     &:hover {
       transform: scale(1.005);

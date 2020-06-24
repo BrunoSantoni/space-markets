@@ -21,6 +21,7 @@ export default function Profile() {
   const [showDiv, setShowDiv] = useState(false)
 
   const [isHidden, setIsHidden] = useState(false)
+  const [updateSuggestions, setUpdateSuggestions] = useState(false)
 
   const id = localStorage.getItem('id')
 
