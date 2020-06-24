@@ -145,8 +145,11 @@ export default function Profile() {
           <section>
             <h1>Produtos cadastrados ({products.length})</h1>
             
-            {isHidden ? <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} /> :
-            <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} />}
+            {isHidden ?
+              <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} color="#63b1b9" />
+              :
+              <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} color="#63b1b9" />
+            }
           </section>
           <Content isHidden={isHidden}>
           
@@ -170,8 +173,11 @@ export default function Profile() {
           <section>
             <h1>Produtos cadastrados ({products.length})</h1>
             
-            {isHidden ? <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} /> :
-            <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} />}
+            {isHidden ?
+              <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} color="#63b1b9" />
+              :
+              <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} color="#63b1b9" />
+            }
           </section>
           <Content isHidden={isHidden}>
             <ProductList>

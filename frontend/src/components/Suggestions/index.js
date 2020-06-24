@@ -97,20 +97,26 @@ export default function Suggest() {
     <>
         <Container>
           <section>
-            <h1>Sugestões dos clientes</h1>
+            <h1>Sugestões dos clientes ({suggestions.length})</h1>
             
-            {isHidden ? <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} /> :
-            <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} />}
+            {isHidden ?
+              <FaRegArrowAltCircleDown size={20} onClick={handleArrowClick} color="#63b1b9" />
+              :
+              <FaRegArrowAltCircleUp size={20} onClick={handleArrowClick} color="#63b1b9" />
+            }
           </section>
           <Content isHidden={isHidden}>
             {!suggestions.length ? 
-            <div className="div-empty">
-              <img src={emptyImage} alt="Não há produtos cadastrados"/>
-              <h2> Parece que ainda não há sugestões :( </h2>
-            </div> :
-            <>
-              <ProductList>{suggestionsList}</ProductList>
-            </>
+              <>
+                <div className="div-empty">
+                  <img src={emptyImage} alt="Não há produtos cadastrados"/>
+                  <h2> Assim que seus clientes começarem a contribuir,
+                    as sugestões aparecerão aqui! :D </h2>
+                </div>
+              </> :
+              <>
+                <ProductList>{suggestionsList}</ProductList>
+              </>
             }
           </Content>
         </Container>      
