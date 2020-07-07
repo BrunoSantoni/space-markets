@@ -22,14 +22,15 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div`
-  transition-duration: all 5000ms ease-out;
   background: #FFF;
-  padding: 2rem;
   margin-top: 2rem;
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: max-height 1s;
-  max-height: ${props => (props.isHidden && '0px')};
+
+  overflow: hidden;
+
+  transition: max-height 1s ease-in-out;
+  max-height: ${props => (props.isHidden ? '0px' : '500px')};
 
   .div-empty {
     display: flex;
@@ -47,6 +48,25 @@ export const Content = styled.div`
     img {
       margin: 10px 0;
       width: 350px;
+    }
+  }
+
+  .pages-div {
+    display: flex;
+    justify-content: space-between;
+    color: #63b1b9;
+    margin: 8px 8px;
+
+    .previous-page {
+      visibility: ${props => !(props.hasPrevious) && 'hidden'};
+
+      cursor: ${ props => props.hasPrevious ? 'pointer' : 'default' };
+    }
+
+    .next-page {
+      visibility: ${props => !(props.hasNext) && 'hidden'};
+
+      cursor: ${ props => props.hasNext ? 'pointer' : 'default' };
     }
   }
 
@@ -69,7 +89,6 @@ export const Content = styled.div`
   .button:first-child {
     margin-right: 10px;
   }
-  display: ${props => (props.isHidden ? 'none' : 'block')};
 `
 
 export const ProductList = styled.ul`
@@ -78,6 +97,7 @@ export const ProductList = styled.ul`
   /* informa que a ul terá duas colunas */
   grid-gap: 24px;
   list-style: none;
+  padding: 0 2rem 2rem 2rem;
 
   li {
     position: relative;

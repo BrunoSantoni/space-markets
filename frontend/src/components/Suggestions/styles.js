@@ -29,7 +29,7 @@ export const Content = styled.div`
   overflow: hidden;
   overflow-x:scroll;
 
-  transition: max-height 1s;
+  transition: max-height 1s ease-in-out;
   max-height: ${props => (props.isHidden ? '0px' : '250px')};
 
   .div-empty {

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2')
 // const { promisify } = require('util') //Converte a forma antiga de callbacks para a nova forma
 
 const ProductSchema = new mongoose.Schema({
@@ -36,6 +37,8 @@ const ProductSchema = new mongoose.Schema({
     ref: 'Supermarket',
   },
 })
+
+ProductSchema.plugin(mongoosePaginate)
 
 // ProductSchema.pre('save', function() {
 //   if(!this.product_picture_url) {

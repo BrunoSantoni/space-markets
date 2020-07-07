@@ -36,7 +36,7 @@ routes.put(
   ImageController.update,
 ) // Rota para editar a imagem de perfil do mercado
 
-routes.get('/produtos', ProductController.index)
+routes.get('/produtos/:page', ProductController.index)
 routes.post(
   '/produtos',
   multer(multerConfigProducts).single('product_picture'),

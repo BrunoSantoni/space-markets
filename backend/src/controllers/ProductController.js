@@ -9,8 +9,14 @@ const cloudinary = require('../config/cloudinaryConfig')
 module.exports = {
   async index(req, res) {
     const { auth } = req.headers
+    const { page } = req.params
 
-    const products = await Product.find({ market_id: auth })
+    const options = {
+      page,
+      limit: 4,
+    }
+
+    const products = await Product.paginate({ market_id: auth }, options)
 
     return res.json(products)
   },
