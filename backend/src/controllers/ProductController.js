@@ -9,6 +9,14 @@ const cloudinary = require('../config/cloudinaryConfig')
 module.exports = {
   async index(req, res) {
     const { auth } = req.headers
+
+    const products = await Product.find({ market_id: auth })
+
+    return res.json(products)
+  },
+
+  async indexWeb(req, res) {
+    const { auth } = req.headers
     const { page } = req.params
 
     const options = {
