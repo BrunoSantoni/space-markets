@@ -11,11 +11,11 @@ export default StyleSheet.create({
   inputSection: {
     width: width / 1.5,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
 
   inputIcon: {
-    padding: 5,
+    padding: 15,
   },
 
   input: {

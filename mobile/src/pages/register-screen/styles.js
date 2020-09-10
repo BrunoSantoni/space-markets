@@ -15,8 +15,8 @@ export default StyleSheet.create({
   },
 
   container: {
-      flex: 1,
-      alignItems: 'center'
+      alignItems: 'center',
+      height: '100%'
   },
 
   pic: {

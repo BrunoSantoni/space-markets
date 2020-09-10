@@ -70,9 +70,7 @@ export default function ProductListScreen() {
         <FontAwesome5
           name="search"
           size={20}
-          color={
-            colorScheme === 'dark' ? Color.darkModeText : Color.lightModeText
-          }
+          color={"gray"}
           style={styles.inputIcon}
         />
         <TextInput

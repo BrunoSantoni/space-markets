@@ -12,7 +12,7 @@ const id = localStorage.getItem('id')
 export default function Suggest() {
   const [suggestions, setSuggestions] = useState([])
   const [updateSuggestions, setUpdateSuggestions] = useState(false)
-  const [isHidden, setIsHidden] = useState(false)
+  const [isHidden, setIsHidden] = useState(true)
 
   useEffect(() => {
     api.get('sugestao', {

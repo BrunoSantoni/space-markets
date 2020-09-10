@@ -7,6 +7,7 @@ import {
   View,
   Image,
   ImageBackground,
+  KeyboardAvoidingView,
 } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { useNavigation } from '@react-navigation/native'
@@ -86,117 +87,125 @@ export default function RegisterScreen() {
 
   if (!submit) {
     return (
-      <View style={styles.container}>
+      <>
         <ImageBackground source={background} style={styles.background} />
+        <KeyboardAvoidingView
+          behavior={'position'}
+          contentContainerStyle={styles.container}
+          keyboardVerticalOffset={75}
+        >
+          {foto ? (
+            <Image
+              source={{ uri: foto.uri }}
+              style={styles.pic}
+              onPress={handleImg}
+            />
+          ) : (
+            <TouchableOpacity
+              title="Selecione uma imagem"
+              onPress={handleImg}
+              style={styles.selectPic}
+            >
+              <FontAwesome5 name={'user-circle'} size={40} color={'#171D24'} />
+              <Text style={styles.textStyle}>Foto de perfil</Text>
+            </TouchableOpacity>
+          )}
 
-        {foto ? (
-          <Image
-            source={{ uri: foto.uri }}
-            style={styles.pic}
-            onPress={handleImg}
-          />
-        ) : (
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="user"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={nome}
+              onChangeText={(texto) => setNome(texto)}
+              placeholder="Qual é o seu nome?"
+              placeholderTextColor="#A9A9A9"
+              style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="at"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={email}
+              onChangeText={(texto) => setEmail(texto)}
+              placeholder="Digite o seu melhor e-mail"
+              placeholderTextColor="#A9A9A9"
+              keyboardType="email-address"
+              style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="address-card"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={cpf}
+              onChangeText={(texto) => {
+                setCpf(InputMask.cpf(texto))
+              }}
+              placeholder="Informe o seu CPF"
+              placeholderTextColor="#A9A9A9"
+              keyboardType="numeric"
+              maxLength={14}
+              style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="key"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={senha}
+              onChangeText={(texto) => setSenha(texto)}
+              placeholder="Crie uma senha infalível!"
+              placeholderTextColor="#A9A9A9"
+              secureTextEntry={true}
+              style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="key"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={confirmSenha}
+              onChangeText={(texto) => setConfirmSenha(texto)}
+              placeholder="Confirme a senha"
+              placeholderTextColor="#A9A9A9"
+              secureTextEntry={true}
+              style={styles.input}
+            />
+          </View>
+
           <TouchableOpacity
-            title="Selecione uma imagem"
-            onPress={handleImg}
-            style={styles.selectPic}
+            onPress={handleRegister}
+            style={styles.confirmButton}
           >
-            <FontAwesome5 name={'user-circle'} size={40} color={'#171D24'} />
-            <Text style={styles.textStyle}>Foto de perfil</Text>
+            <FontAwesome5 name="arrow-right" size={18} color="#FFF" />
           </TouchableOpacity>
-        )}
-
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="user"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={nome}
-            onChangeText={(texto) => setNome(texto)}
-            placeholder="Qual é o seu nome?"
-            placeholderTextColor="#A9A9A9"
-            style={styles.input}
-          />
-        </View>
-
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="at"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={email}
-            onChangeText={(texto) => setEmail(texto)}
-            placeholder="Digite o seu melhor e-mail"
-            placeholderTextColor="#A9A9A9"
-            keyboardType="email-address"
-            style={styles.input}
-          />
-        </View>
-
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="address-card"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={cpf}
-            onChangeText={(texto) => {
-              setCpf(InputMask.cpf(texto))
-            }}
-            placeholder="Informe o seu CPF"
-            placeholderTextColor="#A9A9A9"
-            keyboardType="numeric"
-            maxLength={14}
-            style={styles.input}
-          />
-        </View>
-
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="key"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={senha}
-            onChangeText={(texto) => setSenha(texto)}
-            placeholder="Crie uma senha infalível!"
-            placeholderTextColor="#A9A9A9"
-            secureTextEntry={true}
-            style={styles.input}
-          />
-        </View>
-
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="key"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={confirmSenha}
-            onChangeText={(texto) => setConfirmSenha(texto)}
-            placeholder="Confirme a senha"
-            placeholderTextColor="#A9A9A9"
-            secureTextEntry={true}
-            style={styles.input}
-          />
-        </View>
-
-        <TouchableOpacity onPress={handleRegister} style={styles.confirmButton}>
-          <FontAwesome5 name="arrow-right" size={18} color="#FFF" />
-        </TouchableOpacity>
-      </View>
+        </KeyboardAvoidingView>
+      </>
     )
   } else if (submit) {
     return (

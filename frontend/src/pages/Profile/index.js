@@ -21,7 +21,7 @@ export default function Profile() {
   const [productId, setProductId] = useState('')
 
   const [showDiv, setShowDiv] = useState(false)
-  const [isHidden, setIsHidden] = useState(false)
+  const [isHidden, setIsHidden] = useState(true)
 
   const [currentPage, setCurrentPage] = useState(1) 
   const [hasPreviousPage, setHasPreviousPage] = useState(null)
