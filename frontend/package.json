@@ -5,7 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cep-promise": "^3.0.9",
     "leaflet-geosearch": "^2.7.0",
     "react": "^16.13.1",
