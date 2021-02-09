@@ -1,29 +1,29 @@
-import { StyleSheet, Dimensions } from 'react-native'
-import Color from '../../constants/colors'
+import { Dimensions, StyleSheet } from 'react-native';
+import Color from '../../constants/colors';
 
-const { width } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 export default StyleSheet.create({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 8,
+  },
+  
   background: {
     position: 'absolute',
-    flex: 1,
-    resizeMode: 'center',
+    minHeight: height,
     top: 0,
-    bottom: 0,
     left: 0,
     right: 0,
-  },
-
-  container: {
-      alignItems: 'center',
-      height: '100%'
+    bottom: 0,
   },
 
   pic: {
     borderRadius: 8,
     width: 100,
     height: 100,
-    marginTop: 15,
   },
 
   selectPic: {
@@ -31,31 +31,37 @@ export default StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 10,
-    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   inputSection: {
     width: '90%',
+    position: 'relative',
+
     flexDirection: 'row',
     alignItems: 'center',
+
     borderWidth: 2,
     borderRadius: 15,
     borderColor: '#FFF',
-    marginVertical: 10,
+    
     backgroundColor: Color.darkBg,
+    
+    marginTop: 16,
   },
 
   inputIcon: {
     padding: 10,
   },
+  
+  inputRightIcon: {
+    position: 'absolute',
+    right: 10,
+  },
 
   input: {
     width: '90%',
-    paddingTop: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
     color: 'white',
   },
 
@@ -66,6 +72,7 @@ export default StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+    marginTop: 16,
   },
 
 })

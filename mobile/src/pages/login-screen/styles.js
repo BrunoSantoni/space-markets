@@ -1,13 +1,16 @@
-import { StyleSheet, Dimensions } from 'react-native'
-import Color from '../../constants/colors'
+import { Dimensions, StyleSheet } from 'react-native';
+import Color from '../../constants/colors';
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 export default StyleSheet.create({
   background: {
-    flex: 1,
     position: 'absolute',
-    resizeMode: 'center',
+    minHeight: height,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 
   logo: {
@@ -44,6 +47,11 @@ export default StyleSheet.create({
 
   inputIcon: {
     padding: 10,
+  },
+
+  inputRightIcon: {
+    position: 'absolute',
+    right: 10,
   },
 
   input: {

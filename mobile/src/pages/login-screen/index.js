@@ -1,98 +1,112 @@
-import React, { useState } from 'react'
+import { FontAwesome5 } from "@expo/vector-icons";
+import { AsyncStorage } from "@react-native-community/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import {
-  View,
-  Text,
   Image,
-  TouchableOpacity,
-  AsyncStorage,
+  ImageBackground,
+  Text,
   TextInput,
-} from 'react-native'
-import { FontAwesome5 } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+  TouchableOpacity,
+  View
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import background from "../../../assets/img/background.jpg";
+import logo from "../../../assets/img/logo.png";
+import api from "../../services/api";
+import styles from "./styles";
 
-import background from '../../../assets/img/background.jpg'
-import logo from '../../../assets/img/logo.png'
-import styles from './styles'
-
-import api from '../../services/api'
-
-export default function loginScreen() {
-  const navigation = useNavigation()
-  const [mail, setMail] = useState('')
-  const [password, setPassword] = useState('')
+export default function LoginScreen() {
+  const navigation = useNavigation();
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   async function loginPress() {
     try {
-      AsyncStorage.removeItem('user_id')
-      AsyncStorage.removeItem('user_mail')
-      const res = await api.post('userlogin', { mail, password })
-      const user = res.data._id
+      AsyncStorage.removeItem("user_id");
+      AsyncStorage.removeItem("user_mail");
+      const res = await api.post("userlogin", { mail, password });
+      const user = res.data._id;
 
-      AsyncStorage.setItem('user_id', user)
-      AsyncStorage.setItem('user_mail', mail)
+      AsyncStorage.setItem("user_id", user);
+      AsyncStorage.setItem("user_mail", mail);
 
-      navigation.navigate('Home')
+      navigation.navigate("Home");
     } catch (err) {
-      alert('E-mail ou senha incorretos!')
+      alert("E-mail ou senha incorretos!");
     }
   }
 
   function navigateToRegister() {
-    navigation.navigate('Register')
+    navigation.navigate("Register");
   }
 
   return (
-    <View style={styles.container}>
-      <Image source={background} style={styles.background} />
-      <Image source={logo} style={styles.logo} />
+    <>
+      <ImageBackground source={background} style={styles.background} />
 
-      <View style={styles.loginContainer}>
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="at"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={mail}
-            onChangeText={(email) => setMail(email)}
-            placeholder="astronauta@meuemail.com"
-            placeholderTextColor='#A9A9A9'
-            keyboardType="email-address"
-            style={styles.input}
-          />
+      <KeyboardAwareScrollView contentContainerStyle={styles.container}>
+        <Image source={logo} style={styles.logo} />
+
+        <View style={styles.loginContainer}>
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="at"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={mail}
+              onChangeText={(email) => setMail(email)}
+              placeholder="astronauta@meuemail.com"
+              placeholderTextColor="#A9A9A9"
+              keyboardType="email-address"
+              style={styles.input}
+            />
+          </View>
+
+          <View style={styles.inputSection}>
+            <FontAwesome5
+              name="key"
+              size={20}
+              color="#FFF"
+              style={styles.inputIcon}
+            />
+            <TextInput
+              value={password}
+              onChangeText={(password) => setPassword(password)}
+              placeholder="Senha"
+              placeholderTextColor="#A9A9A9"
+              secureTextEntry={!showPassword}
+              style={styles.input}
+            />
+            <TouchableOpacity
+              onPress={() => setShowPassword(!showPassword)}
+              style={styles.inputRightIcon}
+            >
+              {showPassword ? (
+                <FontAwesome5 name="eye-slash" size={20} color="#FFF" />
+              ) : (
+                <FontAwesome5 name="eye" size={20} color="#FFF" />
+              )}
+            </TouchableOpacity>
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={loginPress}>
+            <Text style={styles.buttonText}>Entrar</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.registerSection}
+            onPress={navigateToRegister}
+          >
+            <FontAwesome5 name="address-card" size={20} color="#FFF" />
+            <Text style={styles.registerLink}>Não possuo cadastro</Text>
+          </TouchableOpacity>
         </View>
-
-        <View style={styles.inputSection}>
-          <FontAwesome5
-            name="key"
-            size={20}
-            color="#FFF"
-            style={styles.inputIcon}
-          />
-          <TextInput
-            value={password}
-            onChangeText={(password) => setPassword(password)}
-            placeholder="Senha"
-            placeholderTextColor='#A9A9A9'
-            secureTextEntry={true}
-            style={styles.input}
-          />
-        </View>
-
-        <TouchableOpacity style={styles.button} onPress={loginPress}>
-          <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.registerSection}
-          onPress={navigateToRegister}
-        >
-          <FontAwesome5 name="address-card" size={20} color="#FFF" />
-          <Text style={styles.registerLink}>Não possuo cadastro</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  )
+      </KeyboardAwareScrollView>
+    </>
+  );
 }

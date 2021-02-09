@@ -1,50 +1,50 @@
-import React, { useState, useEffect } from 'react'
+import { FontAwesome5 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import Constants from "expo-constants";
+import * as ImagePicker from "expo-image-picker";
+import Lottie from "lottie-react-native";
+import React, { useEffect, useState } from "react";
 import {
+  Alert,
+  Image,
+  ImageBackground,
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
-  View,
-  Image,
-  ImageBackground,
-  KeyboardAvoidingView,
-} from 'react-native'
-import * as ImagePicker from 'expo-image-picker'
-import { useNavigation } from '@react-navigation/native'
-import Constants from 'expo-constants'
-import { FontAwesome5 } from '@expo/vector-icons'
-import Lottie from 'lottie-react-native'
-
-import success from '../../../assets/animations/success.json'
-import error from '../../../assets/animations/error.json'
-import InputMask from '../../utils/inputMask'
-import background from '../../../assets/img/background.jpg'
-import styles from './styles'
-
-import api from '../../services/api'
+  View
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import error from "../../../assets/animations/error.json";
+import success from "../../../assets/animations/success.json";
+import background from "../../../assets/img/background.jpg";
+import api from "../../services/api";
+import InputMask from "../../utils/inputMask";
+import styles from "./styles";
 
 export default function RegisterScreen() {
-  const navigation = useNavigation()
-  const [nome, setNome] = useState('')
-  const [email, setEmail] = useState('')
-  const [cpf, setCpf] = useState('')
-  const [senha, setSenha] = useState('')
-  const [confirmSenha, setConfirmSenha] = useState('')
-  const [foto, setFoto] = useState(null)
-  const [submit, setSubmit] = useState(false)
+  const navigation = useNavigation();
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [senha, setSenha] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [confirmSenha, setConfirmSenha] = useState("");
+  const [mostrarSenha2, setMostrarSenha2] = useState(false);
+  const [foto, setFoto] = useState(null);
+  const [submit, setSubmit] = useState(false);
 
   const getPermissionAsync = async () => {
     if (Constants.platform.ios) {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
-      if (status !== 'granted') {
-        alert('Desculpe, você precisa permitir o acesso para continuar!')
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== "granted") {
+        alert("Desculpe, você precisa permitir o acesso para continuar!");
       }
     }
-  }
+  };
 
   useEffect(() => {
-    getPermissionAsync()
-  }, [])
+    getPermissionAsync();
+  }, []);
 
   const handleImg = async () => {
     try {
@@ -54,34 +54,34 @@ export default function RegisterScreen() {
         aspect: [4, 3],
         quality: 1,
         base64: true,
-      })
+      });
       if (!res.cancelled) {
-        setFoto(res)
+        setFoto(res);
       }
     } catch (E) {
-      alert(E)
+      alert(E);
     }
-  }
+  };
 
   async function handleRegister() {
     if (senha === confirmSenha) {
-      const data = new FormData()
+      const data = new FormData();
 
-      data.append('user_name', nome)
-      data.append('user_mail', email)
-      data.append('user_cpf', cpf)
-      data.append('user_password', senha)
-      data.append('user_picture', `data:image/jpeg;base64,${foto.base64}`)
+      data.append("user_name", nome);
+      data.append("user_mail", email);
+      data.append("user_cpf", cpf);
+      data.append("user_password", senha);
+      data.append("user_picture", `data:image/jpeg;base64,${foto.base64}`);
 
       try {
-        await api.post('usercadastro', data)
+        await api.post("usercadastro", data);
       } catch (err) {
-        Alert.alert(err)
+        Alert.alert(err);
       }
-      setSubmit(true)
-      setTimeout(() => navigation.navigate('Login'), 1000)
+      setSubmit(true);
+      setTimeout(() => navigation.navigate("Login"), 1000);
     } else {
-      Alert.alert('Ops', 'Senhas não conferem')
+      Alert.alert("Ops", "Senhas não conferem");
     }
   }
 
@@ -89,11 +89,8 @@ export default function RegisterScreen() {
     return (
       <>
         <ImageBackground source={background} style={styles.background} />
-        <KeyboardAvoidingView
-          behavior={'position'}
-          contentContainerStyle={styles.container}
-          keyboardVerticalOffset={75}
-        >
+
+        <KeyboardAwareScrollView contentContainerStyle={styles.container}>
           {foto ? (
             <Image
               source={{ uri: foto.uri }}
@@ -106,7 +103,7 @@ export default function RegisterScreen() {
               onPress={handleImg}
               style={styles.selectPic}
             >
-              <FontAwesome5 name={'user-circle'} size={40} color={'#171D24'} />
+              <FontAwesome5 name={"user-circle"} size={40} color={"#171D24"} />
               <Text style={styles.textStyle}>Foto de perfil</Text>
             </TouchableOpacity>
           )}
@@ -154,7 +151,7 @@ export default function RegisterScreen() {
             <TextInput
               value={cpf}
               onChangeText={(texto) => {
-                setCpf(InputMask.cpf(texto))
+                setCpf(InputMask.cpf(texto));
               }}
               placeholder="Informe o seu CPF"
               placeholderTextColor="#A9A9A9"
@@ -176,9 +173,19 @@ export default function RegisterScreen() {
               onChangeText={(texto) => setSenha(texto)}
               placeholder="Crie uma senha infalível!"
               placeholderTextColor="#A9A9A9"
-              secureTextEntry={true}
+              secureTextEntry={!mostrarSenha}
               style={styles.input}
             />
+            <TouchableOpacity
+              onPress={() => setMostrarSenha(!mostrarSenha)}
+              style={styles.inputRightIcon}
+            >
+              {mostrarSenha ? (
+                <FontAwesome5 name="eye-slash" size={20} color="#FFF" />
+              ) : (
+                <FontAwesome5 name="eye" size={20} color="#FFF" />
+              )}
+            </TouchableOpacity>
           </View>
 
           <View style={styles.inputSection}>
@@ -193,9 +200,19 @@ export default function RegisterScreen() {
               onChangeText={(texto) => setConfirmSenha(texto)}
               placeholder="Confirme a senha"
               placeholderTextColor="#A9A9A9"
-              secureTextEntry={true}
+              secureTextEntry={!mostrarSenha2}
               style={styles.input}
             />
+            <TouchableOpacity
+              onPress={() => setMostrarSenha2(!mostrarSenha2)}
+              style={styles.inputRightIcon}
+            >
+              {mostrarSenha2 ? (
+                <FontAwesome5 name="eye-slash" size={20} color="#FFF" />
+              ) : (
+                <FontAwesome5 name="eye" size={20} color="#FFF" />
+              )}
+            </TouchableOpacity>
           </View>
 
           <TouchableOpacity
@@ -204,22 +221,22 @@ export default function RegisterScreen() {
           >
             <FontAwesome5 name="arrow-right" size={18} color="#FFF" />
           </TouchableOpacity>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </>
-    )
+    );
   } else if (submit) {
     return (
       <View style={styles.container}>
         <ImageBackground source={background} style={styles.background} />
         <Lottie source={success} autoPlay />
       </View>
-    )
+    );
   } else {
     return (
       <View>
         <ImageBackground source={background} style={styles.background} />
         <Lottie source={error} autoPlay />
       </View>
-    )
+    );
   }
 }
