@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet } from 'react-native';
+import Color from '../../constants/colors';
 
-import Color from '../../constants/colors'
+const { height } = Dimensions.get('window')
 
 export default StyleSheet.create({
   background: {
     position: 'absolute',
-    flex: 1,
-    resizeMode: 'center',
+    minHeight: height,
     top: 0,
-    bottom: 0,
     left: 0,
     right: 0,
+    bottom: 0,
   },
 
   headerName: {
@@ -20,7 +20,6 @@ export default StyleSheet.create({
   },
 
   container: {
-    flex: 1,
     alignItems: 'center',
   },
 
