@@ -1,8 +1,8 @@
 import { FontAwesome5 } from "@expo/vector-icons";
-import { AsyncStorage } from "@react-native-community/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
+  AsyncStorage,
   Image,
   ImageBackground,
   Text,
@@ -22,20 +22,23 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  async function loginPress() {
-    try {
-      AsyncStorage.removeItem("user_id");
-      AsyncStorage.removeItem("user_mail");
-      const res = await api.post("userlogin", { mail, password });
-      const user = res.data._id;
+  function loginPress() {
+    AsyncStorage.removeItem("user_id");
+    AsyncStorage.removeItem("user_mail");
 
-      AsyncStorage.setItem("user_id", user);
-      AsyncStorage.setItem("user_mail", mail);
+    api
+      .post("userlogin", { mail, password })
+      .then((res) => {
+        const user = res.data._id;
 
-      navigation.navigate("Home");
-    } catch (err) {
-      alert("E-mail ou senha incorretos!");
-    }
+        AsyncStorage.setItem("user_id", user);
+        AsyncStorage.setItem("user_mail", mail);
+
+        navigation.navigate("Home");
+      })
+      .catch(() => {
+        alert("E-mail ou senha incorretos!");
+      });
   }
 
   function navigateToRegister() {
